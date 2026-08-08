@@ -1,32 +1,55 @@
-# React + TypeScript + Vite
+# Bulut & Wolke Feinkost — Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+One-page website for Bulut & Wolke Feinkost, a family-run deli in the Rhein-Sieg region near Bonn, Germany. Built as part of WECONN3CT Project Brief 01.
 
-Currently, two official plugins are available:
+**Live site:** https://bulut-wolke.pages.dev
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19 + TypeScript
+- Vite 8
+- Tailwind CSS 4
+- Deployed on Cloudflare Pages
 
-## Expanding the Oxlint configuration
+## Sections
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+Hero → Products → About → Quality → Locations → Contact → Footer
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+## Getting started
+
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Deploy
+
+```bash
+npm run deploy
+```
+
+Requires `CLOUDFLARE_API_TOKEN` set as an environment variable.
+
+---
+
+## Photo credits
+
+All product and deli images sourced from [Pexels](https://www.pexels.com) and [Unsplash](https://unsplash.com).
+
+| Image | Source |
+|-------|--------|
+| Marinierte Oliven | Pexels — Engin Akyurt |
+| Gegrilltes Gemüse | Pexels — Pixabay |
+| Gefüllte Weinblätter | Pexels — Alesia Kozik |
+| Hummus Klassik | Unsplash — Rauf Allahverdiyev |
+| Schafskäse-Oliven | Pexels — Karolina Grabowska |
+| Getrocknete Tomaten | Unsplash — Sara Cervera |
+| Feinkost-Theke (About) | Pexels — RDNE Stock project |
+
+---
+
+## Design write-up
+
+See [`DESIGN.md`](DESIGN.md) for the half-page design rationale and open questions.
