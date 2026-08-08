@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-const FRAME_COUNTS = { desk: 474, mobile: 238 }
+const FRAME_COUNTS = { desk: 236, mobile: 238 }
 
 export default function BackgroundCanvas() {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768)
