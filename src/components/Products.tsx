@@ -1,3 +1,5 @@
+import { useScrollReveal } from '../hooks/useScrollReveal'
+
 const products = [
   {
     name: 'Marinierte Oliven',
@@ -59,9 +61,10 @@ const badgeColor: Record<string, string> = {
 }
 
 export default function Products() {
+  const ref = useScrollReveal<HTMLDivElement>()
   return (
     <section id="produkte" className="py-24 md:py-32 bg-white">
-      <div className="max-w-6xl mx-auto px-5">
+      <div ref={ref} className="max-w-6xl mx-auto px-5">
         <div className="text-center mb-16">
           <p className="text-sm uppercase tracking-[0.2em] text-cloud-600 mb-3 font-medium">
             Unsere Spezialitäten

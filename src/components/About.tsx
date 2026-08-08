@@ -1,7 +1,10 @@
+import { useScrollReveal } from '../hooks/useScrollReveal'
+
 export default function About() {
+  const ref = useScrollReveal<HTMLDivElement>()
   return (
     <section id="ueber-uns" className="py-24 md:py-32 bg-sky-50">
-      <div className="max-w-6xl mx-auto px-5">
+      <div ref={ref} className="max-w-6xl mx-auto px-5">
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
           <div>
             <p className="text-sm uppercase tracking-[0.2em] text-cloud-600 mb-3 font-medium">

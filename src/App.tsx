@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import ScrollShowcase from './components/ScrollShowcase'
 import Products from './components/Products'
 import About from './components/About'
 import Locations from './components/Locations'
@@ -13,6 +14,7 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
+        <ScrollShowcase />
         <Products />
         <About />
         <Quality />
