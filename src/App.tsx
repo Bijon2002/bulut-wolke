@@ -1,5 +1,5 @@
+import BackgroundCanvas from './components/BackgroundCanvas'
 import Navbar from './components/Navbar'
-import Hero from './components/Hero'
 import ScrollShowcase from './components/ScrollShowcase'
 import Products from './components/Products'
 import About from './components/About'
@@ -10,10 +10,10 @@ import Footer from './components/Footer'
 
 export default function App() {
   return (
-    <>
+    <div className="relative min-h-screen text-stone-100 selection:bg-cloud-500 selection:text-white">
+      <BackgroundCanvas />
       <Navbar />
-      <main>
-        <Hero />
+      <main className="relative z-10">
         <ScrollShowcase />
         <Products />
         <About />
@@ -22,6 +22,6 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
-    </>
+    </div>
   )
 }

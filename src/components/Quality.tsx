@@ -27,27 +27,30 @@ const values = [
 export default function Quality() {
   const ref = useScrollReveal<HTMLDivElement>()
   return (
-    <section id="qualitaet" className="py-24 md:py-32 bg-sky-50">
+    <section id="qualitaet" className="py-28 md:py-40">
       <div ref={ref} className="max-w-6xl mx-auto px-5">
-        <div className="text-center mb-16">
-          <p className="text-sm uppercase tracking-[0.2em] text-cloud-600 mb-3 font-medium">
+        <div className="p-8 md:p-12 rounded-3xl bg-stone-950/70 backdrop-blur-md border border-white/10 shadow-2xl text-center mb-12 max-w-3xl mx-auto">
+          <p className="text-xs uppercase tracking-[0.25em] text-cloud-400 mb-3 font-semibold">
             Unser Versprechen
           </p>
-          <h2 className="font-display text-3xl md:text-5xl tracking-tight text-stone-900 mb-4">
+          <h2 className="font-display text-3xl md:text-5xl tracking-tight text-white">
             Qualität, die man schmeckt
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {values.map((v) => (
-            <div key={v.title} className="text-center">
-              <div className="w-14 h-14 rounded-2xl bg-cloud-100 flex items-center justify-center mx-auto mb-5">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-cloud-600">
+            <div
+              key={v.title}
+              className="text-center p-8 rounded-3xl bg-stone-950/75 backdrop-blur-md border border-white/10 hover:border-cloud-400/50 transition-all duration-300 shadow-2xl hover:-translate-y-1.5"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-cloud-500/20 border border-cloud-500/30 flex items-center justify-center mx-auto mb-5">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-cloud-400">
                   {v.icon}
                 </svg>
               </div>
-              <h3 className="font-display text-xl text-stone-900 mb-3">{v.title}</h3>
-              <p className="text-sm text-stone-500 leading-relaxed">{v.description}</p>
+              <h3 className="font-display text-xl text-white mb-3">{v.title}</h3>
+              <p className="text-sm text-stone-300 leading-relaxed">{v.description}</p>
             </div>
           ))}
         </div>
