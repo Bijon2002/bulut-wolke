@@ -37,7 +37,7 @@ export default function About() {
           <AosBox animation="slide-left" delay={200} className="relative">
             <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-white/15 shadow-2xl bg-stone-900">
               <img
-                src="/products/feinkost_theke_opt.jpg"
+                src="/products/feinkost_theke_sm.jpg"
                 alt="Feinkost-Theke mit frischen Antipasti und Oliven"
                 className="w-full h-full object-cover"
                 loading="lazy"
