@@ -1,7 +1,7 @@
 # Design Direction — Bulut & Wolke Feinkost
 
 **Project:** WECONN3CT Brief 01 · August 2026  
-**Designer:** Bijon (WECONN3CT freelancer)
+**Designer:** Bijon 
 
 ---
 
