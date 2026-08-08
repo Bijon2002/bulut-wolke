@@ -1,4 +1,4 @@
-import { useScrollReveal } from '../hooks/useScrollReveal'
+import AosBox from './AosBox'
 
 const values = [
   {
@@ -25,33 +25,38 @@ const values = [
 ]
 
 export default function Quality() {
-  const ref = useScrollReveal<HTMLDivElement>()
   return (
-    <section id="qualitaet" className="py-28 md:py-40">
-      <div ref={ref} className="max-w-6xl mx-auto px-5">
-        <div className="p-8 md:p-12 rounded-3xl bg-stone-950/70 backdrop-blur-md border border-white/10 shadow-2xl text-center mb-12 max-w-3xl mx-auto">
+    <section id="qualitaet" className="py-32 md:py-44 my-16">
+      <div className="max-w-6xl mx-auto px-5">
+        <AosBox animation="fade-up" className="p-8 md:p-12 rounded-3xl bg-stone-950/75 backdrop-blur-md border border-white/10 shadow-2xl text-center mb-16 max-w-3xl mx-auto">
           <p className="text-xs uppercase tracking-[0.25em] text-cloud-400 mb-3 font-semibold">
             Unser Versprechen
           </p>
           <h2 className="font-display text-3xl md:text-5xl tracking-tight text-white">
             Qualität, die man schmeckt
           </h2>
-        </div>
+        </AosBox>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {values.map((v) => (
-            <div
+          {values.map((v, i) => (
+            <AosBox
               key={v.title}
-              className="text-center p-8 rounded-3xl bg-stone-950/75 backdrop-blur-md border border-white/10 hover:border-cloud-400/50 transition-all duration-300 shadow-2xl hover:-translate-y-1.5"
+              animation="zoom-in"
+              delay={i * 150}
+              className="h-full"
             >
-              <div className="w-14 h-14 rounded-2xl bg-cloud-500/20 border border-cloud-500/30 flex items-center justify-center mx-auto mb-5">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-cloud-400">
-                  {v.icon}
-                </svg>
+              <div className="text-center p-8 rounded-3xl bg-stone-950/80 backdrop-blur-md border border-white/10 hover:border-cloud-400/50 transition-all duration-300 shadow-2xl hover:-translate-y-2 flex flex-col justify-between h-full">
+                <div>
+                  <div className="w-14 h-14 rounded-2xl bg-cloud-500/20 border border-cloud-500/30 flex items-center justify-center mx-auto mb-5">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-cloud-400">
+                      {v.icon}
+                    </svg>
+                  </div>
+                  <h3 className="font-display text-xl text-white mb-3">{v.title}</h3>
+                  <p className="text-sm text-stone-300 leading-relaxed">{v.description}</p>
+                </div>
               </div>
-              <h3 className="font-display text-xl text-white mb-3">{v.title}</h3>
-              <p className="text-sm text-stone-300 leading-relaxed">{v.description}</p>
-            </div>
+            </AosBox>
           ))}
         </div>
       </div>

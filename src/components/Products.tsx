@@ -1,4 +1,4 @@
-import { useScrollReveal } from '../hooks/useScrollReveal'
+import AosBox from './AosBox'
 
 const products = [
   {
@@ -6,42 +6,42 @@ const products = [
     category: 'Oliven',
     description: 'Handverlesene Oliven mit Kräutern und Knoblauch mariniert',
     badge: 'Beliebt',
-    image: '/products/marinierte_oliven.png',
+    image: '/products/marinierte_oliven_opt.jpg',
   },
   {
     name: 'Gegrilltes Gemüse',
     category: 'Antipasti',
     description: 'Zucchini, Paprika und Aubergine vom Grill mit Olivenöl',
     badge: 'Hausspezialität',
-    image: '/products/gegrilltes_gemuese.png',
+    image: '/products/gegrilltes_gemuese_opt.jpg',
   },
   {
     name: 'Gefüllte Weinblätter',
     category: 'Antipasti',
     description: 'Zarte Weinblätter gefüllt mit Reis und frischen Kräutern',
     badge: 'Familienrezept',
-    image: '/products/gefuellte_weinblaetter.png',
+    image: '/products/gefuellte_weinblaetter_opt.jpg',
   },
   {
     name: 'Hummus Klassik',
     category: 'Pasten & Dips',
     description: 'Cremiger Hummus aus Kichererbsen mit Tahini und Zitrone',
     badge: 'Vegan',
-    image: '/products/hummus_klassik.png',
+    image: '/products/hummus_klassik_opt.jpg',
   },
   {
     name: 'Schafskäse-Oliven',
     category: 'Oliven',
     description: 'Grüne Oliven gefüllt mit cremigem Schafskäse',
     badge: 'Premium',
-    image: '/products/schafskaese_oliven.png',
+    image: '/products/schafskaese_oliven_opt.jpg',
   },
   {
     name: 'Getrocknete Tomaten',
     category: 'Antipasti',
     description: 'Sonnengetrocknete Tomaten in Olivenöl mit Basilikum',
     badge: 'Klassiker',
-    image: '/products/getrocknete_tomaten.png',
+    image: '/products/getrocknete_tomaten_opt.jpg',
   },
 ]
 
@@ -55,12 +55,11 @@ const badgeColor: Record<string, string> = {
 }
 
 export default function Products() {
-  const ref = useScrollReveal<HTMLDivElement>()
   return (
-    <section id="produkte" className="py-28 md:py-40">
-      <div ref={ref} className="max-w-6xl mx-auto px-5">
+    <section id="produkte" className="py-32 md:py-44 my-16">
+      <div className="max-w-6xl mx-auto px-5">
         {/* Floating section header card with video gaps around */}
-        <div className="p-8 md:p-12 rounded-3xl bg-stone-950/70 backdrop-blur-md border border-white/10 shadow-2xl text-center mb-12 max-w-3xl mx-auto">
+        <AosBox animation="fade-up" className="p-8 md:p-12 rounded-3xl bg-stone-950/75 backdrop-blur-md border border-white/10 shadow-2xl text-center mb-16 max-w-3xl mx-auto">
           <p className="text-xs uppercase tracking-[0.25em] text-cloud-400 mb-3 font-semibold">
             Unsere Spezialitäten
           </p>
@@ -71,35 +70,40 @@ export default function Products() {
             Jeden Tag bereiten wir unsere Spezialitäten mit den besten Zutaten frisch zu —
             handgemacht und mit Liebe.
           </p>
-        </div>
+        </AosBox>
 
-        {/* Grid of separate floating cards with clear gutters */}
+        {/* Grid of separate floating cards with AOS staggers */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((p) => (
-            <article
+          {products.map((p, i) => (
+            <AosBox
               key={p.name}
-              className="group rounded-3xl overflow-hidden bg-stone-950/75 backdrop-blur-md border border-white/10 hover:border-cloud-400/50 transition-all duration-300 shadow-2xl hover:-translate-y-1.5 flex flex-col"
+              animation="fade-up"
+              delay={i * 120}
+              className="h-full"
             >
-              <div className="relative w-full aspect-[3/2] overflow-hidden bg-stone-900">
-                <img
-                  src={p.image}
-                  alt={p.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-3 left-3 flex gap-2">
-                  <span className={`text-xs font-medium px-3 py-1 rounded-full border backdrop-blur-sm ${badgeColor[p.badge] || 'bg-stone-800/80 text-stone-300 border-white/10'}`}>
-                    {p.badge}
-                  </span>
+              <article className="group rounded-3xl overflow-hidden bg-stone-950/80 backdrop-blur-md border border-white/10 hover:border-cloud-400/50 transition-all duration-300 shadow-2xl hover:-translate-y-2 flex flex-col h-full">
+                <div className="relative w-full aspect-[3/2] overflow-hidden bg-stone-900">
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-3 left-3 flex gap-2">
+                    <span className={`text-xs font-medium px-3 py-1 rounded-full border backdrop-blur-sm ${badgeColor[p.badge] || 'bg-stone-800/80 text-stone-300 border-white/10'}`}>
+                      {p.badge}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div className="p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-cloud-400 mb-1">{p.category}</p>
-                  <h3 className="font-display text-xl text-white mb-2">{p.name}</h3>
-                  <p className="text-sm text-stone-300 leading-relaxed">{p.description}</p>
+                <div className="p-6 flex-1 flex flex-col justify-between">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-cloud-400 mb-1">{p.category}</p>
+                    <h3 className="font-display text-xl text-white mb-2">{p.name}</h3>
+                    <p className="text-sm text-stone-300 leading-relaxed">{p.description}</p>
+                  </div>
                 </div>
-              </div>
-            </article>
+              </article>
+            </AosBox>
           ))}
         </div>
       </div>

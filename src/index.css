@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* Cloud-inspired palette — airy, modern, NOT warm/earthy like Kaya */
+  /* Cloud-inspired palette */
   --color-cloud-50: #f0f7ff;
   --color-cloud-100: #e0effe;
   --color-cloud-200: #baddfd;
@@ -51,22 +51,6 @@
 
   --font-display: "Playfair Display", Georgia, serif;
   --font-body: "DM Sans", system-ui, sans-serif;
-}
-
-@font-face {
-  font-family: "Playfair Display";
-  font-style: normal;
-  font-weight: 400 900;
-  font-display: swap;
-  src: url("https://fonts.gstatic.com/s/playfairdisplay/v37/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "DM Sans";
-  font-style: normal;
-  font-weight: 400 700;
-  font-display: swap;
-  src: url("https://fonts.gstatic.com/s/dmsans/v15/rP2tp2ywxg089UriI5-g4vlH9VoD8CmcqZG40F9JadbnoEwAkJxhTQ.woff2") format("woff2");
 }
 
 html {

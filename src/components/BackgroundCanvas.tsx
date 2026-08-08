@@ -38,6 +38,9 @@ export default function BackgroundCanvas() {
           renderCurrentScrollFrame()
         }
       }
+      img.onerror = () => {
+        if (i === 0) setFirstFrameReady(true)
+      }
       images.push(img)
     }
     imagesRef.current = images
@@ -127,8 +130,9 @@ export default function BackgroundCanvas() {
   return (
     <div className="fixed inset-0 pointer-events-none z-[-10] bg-stone-950 overflow-hidden">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full block" />
-      {/* Subtle vignette top and bottom only, keeping center video crystal clear */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/50 pointer-events-none" />
+      {/* Black overlay layer to smooth out pixelation & frame compression artifacts */}
+      <div className="absolute inset-0 bg-black/45 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-stone-950/50 via-transparent to-stone-950/60 pointer-events-none" />
 
       {!firstFrameReady && (
         <div className="absolute inset-0 bg-stone-950 flex items-center justify-center pointer-events-auto z-50">
