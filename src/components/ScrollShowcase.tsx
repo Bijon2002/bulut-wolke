@@ -60,7 +60,7 @@ export default function ScrollShowcase() {
       <div className="sticky top-0 h-screen overflow-hidden">
         <video
           ref={videoRef}
-          src="/scroll-video.mp4"
+          src="https://videos.pexels.com/video-files/35696494/15128683_1080_1920_30fps.mp4"
           muted
           playsInline
           preload="auto"
