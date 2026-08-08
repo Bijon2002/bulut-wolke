@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  /* Cloud-inspired palette — airy, modern, NOT warm/earthy like Kaya */
+  --color-cloud-50: #f0f7ff;
+  --color-cloud-100: #e0effe;
+  --color-cloud-200: #baddfd;
+  --color-cloud-300: #7ec2fc;
+  --color-cloud-400: #3aa0f8;
+  --color-cloud-500: #1084e9;
+  --color-cloud-600: #0468c7;
+  --color-cloud-700: #0553a1;
+  --color-cloud-800: #094785;
+  --color-cloud-900: #0d3b6e;
+
+  --color-sky-50: #f5f9fc;
+  --color-sky-100: #eaf3f9;
+
+  --color-olive-50: #f6f7f0;
+  --color-olive-100: #e8ebd6;
+  --color-olive-200: #d3d9b0;
+  --color-olive-300: #b5bf7e;
+  --color-olive-400: #99a654;
+  --color-olive-500: #7d8b3c;
+  --color-olive-600: #616e2c;
+  --color-olive-700: #4b5524;
+  --color-olive-800: #3e4521;
+  --color-olive-900: #353b1f;
+
+  --color-warm-50: #fdf8f3;
+  --color-warm-100: #f9efe3;
+  --color-warm-200: #f2dcc5;
+  --color-warm-300: #e9c49e;
+  --color-warm-400: #dea574;
+  --color-warm-500: #d68b52;
+  --color-warm-600: #c87547;
+  --color-warm-700: #a65e3b;
+  --color-warm-800: #864d35;
+  --color-warm-900: #6d412e;
+
+  --color-stone-50: #fafaf8;
+  --color-stone-100: #f2f2ee;
+  --color-stone-200: #e5e5de;
+  --color-stone-300: #d1d1c6;
+  --color-stone-400: #a8a899;
+  --color-stone-500: #8a8a78;
+  --color-stone-600: #6e6e5e;
+  --color-stone-700: #5a5a4c;
+  --color-stone-800: #4a4a3f;
+  --color-stone-900: #2d2d26;
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/playfairdisplay/v37/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/dmsans/v15/rP2tp2ywxg089UriI5-g4vlH9VoD8CmcqZG40F9JadbnoEwAkJxhTQ.woff2") format("woff2");
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-stone-900);
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
