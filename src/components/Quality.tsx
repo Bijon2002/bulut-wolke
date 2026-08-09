@@ -1,4 +1,6 @@
 import AosBox from './AosBox'
+import SectionHeading from './SectionHeading'
+import OrganicDivider from './OrganicDivider'
 
 const values = [
   {
@@ -24,42 +26,34 @@ const values = [
   },
 ]
 
-export default function Quality() {
+export default function Quality({ nextColor = 'text-sky-100' }: { nextColor?: string }) {
   return (
-    <section id="qualitaet" className="py-32 md:py-44 my-16">
-      <div className="max-w-6xl mx-auto px-5">
-        <AosBox animation="fade-up" className="p-8 md:p-12 rounded-3xl bg-stone-950/75 backdrop-blur-md border border-white/10 shadow-2xl text-center mb-16 max-w-3xl mx-auto">
-          <p className="text-xs uppercase tracking-[0.25em] text-cloud-400 mb-3 font-semibold">
-            Unser Versprechen
-          </p>
-          <h2 className="font-display text-3xl md:text-5xl tracking-tight text-white">
-            Qualität, die man schmeckt
-          </h2>
-        </AosBox>
+    <section id="qualitaet" className="relative bg-cream-100 pt-16 md:pt-20">
+      <div className="max-w-6xl mx-auto px-5 pb-20 md:pb-28">
+        <SectionHeading
+          eyebrow="Unser Versprechen"
+          title="Qualität, die man schmeckt"
+          className="mb-14"
+        />
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-7 max-w-5xl mx-auto">
           {values.map((v, i) => (
-            <AosBox
-              key={v.title}
-              animation="zoom-in"
-              delay={i * 150}
-              className="h-full"
-            >
-              <div className="text-center p-8 rounded-3xl bg-stone-950/80 backdrop-blur-md border border-white/10 hover:border-cloud-400/50 transition-all duration-300 shadow-2xl hover:-translate-y-2 flex flex-col justify-between h-full">
-                <div>
-                  <div className="w-14 h-14 rounded-2xl bg-cloud-500/20 border border-cloud-500/30 flex items-center justify-center mx-auto mb-5">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-cloud-400">
-                      {v.icon}
-                    </svg>
-                  </div>
-                  <h3 className="font-display text-xl text-white mb-3">{v.title}</h3>
-                  <p className="text-sm text-stone-300 leading-relaxed">{v.description}</p>
+            <AosBox key={v.title} animation="fade-up" delay={i * 120} className="h-full">
+              <div className="h-full text-center px-8 py-10 rounded-[1.75rem] bg-cream-50 border border-olive-200/50 shadow-sm hover:shadow-md hover:-translate-y-1.5 hover:border-yellow-500/50 transition-all duration-300">
+                <div className="w-14 h-14 rounded-full bg-yellow-100 border border-yellow-300/70 flex items-center justify-center mx-auto mb-5">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-yellow-700">
+                    {v.icon}
+                  </svg>
                 </div>
+                <h3 className="font-display text-xl text-olive-800 font-bold mb-3">{v.title}</h3>
+                <p className="text-sm text-olive-700/85 leading-relaxed">{v.description}</p>
               </div>
             </AosBox>
           ))}
         </div>
       </div>
+
+      <OrganicDivider color={nextColor} variant={1} />
     </section>
   )
 }

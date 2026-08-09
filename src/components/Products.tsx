@@ -1,112 +1,103 @@
+import { Link } from 'react-router-dom'
 import AosBox from './AosBox'
+import SectionHeading from './SectionHeading'
+import OrganicDivider from './OrganicDivider'
+import { products, categories, badgeColor } from '../data/products'
 
-const products = [
-  {
-    name: 'Marinierte Oliven',
-    category: 'Oliven',
-    description: 'Handverlesene Oliven mit Kräutern und Knoblauch mariniert',
-    badge: 'Beliebt',
-    image: '/products/marinierte_oliven_sm.jpg',
-  },
-  {
-    name: 'Gegrilltes Gemüse',
-    category: 'Antipasti',
-    description: 'Zucchini, Paprika und Aubergine vom Grill mit Olivenöl',
-    badge: 'Hausspezialität',
-    image: '/products/gegrilltes_gemuese_sm.jpg',
-  },
-  {
-    name: 'Gefüllte Weinblätter',
-    category: 'Antipasti',
-    description: 'Zarte Weinblätter gefüllt mit Reis und frischen Kräutern',
-    badge: 'Familienrezept',
-    image: '/products/gefuellte_weinblaetter_sm.jpg',
-  },
-  {
-    name: 'Hummus Klassik',
-    category: 'Pasten & Dips',
-    description: 'Cremiger Hummus aus Kichererbsen mit Tahini und Zitrone',
-    badge: 'Vegan',
-    image: '/products/hummus_klassik_sm.jpg',
-  },
-  {
-    name: 'Schafskäse-Oliven',
-    category: 'Oliven',
-    description: 'Grüne Oliven gefüllt mit cremigem Schafskäse',
-    badge: 'Premium',
-    image: '/products/schafskaese_oliven_sm.jpg',
-  },
-  {
-    name: 'Getrocknete Tomaten',
-    category: 'Antipasti',
-    description: 'Sonnengetrocknete Tomaten in Olivenöl mit Basilikum',
-    badge: 'Klassiker',
-    image: '/products/getrocknete_tomaten_sm.jpg',
-  },
-]
-
-const badgeColor: Record<string, string> = {
-  'Beliebt': 'bg-cloud-500/30 text-cloud-200 border-cloud-400/40',
-  'Hausspezialität': 'bg-amber-500/30 text-amber-200 border-amber-400/40',
-  'Familienrezept': 'bg-emerald-500/30 text-emerald-200 border-emerald-400/40',
-  'Vegan': 'bg-emerald-500/30 text-emerald-200 border-emerald-400/40',
-  'Premium': 'bg-amber-500/30 text-amber-200 border-amber-400/40',
-  'Klassiker': 'bg-stone-500/30 text-stone-200 border-stone-400/40',
-}
-
-export default function Products() {
+export default function Products({ nextColor = 'text-sky-100' }: { nextColor?: string }) {
   return (
-    <section id="produkte" className="py-32 md:py-44 my-16">
-      <div className="max-w-6xl mx-auto px-5">
-        {/* Floating section header card with video gaps around */}
-        <AosBox animation="fade-up" className="p-8 md:p-12 rounded-3xl bg-stone-950/75 backdrop-blur-md border border-white/10 shadow-2xl text-center mb-16 max-w-3xl mx-auto">
-          <p className="text-xs uppercase tracking-[0.25em] text-cloud-400 mb-3 font-semibold">
-            Unsere Spezialitäten
-          </p>
-          <h2 className="font-display text-3xl md:text-5xl tracking-tight text-white mb-4">
-            Frisch aus der Theke
-          </h2>
-          <p className="text-stone-300 leading-relaxed">
-            Jeden Tag bereiten wir unsere Spezialitäten mit den besten Zutaten frisch zu —
-            handgemacht und mit Liebe.
-          </p>
-        </AosBox>
+    <section id="produkte" className="relative bg-cream-100 pt-16 md:pt-20">
+      <div className="max-w-6xl mx-auto px-5 pb-20 md:pb-28">
+        <SectionHeading
+          eyebrow="Frisch aus der Theke"
+          title="Unser Sortiment"
+          body="Jeden Tag bereiten wir unsere Spezialitäten mit den besten Zutaten frisch zu — handgemacht und mit Liebe."
+          className="mb-16"
+        />
 
-        {/* Grid of separate floating cards with AOS staggers */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((p, i) => (
-            <AosBox
-              key={p.name}
-              animation="fade-up"
-              delay={i * 120}
-              className="h-full"
-            >
-              <article className="group rounded-3xl overflow-hidden bg-stone-950/80 backdrop-blur-md border border-white/10 hover:border-cloud-400/50 transition-all duration-300 shadow-2xl hover:-translate-y-2 flex flex-col h-full">
-                <div className="relative w-full aspect-[3/2] overflow-hidden bg-stone-900">
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 left-3 flex gap-2">
-                    <span className={`text-xs font-medium px-3 py-1 rounded-full border backdrop-blur-sm ${badgeColor[p.badge] || 'bg-stone-800/80 text-stone-300 border-white/10'}`}>
-                      {p.badge}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-cloud-400 mb-1">{p.category}</p>
-                    <h3 className="font-display text-xl text-white mb-2">{p.name}</h3>
-                    <p className="text-sm text-stone-300 leading-relaxed">{p.description}</p>
-                  </div>
-                </div>
-              </article>
-            </AosBox>
-          ))}
-        </div>
+        {categories.map((category) => {
+          const items = products.filter((p) => p.category === category)
+          if (items.length === 0) return null
+
+          return (
+            <div key={category} className="mb-16 last:mb-0">
+              <div className="flex items-center gap-4 mb-8">
+                <h3 className="font-display text-2xl md:text-3xl text-olive-800 font-bold whitespace-nowrap">
+                  {category}
+                </h3>
+                <span className="h-px flex-1 bg-yellow-600/30" aria-hidden />
+                <span className="text-xs text-olive-600 font-semibold whitespace-nowrap">
+                  {items.length} {items.length === 1 ? 'Produkt' : 'Produkte'}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+                {items.map((p, i) => (
+                  <AosBox key={p.name} animation="fade-up" delay={i * 90} className="h-full">
+                    <article className="group h-full flex flex-col rounded-[1.75rem] overflow-hidden bg-cream-50 border border-olive-200/50 shadow-sm hover:shadow-md hover:-translate-y-1.5 hover:border-yellow-500/50 transition-all duration-300">
+                      <div className="relative w-full aspect-[3/2] overflow-hidden bg-cream-200">
+                        <img
+                          src={p.image}
+                          alt={p.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                        />
+                        <span
+                          className={`absolute top-3 left-3 text-xs font-semibold px-3 py-1 rounded-full border ${
+                            badgeColor[p.badge] || 'bg-cream-200 text-olive-700 border-olive-200'
+                          }`}
+                        >
+                          {p.badge}
+                        </span>
+                      </div>
+                      <div className="p-6 flex-1">
+                        <h4 className="font-display text-xl text-olive-800 font-bold mb-2">{p.name}</h4>
+                        <p className="text-sm text-olive-700/85 leading-relaxed">{p.description}</p>
+                      </div>
+                    </article>
+                  </AosBox>
+                ))}
+              </div>
+            </div>
+          )
+        })}
+
+        {/* Party platters / catering — own block with inquiry CTA */}
+        <AosBox animation="fade-up" className="mt-20">
+          <div className="relative overflow-hidden rounded-[2rem] bg-sky-100 border border-sky-200/70 px-8 py-12 md:px-14 md:py-14">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -top-16 -right-12 w-72 h-72 bg-yellow-100/50"
+              style={{ borderRadius: '58% 42% 47% 53% / 44% 39% 61% 56%' }}
+            />
+            <div className="relative z-10 grid md:grid-cols-[1fr_auto] gap-8 items-center">
+              <div>
+                <p className="text-xs uppercase tracking-[0.22em] text-olive-600 font-semibold mb-3">
+                  Partyplatten &amp; Catering
+                </p>
+                <h3 className="font-display text-2xl md:text-4xl text-olive-800 font-bold mb-4 leading-tight">
+                  Feiern Sie mit uns
+                </h3>
+                <p className="text-olive-700/90 leading-relaxed max-w-lg">
+                  Ob Geburtstag, Firmenfeier oder Familienfest — wir stellen Ihnen Partyplatten
+                  nach Wunsch zusammen. Sprechen Sie uns an, wir beraten Sie gerne persönlich.
+                </p>
+              </div>
+              <Link
+                to="/kontakt"
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap px-8 py-3.5 bg-yellow-600 text-white rounded-full text-sm font-semibold hover:bg-yellow-700 transition active:scale-[0.97] motion-safe:duration-200 shadow-sm shrink-0"
+              >
+                Jetzt anfragen
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                  <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </AosBox>
       </div>
+
+      <OrganicDivider color={nextColor} variant={2} />
     </section>
   )
 }

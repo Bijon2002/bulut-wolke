@@ -10,12 +10,17 @@ interface ScrollRevealOptions {
   once?: boolean
 }
 
+/**
+ * Scroll reveal that treats animation strictly as a bonus:
+ * content is never left hidden if motion is reduced, if IntersectionObserver
+ * is unavailable, or if the observer simply never fires.
+ */
 export function useScrollReveal<T extends HTMLElement>(options: ScrollRevealOptions = {}) {
   const {
     animation = 'fade-up',
     delay = 0,
-    duration = 700,
-    threshold = 0.15,
+    duration = 600,
+    threshold = 0.12,
     once = true,
   } = options
 
@@ -25,23 +30,33 @@ export function useScrollReveal<T extends HTMLElement>(options: ScrollRevealOpti
     const el = ref.current
     if (!el) return
 
-    // Initial hidden transform state based on chosen AOS animation
-    let initialTransform = 'translateY(40px)'
-    if (animation === 'fade-down') initialTransform = 'translateY(-40px)'
-    else if (animation === 'zoom-in') initialTransform = 'scale(0.88)'
-    else if (animation === 'slide-left') initialTransform = 'translateX(40px)'
-    else if (animation === 'slide-right') initialTransform = 'translateX(-40px)'
+    const reveal = () => {
+      el.style.opacity = '1'
+      el.style.transform = animation === 'zoom-in' ? 'scale(1)' : 'translate(0, 0)'
+    }
+
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion || typeof IntersectionObserver === 'undefined') {
+      reveal()
+      return
+    }
+
+    let initialTransform = 'translateY(28px)'
+    if (animation === 'fade-down') initialTransform = 'translateY(-28px)'
+    else if (animation === 'zoom-in') initialTransform = 'scale(0.94)'
+    else if (animation === 'slide-left') initialTransform = 'translateX(28px)'
+    else if (animation === 'slide-right') initialTransform = 'translateX(-28px)'
     else if (animation === 'fade-in') initialTransform = 'translateY(0)'
 
     el.style.opacity = '0'
     el.style.transform = initialTransform
-    el.style.transition = `opacity ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`
+    // Gentle overshoot on transform gives the spring-like settle; opacity stays linear-ish.
+    el.style.transition = `opacity ${duration}ms cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, transform ${duration}ms cubic-bezier(0.34, 1.32, 0.64, 1) ${delay}ms`
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.style.opacity = '1'
-          el.style.transform = animation === 'zoom-in' ? 'scale(1)' : 'translate(0, 0)'
+          reveal()
           if (once) observer.unobserve(el)
         } else if (!once) {
           el.style.opacity = '0'
@@ -52,7 +67,14 @@ export function useScrollReveal<T extends HTMLElement>(options: ScrollRevealOpti
     )
 
     observer.observe(el)
-    return () => observer.disconnect()
+
+    // Failsafe: never leave content invisible if the observer never fires.
+    const failsafe = window.setTimeout(reveal, 2000 + delay)
+
+    return () => {
+      observer.disconnect()
+      window.clearTimeout(failsafe)
+    }
   }, [animation, delay, duration, threshold, once])
 
   return ref

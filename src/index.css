@@ -1,44 +1,52 @@
 @import "tailwindcss";
 
 @theme {
-  /* Cloud-inspired palette */
-  --color-cloud-50: #f0f7ff;
-  --color-cloud-100: #e0effe;
-  --color-cloud-200: #baddfd;
-  --color-cloud-300: #7ec2fc;
-  --color-cloud-400: #3aa0f8;
-  --color-cloud-500: #1084e9;
-  --color-cloud-600: #0468c7;
-  --color-cloud-700: #0553a1;
-  --color-cloud-800: #094785;
-  --color-cloud-900: #0d3b6e;
+  /* ── Bulut & Wolke palette · Revision 2 · August 2026 ── */
 
-  --color-sky-50: #f5f9fc;
-  --color-sky-100: #eaf3f9;
+  /* Cream white base */
+  --color-cream-50:  #FFFEF9;
+  --color-cream-100: #FBF9F2;
+  --color-cream-200: #F4F0E0;
+  --color-cream-300: #EAE4C4;
 
-  --color-olive-50: #f6f7f0;
-  --color-olive-100: #e8ebd6;
-  --color-olive-200: #d3d9b0;
-  --color-olive-300: #b5bf7e;
-  --color-olive-400: #99a654;
-  --color-olive-500: #7d8b3c;
-  --color-olive-600: #616e2c;
-  --color-olive-700: #4b5524;
-  --color-olive-800: #3e4521;
-  --color-olive-900: #353b1f;
+  /* Sky blue — references "Wolke" (cloud) in the brand name */
+  --color-sky-50:  #EEF6FB;
+  --color-sky-100: #DCEBF5;
+  --color-sky-200: #BDD8EF;
+  --color-sky-300: #9AC3E5;
+  --color-sky-400: #7FB3D9;
+  --color-sky-500: #5A9BC4;
+  --color-sky-600: #3E83AE;
+  --color-sky-700: #2D6A8F;
+  --color-sky-800: #1F5070;
+  --color-sky-900: #123A52;
 
-  --color-warm-50: #fdf8f3;
-  --color-warm-100: #f9efe3;
-  --color-warm-200: #f2dcc5;
-  --color-warm-300: #e9c49e;
-  --color-warm-400: #dea574;
-  --color-warm-500: #d68b52;
-  --color-warm-600: #c87547;
-  --color-warm-700: #a65e3b;
-  --color-warm-800: #864d35;
-  --color-warm-900: #6d412e;
+  /* Yellow / Gold — from logo */
+  --color-yellow-50:  #FEF9EC;
+  --color-yellow-100: #FBF0C4;
+  --color-yellow-200: #F7E08B;
+  --color-yellow-300: #EDCE58;
+  --color-yellow-400: #E5B93C;
+  --color-yellow-500: #D4A526;
+  --color-yellow-600: #C9A227;
+  --color-yellow-700: #A8841E;
+  --color-yellow-800: #876716;
+  --color-yellow-900: #664F10;
 
-  --color-stone-50: #fafaf8;
+  /* Olive / Dark green — from logo */
+  --color-olive-50:  #F2F4EC;
+  --color-olive-100: #E2E7D3;
+  --color-olive-200: #BECDB0;
+  --color-olive-300: #96AE82;
+  --color-olive-400: #7A9460;
+  --color-olive-500: #637A46;
+  --color-olive-600: #5A6B2F;
+  --color-olive-700: #4A5A27;
+  --color-olive-800: #39482A;
+  --color-olive-900: #2D3821;
+
+  /* Neutral stone */
+  --color-stone-50:  #fafaf8;
   --color-stone-100: #f2f2ee;
   --color-stone-200: #e5e5de;
   --color-stone-300: #d1d1c6;
@@ -59,7 +67,7 @@ html {
 
 body {
   font-family: var(--font-body);
-  color: var(--color-stone-900);
-  background: #ffffff;
+  color: var(--color-olive-800);
+  background: var(--color-cream-100);
   -webkit-font-smoothing: antialiased;
 }
