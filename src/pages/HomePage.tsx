@@ -1,19 +1,17 @@
 import Hero from '../components/Hero'
-import Usps from '../components/home/Usps'
-import ProductsTeaser from '../components/home/ProductsTeaser'
-import AboutTeaser from '../components/home/AboutTeaser'
-import LocationsTeaser from '../components/home/LocationsTeaser'
-import HomeCta from '../components/home/HomeCta'
+import About from '../components/About'
+import Products from '../components/Products'
 
-export default function HomePage() {
+interface HomePageProps {
+  onOpenModal?: () => void
+}
+
+export default function HomePage({ onOpenModal }: HomePageProps) {
   return (
     <>
-      <Hero />
-      <Usps />
-      <ProductsTeaser />
-      <AboutTeaser />
-      <LocationsTeaser />
-      <HomeCta />
+      <Hero onOpenModal={onOpenModal} />
+      <About onOpenModal={onOpenModal} />
+      <Products onOpenModal={onOpenModal} />
     </>
   )
 }

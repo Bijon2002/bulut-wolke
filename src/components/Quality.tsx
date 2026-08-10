@@ -28,7 +28,7 @@ const values = [
 
 export default function Quality({ nextColor = 'text-sky-100' }: { nextColor?: string }) {
   return (
-    <section id="qualitaet" className="relative bg-cream-100 pt-16 md:pt-20">
+    <section id="qualitaet" className="relative bg-transparent pt-16 md:pt-20">
       <div className="max-w-6xl mx-auto px-5 pb-20 md:pb-28">
         <SectionHeading
           eyebrow="Unser Versprechen"

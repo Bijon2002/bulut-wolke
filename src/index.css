@@ -1,64 +1,57 @@
 @import "tailwindcss";
 
-@theme {
-  /* ── Bulut & Wolke palette · Revision 2 · August 2026 ── */
+:root {
+  --color-dark-text: #1E332E;
+  --color-muted-text: #4A5D57;
+  --color-salmon: #EE6D52;
+  --color-salmon-hover: #E2583C;
+  --color-gold: #D4AF37;
+  --color-gold-dark: #B88E28;
 
-  /* Cream white base */
-  --color-cream-50:  #FFFEF9;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-script: 'Cinzel', serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+  --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@theme {
+  --color-dark-text: #1E332E;
+  --color-muted-text: #4A5D57;
+  --color-salmon: #EE6D52;
+  --color-salmon-hover: #E2583C;
+  --color-gold: #D4AF37;
+  --color-gold-dark: #B88E28;
+
+  --color-cream-50: #FFFEF9;
   --color-cream-100: #FBF9F2;
   --color-cream-200: #F4F0E0;
   --color-cream-300: #EAE4C4;
 
-  /* Sky blue — references "Wolke" (cloud) in the brand name */
-  --color-sky-50:  #EEF6FB;
+  --color-sky-50: #EEF6FB;
   --color-sky-100: #DCEBF5;
   --color-sky-200: #BDD8EF;
   --color-sky-300: #9AC3E5;
   --color-sky-400: #7FB3D9;
   --color-sky-500: #5A9BC4;
-  --color-sky-600: #3E83AE;
-  --color-sky-700: #2D6A8F;
-  --color-sky-800: #1F5070;
-  --color-sky-900: #123A52;
 
-  /* Yellow / Gold — from logo */
-  --color-yellow-50:  #FEF9EC;
+  --color-yellow-50: #FEF9EC;
   --color-yellow-100: #FBF0C4;
   --color-yellow-200: #F7E08B;
   --color-yellow-300: #EDCE58;
   --color-yellow-400: #E5B93C;
-  --color-yellow-500: #D4A526;
-  --color-yellow-600: #C9A227;
-  --color-yellow-700: #A8841E;
-  --color-yellow-800: #876716;
-  --color-yellow-900: #664F10;
 
-  /* Olive / Dark green — from logo */
-  --color-olive-50:  #F2F4EC;
+  --color-olive-50: #F2F4EC;
   --color-olive-100: #E2E7D3;
   --color-olive-200: #BECDB0;
   --color-olive-300: #96AE82;
   --color-olive-400: #7A9460;
-  --color-olive-500: #637A46;
-  --color-olive-600: #5A6B2F;
-  --color-olive-700: #4A5A27;
   --color-olive-800: #39482A;
-  --color-olive-900: #2D3821;
 
-  /* Neutral stone */
-  --color-stone-50:  #fafaf8;
-  --color-stone-100: #f2f2ee;
-  --color-stone-200: #e5e5de;
-  --color-stone-300: #d1d1c6;
-  --color-stone-400: #a8a899;
-  --color-stone-500: #8a8a78;
-  --color-stone-600: #6e6e5e;
-  --color-stone-700: #5a5a4c;
-  --color-stone-800: #4a4a3f;
-  --color-stone-900: #2d2d26;
-
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-script: 'Cinzel', serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
 }
 
 html {
@@ -67,7 +60,274 @@ html {
 
 body {
   font-family: var(--font-body);
-  color: var(--color-olive-800);
-  background: var(--color-cream-100);
+  color: var(--color-dark-text);
+  background-color: #F8F4EC;
+  background-image: url('/bacj.png'), url('/assets/bacj.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Page Canvas with bacj.png Background */
+.page-canvas {
+  max-width: 1280px;
+  margin: 0 auto;
+  background-image: url('/bacj.png'), url('/assets/bacj.png');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center top;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.15);
+  position: relative;
+  min-height: 100vh;
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-script {
+  font-family: var(--font-script);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Stamp Badge Top Right */
+.stamp-badge {
+  position: absolute;
+  top: 40px;
+  right: 50px;
+  width: 105px;
+  height: 105px;
+  z-index: 10;
+  animation: rotateStamp 35s linear infinite;
+}
+
+@keyframes rotateStamp {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.stamp-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  line-height: 1;
+}
+
+.stamp-inner span {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--color-muted-text);
+}
+
+.stamp-inner strong {
+  font-size: 13px;
+  color: var(--color-gold-dark);
+}
+
+/* Carousel Dots */
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.carousel-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(30, 51, 46, 0.25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-dots .dot.active {
+  background-color: var(--color-salmon);
+  width: 28px;
+  border-radius: 10px;
+}
+
+.btn-pill-orange {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--color-salmon);
+  color: #FFFFFF;
+  padding: 16px 36px;
+  border-radius: 40px;
+  border: none;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 8px 25px rgba(238, 109, 82, 0.35);
+  cursor: pointer;
+  transition: all 0.35s var(--transition-smooth);
+}
+
+.btn-pill-orange:hover {
+  background-color: var(--color-salmon-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(238, 109, 82, 0.5);
+}
+
+.organic-peach-blob {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 112%;
+  height: 112%;
+  background-color: #F8E3D8;
+  border-radius: 48% 52% 63% 37% / 41% 54% 46% 59%;
+  z-index: 1;
+}
+
+.mini-badge {
+  position: absolute;
+  bottom: -15px;
+  right: 20px;
+  z-index: 3;
+  background-color: var(--color-salmon);
+  color: #FFF;
+  padding: 8px 16px;
+  border-radius: 18px;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.mini-badge strong {
+  display: block;
+  font-size: 13px;
+}
+
+/* FLOATING BOTTOM CONTROL BAR */
+.floating-control-bar {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1001;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 9px 24px;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  color: #23413B;
+}
+
+.bar-btn {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #23413B;
+  cursor: pointer;
+}
+
+.bar-btn:hover {
+  color: var(--color-salmon);
+}
+
+.bar-divider {
+  width: 1px;
+  height: 18px;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.bar-link-main {
+  font-size: 14px;
+  font-weight: 700;
+  color: #23413B;
+}
+
+/* MODAL POPUP */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  background-color: #23413B;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  color: #FFFFFF;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #FFF;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 28px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.modal-body img {
+  width: 160px;
+  border-radius: 50%;
+}
+
+.modal-price {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-salmon);
+  margin: 12px 0;
+}
+
+@media (max-width: 768px) {
+  .stamp-badge {
+    display: none;
+  }
 }

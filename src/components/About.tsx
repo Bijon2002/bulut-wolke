@@ -1,71 +1,82 @@
-import AosBox from './AosBox'
-import SectionHeading from './SectionHeading'
-import OrganicDivider from './OrganicDivider'
+import { Link } from 'react-router-dom'
 
-export default function About({ nextColor = 'text-cream-100' }: { nextColor?: string }) {
+interface AboutProps {
+  onOpenModal?: () => void
+}
+
+export default function About({ onOpenModal }: AboutProps) {
   return (
-    <section id="ueber-uns" className="relative bg-sky-100 pt-16 md:pt-20 overflow-hidden">
-      {/* soft cloud accents */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div
-          className="absolute -top-20 -left-24 w-[26rem] h-[26rem] bg-sky-50/70"
-          style={{ borderRadius: '61% 39% 48% 52% / 52% 44% 56% 48%' }}
-        />
-      </div>
-
-      <div className="relative z-10 max-w-6xl mx-auto px-5 pb-20 md:pb-28">
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-          {/* Photo left — alternates against the Products grid above */}
-          <AosBox animation="slide-right" delay={100} className="order-1">
-            <div className="relative mx-auto w-full max-w-sm md:max-w-none aspect-square">
-              <div
-                aria-hidden
-                className="absolute inset-0 -translate-x-4 translate-y-5 bg-yellow-300/35"
-                style={{ borderRadius: '46% 54% 57% 43% / 52% 45% 55% 48%' }}
-              />
-              <img
-                src="/products/feinkost_theke_hero.jpg"
-                alt="Feinkost-Theke mit frischen Antipasti und Oliven"
-                width={900}
-                height={900}
-                className="relative w-full h-full object-cover shadow-lg"
-                style={{ borderRadius: '46% 54% 57% 43% / 52% 45% 55% 48%' }}
-                loading="lazy"
-              />
-              <div className="absolute -bottom-2 right-2 md:right-6 bg-cream-50 rounded-2xl px-5 py-4 shadow-md border border-olive-200/60">
-                <p className="font-display text-2xl md:text-3xl text-yellow-600 font-bold leading-none mb-1">100%</p>
-                <p className="text-xs text-olive-700 font-medium">Handgemacht &amp; täglich frisch</p>
-              </div>
-            </div>
-          </AosBox>
-
-          <AosBox animation="slide-left" delay={200} className="order-2">
-            <SectionHeading
-              align="left"
-              eyebrow="Unsere Familie"
-              title={['Zwei Sprachen,', <span className="text-yellow-600">eine Leidenschaft</span>]}
+    <section className="relative py-20 overflow-hidden" id="about">
+      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+        
+        {/* Left Column: Fork + Organic Blob Frame */}
+        <div className="middle-left-col flex items-center gap-6 relative">
+          <div className="w-16 shrink-0 hidden sm:block">
+            <img
+              src="/assets/gold_fork.png"
+              alt="Gourmet Gabel"
+              className="w-full filter drop-shadow-md"
             />
-            <div className="space-y-4 text-olive-700/90 leading-relaxed">
-              <p>
-                <em className="font-display text-olive-800 not-italic font-semibold">Bulut</em> bedeutet Wolke auf Türkisch.
-                <em className="font-display text-olive-800 not-italic font-semibold"> Wolke</em> bedeutet dasselbe auf Deutsch.
-                Zwei Kulturen, ein Wort — und eine gemeinsame Liebe zum guten Essen.
-              </p>
-              <p>
-                Als Familienbetrieb im Rhein-Sieg-Kreis verbinden wir die reiche Tradition
-                der mediterranen Küche mit der Sorgfalt und Qualität, die unsere Kunden
-                von uns erwarten. Jedes Produkt wird von Hand zubereitet, jeden Tag frisch.
-              </p>
-              <p>
-                Bei uns gibt es keine Massenware. Wir stehen hinter unserer Theke, kennen
-                unsere Kunden beim Namen und beraten Sie gerne zu jedem Produkt.
-              </p>
+          </div>
+          <div className="relative flex-1">
+            <div className="organic-peach-blob"></div>
+            <img
+              src="/assets/feinkost_middle_blob.png"
+              alt="Frische Feinkost Manufaktur"
+              className="relative z-10 rounded-3xl shadow-xl w-full"
+            />
+            <div className="mini-badge">
+              <span>FRISCH</span>
+              <strong>100%</strong>
             </div>
-          </AosBox>
+          </div>
+        </div>
+
+        {/* Right Column: Text */}
+        <div className="middle-right-col">
+          <span className="font-script text-xl text-[#B88E28] block mb-2">
+            Die Kunst Feiner Köstlichkeiten
+          </span>
+          <h2 className="font-heading text-4xl md:text-5xl text-[#1E332E] font-bold mb-6 leading-tight">
+            Aus Unserer Manufaktur,<br />
+            Echter Geschmack
+          </h2>
+
+          <div className="space-y-4 text-[#4A5D57] text-base leading-relaxed mb-8">
+            <p>
+              Aus dem Rhein-Sieg-Kreis bieten wir handgemachte Feinkost-Spezialitäten nach bewährten Familienrezepten. Täglich frisch zubereitet mit kaltgepressten Olivenölen, duftenden Kräutern und besten Zutaten.
+            </p>
+            <p>
+              Von cremigen Pasten und Dips über gefüllte Weinblätter bis hin zu sonnenverwöhnten marinierten Oliven – erleben Sie mediterrane und orientalische Geschmacksvielfalt für jeden Anlass.
+            </p>
+          </div>
+
+          <div className="middle-cta flex flex-wrap gap-4 items-center">
+            <Link to="/ueber-uns" className="btn-pill-orange">
+              <span>Über Uns Erfahren</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
+            <button
+              onClick={onOpenModal}
+              className="px-6 py-3.5 rounded-full border-1.5 border-[#1E332E] text-[#1E332E] font-semibold text-sm hover:border-[#EE6D52] hover:text-[#EE6D52] transition-all"
+            >
+              Anfrage Stellen
+            </button>
+          </div>
         </div>
       </div>
 
-      <OrganicDivider color={nextColor} variant={3} />
+      {/* Middle Center Title Banner */}
+      <div className="text-center mt-24 mb-6" id="selection">
+        <h3 className="font-script text-3xl md:text-4xl font-bold text-[#1E332E] tracking-wider mb-2">
+          BULUT & WOLKE FEINKOST SELEKTION
+        </h3>
+        <p className="text-xs font-bold tracking-[2.5px] text-[#B88E28] uppercase">
+          TÄGLICH FRISCH MIT HERZ UND UNVERWECHSELBARER TRADITION
+        </p>
+      </div>
     </section>
   )
 }

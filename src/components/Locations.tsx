@@ -5,7 +5,7 @@ import { locations } from '../data/locations'
 
 export default function Locations({ nextColor = 'text-cream-100' }: { nextColor?: string }) {
   return (
-    <section id="standorte" className="relative bg-sky-100 pt-16 md:pt-20">
+    <section id="standorte" className="relative bg-transparent pt-16 md:pt-20">
       <div className="max-w-6xl mx-auto px-5 pb-20 md:pb-28">
         <SectionHeading
           eyebrow="Öffnungszeiten und Anfahrt"

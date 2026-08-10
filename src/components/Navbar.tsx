@@ -1,56 +1,75 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
+interface NavbarProps {
+  onOpenModal?: () => void
+}
+
 const links = [
+  { label: 'Startseite', to: '/' },
   { label: 'Spezialitäten', to: '/spezialitaeten' },
   { label: 'Über uns', to: '/ueber-uns' },
   { label: 'Standorte', to: '/standorte' },
   { label: 'Kontakt', to: '/kontakt' },
 ]
 
-const desktopLinkClass = ({ isActive }: { isActive: boolean }) =>
-  `text-sm font-medium transition-colors pb-0.5 border-b-2 ${
-    isActive
-      ? 'text-olive-700 font-semibold border-yellow-500'
-      : 'text-olive-700/80 hover:text-olive-900 border-transparent'
-  }`
-
-const mobileLinkClass = ({ isActive }: { isActive: boolean }) =>
-  `block py-2.5 font-medium transition-colors ${
-    isActive ? 'text-olive-700 font-semibold' : 'text-olive-700/80'
-  }`
-
-export default function Navbar() {
+export default function Navbar({ onOpenModal }: NavbarProps) {
   const [open, setOpen] = useState(false)
 
+  const handleNavClick = () => {
+    setOpen(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-cream-100/92 backdrop-blur-md border-b border-yellow-600/15 shadow-sm">
-      <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between gap-4">
-        <NavLink to="/" className="flex items-center shrink-0" aria-label="Bulut &amp; Wolke Feinkost — Startseite">
+    <header className="sticky top-0 z-50 bg-[#F8F4EC]/90 backdrop-blur-md border-b border-black/5 shadow-xs py-3.5 transition-all">
+      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+        <NavLink to="/" onClick={handleNavClick} className="flex items-center shrink-0">
           <img
             src="/logo.png"
             alt="Bulut &amp; Wolke Feinkost"
             width={720}
             height={284}
-            className="h-10 md:h-11 w-auto"
+            className="h-10 md:h-11 w-auto hover:opacity-90 transition-opacity"
           />
         </NavLink>
 
-        <ul className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-7">
           {links.map((l) => (
-            <li key={l.to}>
-              <NavLink to={l.to} className={desktopLinkClass}>
-                {l.label}
-              </NavLink>
-            </li>
+            <NavLink
+              key={l.to}
+              to={l.to}
+              onClick={handleNavClick}
+              className={({ isActive }) =>
+                `text-sm font-semibold transition-colors ${
+                  isActive ? 'text-[#EE6D52]' : 'text-[#1E332E] hover:text-[#EE6D52]'
+                }`
+              }
+            >
+              {l.label}
+            </NavLink>
           ))}
-        </ul>
+        </nav>
+
+        <div className="hidden md:flex items-center gap-3">
+          <button
+            onClick={onOpenModal}
+            className="px-5 py-2 rounded-full border-1.5 border-[#1E332E] text-[#1E332E] font-semibold text-sm hover:border-[#EE6D52] hover:text-[#EE6D52] transition-colors"
+          >
+            Reservieren
+          </button>
+          <button
+            onClick={onOpenModal}
+            className="px-6 py-2 rounded-full bg-[#EE6D52] text-white font-semibold text-sm shadow-md hover:bg-[#E2583C] hover:-translate-y-0.5 transition-all"
+          >
+            Jetzt Anfragen
+          </button>
+        </div>
 
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden p-2 -mr-2 text-olive-700 hover:text-olive-900 transition-colors"
-          aria-label={open ? 'Menü schließen' : 'Menü öffnen'}
-          aria-expanded={open}
+          className="md:hidden p-2 text-[#1E332E]"
+          aria-label="Menü öffnen"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             {open ? <path d="M18 6L6 18M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
@@ -59,18 +78,33 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="md:hidden bg-cream-100/97 backdrop-blur-md border-t border-yellow-600/15 px-5 py-3">
-          <ul className="flex flex-col">
-            {links.map((l) => (
-              <li key={l.to} className="border-b border-yellow-600/10 last:border-0">
-                <NavLink to={l.to} onClick={() => setOpen(false)} className={mobileLinkClass}>
-                  {l.label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+        <div className="md:hidden bg-[#F8F4EC]/95 backdrop-blur-md px-6 py-4 space-y-3 shadow-lg">
+          {links.map((l) => (
+            <NavLink
+              key={l.to}
+              to={l.to}
+              onClick={handleNavClick}
+              className="block font-semibold text-[#1E332E] py-1.5"
+            >
+              {l.label}
+            </NavLink>
+          ))}
+          <div className="pt-3 flex flex-col gap-2">
+            <button
+              onClick={() => { setOpen(false); onOpenModal?.(); }}
+              className="w-full py-2.5 rounded-full border border-[#1E332E] text-[#1E332E] font-semibold text-sm"
+            >
+              Reservieren
+            </button>
+            <button
+              onClick={() => { setOpen(false); onOpenModal?.(); }}
+              className="w-full py-2.5 rounded-full bg-[#EE6D52] text-white font-semibold text-sm"
+            >
+              Jetzt Anfragen
+            </button>
+          </div>
         </div>
       )}
-    </nav>
+    </header>
   )
 }

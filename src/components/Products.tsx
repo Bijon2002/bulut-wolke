@@ -1,103 +1,89 @@
 import { Link } from 'react-router-dom'
-import AosBox from './AosBox'
-import SectionHeading from './SectionHeading'
-import OrganicDivider from './OrganicDivider'
-import { products, categories, badgeColor } from '../data/products'
+import { products } from '../data/products'
 
-export default function Products({ nextColor = 'text-sky-100' }: { nextColor?: string }) {
+interface ProductsProps {
+  onOpenModal?: () => void
+}
+
+export default function Products({ onOpenModal }: ProductsProps) {
+  const highlights = products.filter((p) => p.highlight)
+
   return (
-    <section id="produkte" className="relative bg-cream-100 pt-16 md:pt-20">
-      <div className="max-w-6xl mx-auto px-5 pb-20 md:pb-28">
-        <SectionHeading
-          eyebrow="Frisch aus der Theke"
-          title="Unser Sortiment"
-          body="Jeden Tag bereiten wir unsere Spezialitäten mit den besten Zutaten frisch zu — handgemacht und mit Liebe."
-          className="mb-16"
-        />
+    <section className="relative py-16 overflow-hidden" id="process">
+      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8 items-center mb-16">
+        
+        {/* Left Info Card */}
+        <div className="bg-white/70 backdrop-blur-sm p-8 rounded-3xl border border-black/5 shadow-sm hover:shadow-md transition-shadow">
+          <div className="text-4xl font-heading font-extrabold text-[#D4AF37] mb-3">01</div>
+          <h4 className="font-heading text-xl font-bold text-[#1E332E] mb-3">
+            Erlesene Zutaten
+          </h4>
+          <p className="text-sm text-[#4A5D57] leading-relaxed">
+            Sonnengereifte Oliven, knackiges Gemüse und feine Kräuter – sorgfältig aus besten Anbaugebieten ausgewählt.
+          </p>
+        </div>
 
-        {categories.map((category) => {
-          const items = products.filter((p) => p.category === category)
-          if (items.length === 0) return null
-
-          return (
-            <div key={category} className="mb-16 last:mb-0">
-              <div className="flex items-center gap-4 mb-8">
-                <h3 className="font-display text-2xl md:text-3xl text-olive-800 font-bold whitespace-nowrap">
-                  {category}
-                </h3>
-                <span className="h-px flex-1 bg-yellow-600/30" aria-hidden />
-                <span className="text-xs text-olive-600 font-semibold whitespace-nowrap">
-                  {items.length} {items.length === 1 ? 'Produkt' : 'Produkte'}
-                </span>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-                {items.map((p, i) => (
-                  <AosBox key={p.name} animation="fade-up" delay={i * 90} className="h-full">
-                    <article className="group h-full flex flex-col rounded-[1.75rem] overflow-hidden bg-cream-50 border border-olive-200/50 shadow-sm hover:shadow-md hover:-translate-y-1.5 hover:border-yellow-500/50 transition-all duration-300">
-                      <div className="relative w-full aspect-[3/2] overflow-hidden bg-cream-200">
-                        <img
-                          src={p.image}
-                          alt={p.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          loading="lazy"
-                        />
-                        <span
-                          className={`absolute top-3 left-3 text-xs font-semibold px-3 py-1 rounded-full border ${
-                            badgeColor[p.badge] || 'bg-cream-200 text-olive-700 border-olive-200'
-                          }`}
-                        >
-                          {p.badge}
-                        </span>
-                      </div>
-                      <div className="p-6 flex-1">
-                        <h4 className="font-display text-xl text-olive-800 font-bold mb-2">{p.name}</h4>
-                        <p className="text-sm text-olive-700/85 leading-relaxed">{p.description}</p>
-                      </div>
-                    </article>
-                  </AosBox>
-                ))}
-              </div>
-            </div>
-          )
-        })}
-
-        {/* Party platters / catering — own block with inquiry CTA */}
-        <AosBox animation="fade-up" className="mt-20">
-          <div className="relative overflow-hidden rounded-[2rem] bg-sky-100 border border-sky-200/70 px-8 py-12 md:px-14 md:py-14">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -top-16 -right-12 w-72 h-72 bg-yellow-100/50"
-              style={{ borderRadius: '58% 42% 47% 53% / 44% 39% 61% 56%' }}
-            />
-            <div className="relative z-10 grid md:grid-cols-[1fr_auto] gap-8 items-center">
-              <div>
-                <p className="text-xs uppercase tracking-[0.22em] text-olive-600 font-semibold mb-3">
-                  Partyplatten &amp; Catering
-                </p>
-                <h3 className="font-display text-2xl md:text-4xl text-olive-800 font-bold mb-4 leading-tight">
-                  Feiern Sie mit uns
-                </h3>
-                <p className="text-olive-700/90 leading-relaxed max-w-lg">
-                  Ob Geburtstag, Firmenfeier oder Familienfest — wir stellen Ihnen Partyplatten
-                  nach Wunsch zusammen. Sprechen Sie uns an, wir beraten Sie gerne persönlich.
-                </p>
-              </div>
-              <Link
-                to="/kontakt"
-                className="inline-flex items-center justify-center gap-2 whitespace-nowrap px-8 py-3.5 bg-yellow-600 text-white rounded-full text-sm font-semibold hover:bg-yellow-700 transition active:scale-[0.97] motion-safe:duration-200 shadow-sm shrink-0"
-              >
-                Jetzt anfragen
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                  <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </Link>
-            </div>
+        {/* Center Dish Plate */}
+        <div className="text-center group cursor-pointer" onClick={onOpenModal}>
+          <img
+            src="/assets/feinkost_bottom_plate.png"
+            alt="Bulut & Wolke Feinkost Platte"
+            className="w-full max-w-xs mx-auto rounded-full shadow-2xl transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="mt-4 text-xs font-bold tracking-[2px] text-[#B88E28]">
+            HAUSSPEZIALITÄT SELEKTION
           </div>
-        </AosBox>
+        </div>
+
+        {/* Right Info Card */}
+        <div className="bg-white/70 backdrop-blur-sm p-8 rounded-3xl border border-black/5 shadow-sm hover:shadow-md transition-shadow">
+          <div className="text-4xl font-heading font-extrabold text-[#D4AF37] mb-3">02</div>
+          <h4 className="font-heading text-xl font-bold text-[#1E332E] mb-3">
+            Handgemachte Qualität
+          </h4>
+          <p className="text-sm text-[#4A5D57] leading-relaxed">
+            Täglich frisch nach traditionellen Familienrezepten in unserer Manufaktur hergestellt – ganz ohne Konservierungsstoffe.
+          </p>
+        </div>
+
       </div>
 
-      <OrganicDivider color={nextColor} variant={2} />
+      {/* Featured Products Grid */}
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-10">
+          <span className="font-script text-lg text-[#B88E28]">Unsere Beliebtesten Spezialitäten</span>
+          <h3 className="font-heading text-3xl font-bold text-[#1E332E] mt-1">Frisch aus der Theke</h3>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {highlights.map((p, idx) => (
+            <div
+              key={idx}
+              className="bg-white/80 backdrop-blur-sm rounded-3xl p-5 border border-black/5 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col justify-between"
+            >
+              <div>
+                <span className="inline-block text-[10px] font-bold tracking-wider px-3 py-1 rounded-full bg-[#FEF9EC] text-[#B88E28] border border-[#F7E08B] mb-3">
+                  {p.badge}
+                </span>
+                <h4 className="font-heading text-lg font-bold text-[#1E332E] mb-2">{p.name}</h4>
+                <p className="text-xs text-[#4A5D57] leading-relaxed mb-4">{p.description}</p>
+              </div>
+              <button
+                onClick={onOpenModal}
+                className="w-full py-2 rounded-full border border-[#1E332E] text-[#1E332E] text-xs font-semibold hover:bg-[#EE6D52] hover:text-white hover:border-[#EE6D52] transition-colors"
+              >
+                Anfragen
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center mt-10">
+          <Link to="/spezialitaeten" className="btn-pill-orange text-xs py-3 px-8">
+            <span>Alle Spezialitäten Ansehen</span>
+          </Link>
+        </div>
+      </div>
     </section>
   )
 }

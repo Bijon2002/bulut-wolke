@@ -11,7 +11,7 @@ interface PageHeroProps {
 
 export default function PageHero({ eyebrow, title, nextColor = 'text-cream-100' }: PageHeroProps) {
   return (
-    <section className="relative bg-sky-50 pt-16 overflow-hidden">
+    <section className="relative bg-transparent pt-16 overflow-hidden">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div
           className="absolute -top-28 -right-20 w-[32rem] h-[32rem] bg-sky-100/70"

@@ -1,102 +1,74 @@
 import { Link } from 'react-router-dom'
-import RevealText from './RevealText'
-import OrganicDivider from './OrganicDivider'
 
-export default function Hero({ nextColor = 'text-cream-100' }: { nextColor?: string }) {
+interface HeroProps {
+  onOpenModal?: () => void
+}
+
+export default function Hero({ onOpenModal }: HeroProps) {
   return (
-    <section className="relative overflow-hidden bg-sky-50 pt-16">
-      {/* Soft cloud / sky shapes — decorative, references "Wolke" in the brand name */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div
-          className="absolute -top-32 -right-24 w-[38rem] h-[38rem] bg-sky-100/70"
-          style={{ borderRadius: '58% 42% 47% 53% / 44% 39% 61% 56%' }}
-        />
-        <div
-          className="absolute top-1/3 -left-40 w-[30rem] h-[30rem] bg-cream-50/80"
-          style={{ borderRadius: '63% 37% 54% 46% / 55% 48% 52% 45%' }}
-        />
-        <div
-          className="absolute bottom-24 right-1/4 w-72 h-72 bg-yellow-100/40"
-          style={{ borderRadius: '47% 53% 63% 37% / 51% 60% 40% 49%' }}
-        />
+    <section className="relative pt-20 md:pt-28 pb-20 overflow-hidden" id="hero">
+      {/* Circular Watermark Stamp Badge - Positioned in top right corner to prevent overlaps */}
+      <div className="stamp-badge hidden md:block">
+        <svg viewBox="0 0 100 100" className="stamp-svg w-full h-full">
+          <path id="textPath" d="M 50, 50 m -36, 0 a 36,36 0 1,1 72,0 a 36,36 0 1,1 -72,0" fill="none" />
+          <text font-size="8.5" letter-spacing="1.7" fill="#1E332E" font-family="Plus Jakarta Sans" font-weight="600">
+            <textPath href="#textPath">• BULUT & WOLKE • FEINKOST SELEKTION</textPath>
+          </text>
+        </svg>
+        <div className="stamp-inner">
+          <span>SEIT</span>
+          <strong>1994</strong>
+        </div>
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-5">
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center md:min-h-[calc(100vh-4rem)] py-8 md:py-12">
-          {/* ── Copy ── */}
-          <div className="order-2 md:order-1">
-            <p className="text-xs uppercase tracking-[0.22em] text-olive-600 font-semibold mb-5">
-              Feinkost aus dem Rhein-Sieg-Kreis
-            </p>
-
-            <RevealText
-              as="h1"
-              className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.03] tracking-tight text-olive-800 font-bold mb-6"
-              lines={[
-                'Frische',
-                <span className="text-yellow-600">Delikatessen</span>,
-                'mit Tradition',
-              ]}
-              stagger={110}
-              delay={80}
-            />
-
-            {/* Gold divider with olive-leaf accent */}
-            <div className="flex items-center gap-3 mb-6" aria-hidden>
-              <span className="h-px w-16 bg-yellow-600/50" />
-              <svg width="38" height="20" viewBox="0 0 38 20" fill="none" className="text-olive-500 shrink-0">
-                <path d="M2 15C10 15 22 12 36 5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-                <ellipse cx="11" cy="10.5" rx="4.6" ry="2.5" fill="currentColor" opacity=".5" transform="rotate(-26 11 10.5)" />
-                <ellipse cx="21" cy="8" rx="4.6" ry="2.5" fill="currentColor" opacity=".7" transform="rotate(-22 21 8)" />
-                <ellipse cx="30" cy="5" rx="4.2" ry="2.3" fill="currentColor" opacity=".9" transform="rotate(-20 30 5)" />
-              </svg>
-              <span className="h-px w-8 bg-yellow-600/30" />
-            </div>
-
-            <p className="text-base md:text-lg text-olive-700/90 leading-relaxed max-w-md mb-7 md:mb-9">
-              Handgemachte Antipasti, Oliven und mediterrane Spezialitäten — täglich
-              frisch zubereitet von unserer Familie für Ihre.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3.5">
-              <Link
-                to="/spezialitaeten"
-                className="inline-flex items-center justify-center whitespace-nowrap px-8 py-3.5 bg-yellow-600 text-white rounded-full text-sm font-semibold hover:bg-yellow-700 transition active:scale-[0.97] motion-safe:duration-200 shadow-sm"
-              >
-                Unsere Spezialitäten
-              </Link>
-              <Link
-                to="/standorte"
-                className="inline-flex items-center justify-center whitespace-nowrap px-8 py-3.5 border border-olive-600/35 text-olive-700 rounded-full text-sm font-semibold hover:bg-olive-600 hover:text-white hover:border-olive-600 transition active:scale-[0.97] motion-safe:duration-200"
-              >
-                Standorte finden
-              </Link>
-            </div>
+      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+        {/* Hero Left Text Column */}
+        <div className="hero-text-col md:pl-12 pt-6 md:pt-10 z-10">
+          <div className="inline-block text-[11px] font-bold tracking-[2.5px] text-[#B88E28] mb-4 bg-white/60 backdrop-blur-xs px-3 py-1 rounded-full border-0">
+            FEINKOST AUS DEM RHEIN-SIEG-KREIS
           </div>
+          
+          <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.05] text-[#1E332E] mb-6 drop-shadow-xs">
+            Bulut &amp; Wolke<br />
+            <span className="font-normal italic text-[#2A4742]">Feinkost</span>
+          </h1>
 
-          {/* ── Organic photo ── */}
-          <div className="order-1 md:order-2 relative flex justify-center md:justify-end">
-            <div className="relative w-full max-w-[16rem] sm:max-w-xs md:max-w-md aspect-square">
-              {/* offset accent blob behind the photo */}
-              <div
-                aria-hidden
-                className="absolute inset-0 translate-x-4 translate-y-5 bg-yellow-300/35"
-                style={{ borderRadius: '54% 46% 38% 62% / 49% 57% 43% 51%' }}
-              />
-              <img
-                src="/products/feinkost_theke_hero.jpg"
-                alt="Frische Feinkost in der Theke von Bulut &amp; Wolke"
-                width={900}
-                height={900}
-                className="relative w-full h-full object-cover shadow-lg"
-                style={{ borderRadius: '54% 46% 38% 62% / 49% 57% 43% 51%' }}
-              />
+          <p className="text-base text-[#4A5D57] max-w-md mb-8 leading-relaxed font-medium">
+            Frische, handgemachte mediterrane und türkische Delikatessen. Von marinierten Oliven über cremige Dips bis hin zu gegrillten Antipasti – mit Liebe und feinsten Zutaten zubereitet.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="hero-cta flex flex-wrap gap-4 items-center">
+            <Link to="/spezialitaeten" className="btn-pill-orange">
+              <span>Spezialitäten Entdecken</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
+            <button
+              onClick={onOpenModal}
+              className="px-6 py-3.5 rounded-full border-1.5 border-[#1E332E] text-[#1E332E] font-semibold text-sm hover:border-[#EE6D52] hover:text-[#EE6D52] transition-all bg-white/40 backdrop-blur-xs"
+            >
+              Anfrage Stellen
+            </button>
+          </div>
+        </div>
+
+        {/* Hero Right Dish Image */}
+        <div className="hero-media-col relative flex justify-center">
+          <div className="relative max-w-md group">
+            <img
+              src="/assets/feinkost_hero_plate.png"
+              alt="Bulut &amp; Wolke Feinkost Spezialität"
+              className="w-full rounded-full shadow-2xl transition-transform duration-700 group-hover:scale-105 group-hover:rotate-2"
+            />
+            <div className="absolute top-4 right-2 w-20 h-20 rounded-full border-2 border-dashed border-[#D4AF37]/80 bg-white/90 backdrop-blur-sm flex flex-col items-center justify-center text-[#1E332E] text-[9px] font-bold shadow-md">
+              <span>BULUT &amp; WOLKE</span>
+              <small className="text-[7px] text-[#B88E28]">PREMIUM SELEKTION</small>
             </div>
           </div>
         </div>
       </div>
-
-      <OrganicDivider color={nextColor} variant={1} />
     </section>
   )
 }
