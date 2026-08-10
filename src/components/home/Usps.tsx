@@ -60,7 +60,7 @@ export default function Usps() {
             <AosBox key={u.title} animation="fade-up" delay={i * 120} className="h-full">
               <div className="usp-card h-full text-center px-6 py-8 rounded-[1.75rem] bg-cream-50 border border-olive-200/50 shadow-sm transition-shadow hover:shadow-md cursor-default">
                 <div className="usp-icon w-14 h-14 rounded-full bg-yellow-100 border border-yellow-300/70 inline-flex items-center justify-center mb-4 transition-transform">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-yellow-700">
+                  <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-yellow-700">
                     {u.icon}
                   </svg>
                 </div>

@@ -19,10 +19,15 @@ export default function HomePage({ onOpenModal }: HomePageProps) {
   return (
     <>
       <Hero onOpenModal={onOpenModal} />
-      <Usps />
+      {/* Alternating surfaces give the page rhythm: cream / soft light blue */}
+      <div className="surface-sky-soft">
+        <Usps />
+      </div>
       <About onOpenModal={onOpenModal} />
       <Products onOpenModal={onOpenModal} />
-      <LocationsTeaser />
+      <div className="surface-sky-soft">
+        <LocationsTeaser />
+      </div>
       <HomeCta />
     </>
   )

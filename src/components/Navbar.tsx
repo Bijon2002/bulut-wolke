@@ -22,12 +22,12 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-[#F8F4EC]/90 backdrop-blur-md border-b border-black/5 shadow-xs py-3.5 transition-all">
+    <header className="sticky top-0 z-50 bg-[#FBF9F2]/90 backdrop-blur-md border-b border-black/5 shadow-xs py-3.5 transition-all">
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
         <NavLink to="/" onClick={handleNavClick} className="flex items-center shrink-0">
           <img
             src="/logo.png"
-            alt="Bulut &amp; Wolke Feinkost"
+            alt="Bulut & Wolke Feinkost"
             width={720}
             height={284}
             className="h-10 md:h-11 w-auto hover:opacity-90 transition-opacity"
@@ -42,7 +42,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
               onClick={handleNavClick}
               className={({ isActive }) =>
                 `text-sm font-semibold transition-colors ${
-                  isActive ? 'text-[#EE6D52]' : 'text-[#1E332E] hover:text-[#EE6D52]'
+                  isActive ? 'text-[#5A6B2F]' : 'text-[#39482A] hover:text-[#5A6B2F]'
                 }`
               }
             >
@@ -54,13 +54,13 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
         <div className="hidden md:flex items-center gap-3">
           <button
             onClick={onOpenModal}
-            className="px-5 py-2 rounded-full border-1.5 border-[#1E332E] text-[#1E332E] font-semibold text-sm hover:border-[#EE6D52] hover:text-[#EE6D52] transition-colors"
+            className="px-5 py-2 rounded-full border-1.5 border-[#39482A] text-[#39482A] font-semibold text-sm hover:border-[#5A6B2F] hover:text-[#5A6B2F] transition-colors"
           >
             Reservieren
           </button>
           <button
             onClick={onOpenModal}
-            className="px-6 py-2 rounded-full bg-[#EE6D52] text-white font-semibold text-sm shadow-md hover:bg-[#E2583C] hover:-translate-y-0.5 transition-all"
+            className="px-6 py-2 rounded-full bg-[#5A6B2F] text-white font-semibold text-sm shadow-md hover:bg-[#39482A] hover:-translate-y-0.5 transition-all"
           >
             Jetzt Anfragen
           </button>
@@ -68,17 +68,17 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
 
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden p-2 text-[#1E332E] min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg hover:bg-black/5 active:scale-95 transition-all"
+          className="md:hidden p-2 text-[#39482A] min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg hover:bg-black/5 active:scale-95 transition-all"
           aria-label="Menü öffnen"
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             {open ? <path d="M18 6L6 18M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
           </svg>
         </button>
       </div>
 
       {open && (
-        <div className="md:hidden bg-[#F8F4EC]/98 backdrop-blur-xl px-5 py-4 space-y-2.5 border-b border-black/5 shadow-xl animate-in fade-in slide-in-from-top-2 duration-300">
+        <div className="md:hidden bg-[#FBF9F2]/98 backdrop-blur-xl px-5 py-4 space-y-2.5 border-b border-black/5 shadow-xl animate-in fade-in slide-in-from-top-2 duration-300">
           {links.map((l) => (
             <NavLink
               key={l.to}
@@ -86,7 +86,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
               onClick={handleNavClick}
               className={({ isActive }) =>
                 `block font-semibold text-sm py-2.5 px-3 rounded-xl transition-colors ${
-                  isActive ? 'bg-[#EE6D52] text-white shadow-xs' : 'text-[#1E332E] hover:bg-black/5'
+                  isActive ? 'bg-[#5A6B2F] text-white shadow-xs' : 'text-[#39482A] hover:bg-black/5'
                 }`
               }
             >
@@ -96,13 +96,13 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
           <div className="pt-2 flex flex-col gap-2">
             <button
               onClick={() => { setOpen(false); onOpenModal?.(); }}
-              className="w-full py-3 rounded-full border-1.5 border-[#1E332E] text-[#1E332E] font-semibold text-xs active:scale-98 transition-all"
+              className="w-full py-3 rounded-full border-1.5 border-[#39482A] text-[#39482A] font-semibold text-xs active:scale-98 transition-all"
             >
               Reservieren
             </button>
             <button
               onClick={() => { setOpen(false); onOpenModal?.(); }}
-              className="w-full py-3 rounded-full bg-[#EE6D52] text-white font-semibold text-xs shadow-md active:scale-98 transition-all"
+              className="w-full py-3 rounded-full bg-[#5A6B2F] text-white font-semibold text-xs shadow-md active:scale-98 transition-all"
             >
               Jetzt Anfragen
             </button>

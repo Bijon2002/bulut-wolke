@@ -26,20 +26,38 @@ export default function App() {
   const [modalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
-    AOS.init({
-      duration: 800,
-      easing: 'ease-out-cubic',
-      once: false,
-      offset: 80,
-    })
+    // Animation is a bonus, never a requirement: users who ask for reduced
+    // motion get the fully rendered page with no reveal animation at all.
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+
+    if (prefersReducedMotion) {
+      document.documentElement.classList.add('no-reveal')
+      return
+    }
+
+    try {
+      AOS.init({
+        duration: 800,
+        easing: 'ease-out-cubic',
+        once: false,
+        offset: 80,
+      })
+    } catch {
+      // If the animation library fails for any reason, show everything
+      // rather than leaving the page blank.
+      document.documentElement.classList.add('no-reveal')
+    }
   }, [])
 
   return (
     <div className="page-canvas font-body min-h-screen flex flex-col justify-between">
       <ScrollToTopOnRoute />
+      <a href="#inhalt" className="skip-link">
+        Zum Inhalt springen
+      </a>
       <Navbar onOpenModal={() => setModalOpen(true)} />
 
-      <main className="flex-1">
+      <main id="inhalt" className="flex-1">
         <Routes>
           <Route path="/" element={<HomePage onOpenModal={() => setModalOpen(true)} />} />
           <Route path="/spezialitaeten" element={<SpezialitaetenPage onOpenModal={() => setModalOpen(true)} />} />
@@ -58,18 +76,18 @@ export default function App() {
         <div className="modal-card">
           <button className="modal-close" onClick={() => setModalOpen(false)}>&times;</button>
           <div className="modal-body">
-            <img src="/assets/feinkost_hero_plate.png" alt="Bulut &amp; Wolke Spezialität" className="w-36 h-36 object-cover rounded-full shadow-lg" />
+            <img src="/assets/feinkost_hero_plate.png" alt="Bulut & Wolke Spezialität" className="w-36 h-36 object-cover rounded-full shadow-lg" />
             <div className="modal-details">
-              <span className="inline-block text-[11px] font-bold tracking-[2.5px] text-[#D4AF37] mb-1">
-                BULUT &amp; WOLKE SELEKTION
+              <span className="inline-block text-[11px] font-bold tracking-[2.5px] text-[#C9A227] mb-1">
+                BULUT & WOLKE SELEKTION
               </span>
-              <h3 className="font-heading text-xl font-bold text-white mb-2">
+              <h3 className="font-heading text-xl font-bold text-[#39482A] mb-2">
                 Feinkost Genuss-Set
               </h3>
-              <p className="text-xs text-white/80 leading-relaxed mb-3">
+              <p className="text-xs text-[#4F5E48] leading-relaxed mb-3">
                 Handgemachte marinierte Oliven, gefüllte Weinblätter, Antipasti und cremiger Hummus mit nativem Olivenöl.
               </p>
-              <div className="modal-price text-lg font-bold text-[#EE6D52] mb-3">Auf Anfrage</div>
+              <div className="modal-price text-lg font-bold text-[#C9A227] mb-3">Auf Anfrage</div>
               <button
                 onClick={() => {
                   alert('Vielen Dank! Ihre Anfrage für Bulut & Wolke Feinkost wurde versendet.')

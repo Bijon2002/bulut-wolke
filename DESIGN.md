@@ -1,34 +1,36 @@
 # Design Direction — Bulut & Wolke Feinkost
 
-**Project:** WECONN3CT Brief 01 · August 2026  
-**Designer:** Bijon 
+**Project:** WECONN3CT Brief 01 · Revision 2 · August 2026
+**Designer:** Bijon
 
 ---
 
 ## Direction
 
-The name itself shaped everything. *Bulut* is cloud in Turkish; *Wolke* is cloud in German — a bilingual family identity expressed in one word. The brief asked for a site with its own character, not a Kaya Feinkost clone, and that duality gave a clear starting point: a dark, atmospheric ground with a cool blue-slate accent — the colour of sky near clouds — rather than the warm terracotta and cream that dominate the Feinkost category.
+The name shaped everything. *Bulut* is cloud in Turkish; *Wolke* is cloud in German — a bilingual family identity carried in a single word. The first draft read that as atmosphere and went dark. Revision 2 of the briefing corrected the course: the site should feel like standing in front of a deli counter in daylight, not like a tech product. The current design keeps the cloud idea but expresses it as *light* — bright, warm, Mediterranean, with air around everything.
 
-The target audience is local customers aged 30–70. That ruled out a purely minimalist or brutalist approach — the site needed warmth and legibility alongside the atmosphere. The solution was depth over flatness: dark stone-toned backgrounds with translucent card layers and backdrop blur, so the content feels grounded and premium without being cold.
+The audience is local customers aged 30–70, most of them arriving on a phone to check opening hours or find a market stall. That argues for high contrast, generous type, and structure that is obvious at a glance rather than clever.
 
-**Palette.** Near-black stone (`#0c0a09`) as the canvas. A cool blue-slate (`#5a8fa3`, branded as `cloud`) for accents, active states, and section eyebrows — it reads as the sky, which connects directly to the name. Supporting neutrals are stone-biased greys (not pure grey), keeping warmth in the text even on a dark ground.
+**Palette.** A cream-white canvas (`#FBF9F2`) carries the page. Yellow (`#E5B93C`) and gold (`#C9A227`) come straight from the client's logo and mark prices, eyebrows, and small accents. Olive green (`#5A6B2F`) handles everything interactive — buttons, links, active navigation — and dark green (`#39482A`) does the heavy text work, giving roughly 9:1 contrast on cream. Soft light blue (`#DCEBF5`) is the cloud: it appears as an alternating section surface and behind the location maps, so the brand name is visible in the layout without ever being said out loud. There is no black background and no navy anywhere on the site.
 
-**Typography.** Display headings use a serif with tight tracking (`font-display`) to signal craft and longevity — the feel of a label on a handmade jar. Body and UI copy uses a clean sans-serif for legibility at small sizes. The contrast between the two avoids the all-sans flatness that dominates generic food-brand sites.
+**Typography.** Playfair Display for headings — a serif reads as craft and longevity, the feel of a hand-labelled jar — set in dark green on light rather than white on dark. Plus Jakarta Sans for body and UI, in a softened olive-ink (`#4F5E48`) instead of pure black.
 
-**Layout.** The hero is a scroll-pinned full-screen sequence: four phases of copy dissolve in and out as the user scrolls, timed to a background video of food preparation. This slows the visitor down and sets an unhurried, artisanal tone before they reach the product grid. Everything else is structured as floating glass cards — consistent rounded radius, subtle border, backdrop blur — which creates hierarchy without heavy dividers.
+**Layout.** Five real pages with their own URLs (`/`, `/spezialitaeten`, `/ueber-uns`, `/standorte`, `/kontakt`) plus Impressum and Datenschutz, rather than anchor jumps on one long page. Every page opens with its own hero built on the same organic shapes — rounded plates, torn dividers, cloud forms — so the pages feel like one site without repeating a template. Sections alternate between cream and soft light blue, and image/text sides alternate, so scrolling has rhythm instead of one uniform wall.
 
-**Motion.** Scroll-triggered AOS reveals on all sections (fade-up, slide-in) keep the page feeling alive on first load without looping animations that would distract in a deli context.
+**Motion.** Reveal animations are decoration, never structure. Everything is fully readable with animation disabled, and anyone with `prefers-reduced-motion` set gets the page with no reveal at all. The animated particle canvas from the first draft is gone — it read as technical, not culinary.
+
+**Maps.** Both market locations embed OpenStreetMap rather than Google Maps. Google's embed sets cookies and transfers data to the US on load, which needs a consent banner under GDPR; OpenStreetMap avoids that entirely on a German site. If the client prefers Google, it should sit behind a click-to-load consent gate.
 
 ---
 
 ## Uncertainties for the client
 
-1. **Contact form backend.** Currently, the form validates client-side but does not send data anywhere. A form service (Formspree, Netlify Forms, or a simple email endpoint) needs to be chosen and integrated before launch.
+1. **Contact form backend.** The form validates client-side but sends nothing. A service (Formspree, Netlify Forms, or a small mail endpoint) needs to be chosen before launch.
 
-2. **Real addresses and phone numbers.** Placeholder contact details (Kaiserstraße 42, Siegburg and Marktplatz 8, Sankt Augustin) are used. The client must confirm exact addresses, opening hours, and phone numbers for both locations.
+2. **Real addresses, coordinates and hours.** The market locations, times and map pins are placeholders and are approximate. The client must confirm exact stall positions, market days and phone numbers.
 
-3. **Product photography.** Stock images are used throughout. Real product photos from the deli counter would significantly strengthen the site — especially for the hero video and the About section image.
+3. **Product and family photography.** Everything is stock. The briefing asks for large, warm food photography as the primary design element — real counter and family photos would lift the site more than any further design work.
 
-4. **Impressum and Datenschutz.** German law requires an Imprint (Impressum) and Privacy Policy. These pages are linked in the footer but not yet written. The client or their legal advisor needs to provide the content.
+4. **Impressum and Datenschutz.** The pages and footer links exist as required; the legal content still has to be supplied by the client or their advisor.
 
-5. **Dark-only design.** The current design commits to a dark visual world. If the client prefers a light version for a warmer, more approachable feel for the older end of the 30–70 age range, the palette and card system can be adapted — but this would be a meaningful redesign, not a quick toggle.
+5. **Copy.** Per the Revision 2 scope, the German text was left as-is this round and still needs a final pass.

@@ -32,7 +32,7 @@ export default function AboutTeaser() {
             <SectionHeading
               align="left"
               eyebrow="Über uns"
-              title={['Zwei Sprachen,', <span className="text-yellow-600">eine Leidenschaft</span>]}
+              title={['Zwei Sprachen,', <span key="accent" className="text-yellow-600">eine Leidenschaft</span>]}
             />
             <p className="text-olive-700/90 leading-relaxed mb-8">
               <em className="font-display text-olive-800 not-italic font-semibold">Bulut</em> bedeutet

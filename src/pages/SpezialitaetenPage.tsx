@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import AOS from 'aos'
-import { products, categories, type Category } from '../data/products'
+import { products, categories } from '../data/products'
 
 interface PageProps {
   onOpenModal?: () => void
@@ -38,13 +38,13 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
     <div className="py-12 md:py-16 px-6 max-w-6xl mx-auto space-y-16">
       {/* Hero Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3" data-aos="fade-up">
-        <span className="font-script text-xl text-[#B88E28] block">
+        <span className="font-script text-xl text-[#C9A227] block">
           Aus Unserer Manufaktur
         </span>
-        <h1 className="font-heading text-4xl sm:text-5xl font-bold text-[#1E332E] tracking-tight">
-          Spezialitäten &amp; Feinkost
+        <h1 className="font-heading text-4xl sm:text-5xl font-bold text-[#39482A] tracking-tight">
+          Spezialitäten & Feinkost
         </h1>
-        <p className="text-[#4A5D57] text-sm md:text-base leading-relaxed">
+        <p className="text-[#4F5E48] text-sm md:text-base leading-relaxed">
           Täglich frisch zubereitet mit kaltgepresstem Olivenöl, feinen Kräutern und tradtionellen Familienrezepten.
         </p>
       </div>
@@ -61,8 +61,8 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
             onClick={() => setSelectedCategory(cat)}
             className={`px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 ${
               selectedCategory === cat
-                ? 'bg-[#1E332E] text-white shadow-sm scale-105'
-                : 'bg-white/80 text-[#4A5D57] border border-black/5 hover:border-[#B88E28] hover:text-[#1E332E]'
+                ? 'bg-[#39482A] text-white shadow-sm scale-105'
+                : 'bg-white/80 text-[#4F5E48] border border-black/5 hover:border-[#C9A227] hover:text-[#39482A]'
             }`}
           >
             {cat}
@@ -90,25 +90,25 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
               </div>
 
               <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#B88E28]">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#C9A227]">
                   {item.category}
                 </span>
-                <span className="food-badge text-[10px] font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#FEF9EC] text-[#B88E28] border border-[#F7E08B]">
+                <span className="food-badge text-[10px] font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#FEF9EC] text-[#C9A227] border border-[#F7E08B]">
                   {item.badge}
                 </span>
               </div>
 
-              <h3 className="font-heading text-xl font-bold text-[#1E332E] mb-1.5">
+              <h3 className="font-heading text-xl font-bold text-[#39482A] mb-1.5">
                 {item.name}
               </h3>
-              <p className="text-xs text-[#4A5D57] leading-relaxed mb-5">
+              <p className="text-xs text-[#4F5E48] leading-relaxed mb-5">
                 {item.description}
               </p>
             </div>
 
             <div className="pt-3 border-t border-black/5 space-y-2.5">
-              <div className="flex items-center gap-1.5 text-[11px] font-semibold text-[#2A4742]">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-[#B88E28]">
+              <div className="flex items-center gap-1.5 text-[11px] font-semibold text-[#39482A]">
+                <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-[#C9A227]">
                   <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 100% Manufaktur-Qualität
@@ -126,18 +126,18 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
 
       {/* Interactive Party Platter Configurator Section */}
       <div
-        className="bg-gradient-to-br from-[#FEF9EC] to-[#F8F4EC] rounded-3xl p-6 md:p-10 border border-[#F7E08B]/60 shadow-lg space-y-6"
+        className="bg-gradient-to-br from-[#FEF9EC] to-[#FBF9F2] rounded-3xl p-6 md:p-10 border border-[#F7E08B]/60 shadow-lg space-y-6"
         data-aos="fade-up"
       >
         <div className="text-center max-w-xl mx-auto space-y-2">
-          <span className="text-[11px] font-bold uppercase tracking-[2px] text-[#B88E28]">
+          <span className="text-[11px] font-bold uppercase tracking-[2px] text-[#C9A227]">
             PLATTEN CONFIGURATOR
           </span>
-          <h2 className="font-heading text-2xl md:text-3xl font-bold text-[#1E332E]">
+          <h2 className="font-heading text-2xl md:text-3xl font-bold text-[#39482A]">
             Stellen Sie Ihre Wunschplatte Zusammen
           </h2>
-          <p className="text-xs text-[#4A5D57]">
-            Wählen Sie Personenanzahl und Ihre Lieblings-Feinkost für Feiern &amp; Events.
+          <p className="text-xs text-[#4F5E48]">
+            Wählen Sie Personenanzahl und Ihre Lieblings-Feinkost für Feiern & Events.
           </p>
         </div>
 
@@ -145,18 +145,19 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
           {/* Guest Count Slider & Preset */}
           <div className="space-y-5">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#1E332E] mb-2">
-                Personenanzahl: <span className="text-base text-[#EE6D52] font-extrabold ml-1">{guestsCount} Personen</span>
+              <label htmlFor="platten-personen" className="block text-xs font-bold uppercase tracking-wider text-[#39482A] mb-2">
+                Personenanzahl: <span className="text-base text-[#5A6B2F] font-extrabold ml-1">{guestsCount} Personen</span>
               </label>
               <input
+                id="platten-personen"
                 type="range"
                 min={4}
                 max={30}
                 value={guestsCount}
                 onChange={(e) => setGuestsCount(parseInt(e.target.value))}
-                className="w-full accent-[#EE6D52] cursor-pointer"
+                className="w-full accent-[#5A6B2F] cursor-pointer"
               />
-              <div className="flex justify-between text-[11px] text-[#4A5D57] font-semibold mt-1">
+              <div className="flex justify-between text-[11px] text-[#4F5E48] font-semibold mt-1">
                 <span>4 (Klein)</span>
                 <span>12 (Mittel)</span>
                 <span>30+ (Event)</span>
@@ -165,7 +166,7 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
 
             {/* Feinkost Multi Select */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#1E332E] mb-2.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#39482A] mb-2.5">
                 Feinkost-Auswahl:
               </label>
               <div className="flex flex-wrap gap-2">
@@ -177,8 +178,8 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
                       onClick={() => toggleFeinkostSelection(p.name)}
                       className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${
                         isSelected
-                          ? 'bg-[#1E332E] text-white border-[#1E332E]'
-                          : 'bg-white text-[#4A5D57] border-black/10 hover:border-[#B88E28]'
+                          ? 'bg-[#39482A] text-white border-[#39482A]'
+                          : 'bg-white text-[#4F5E48] border-black/10 hover:border-[#C9A227]'
                       }`}
                     >
                       {isSelected ? '✓ ' : '+ '}
@@ -191,7 +192,7 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
           </div>
 
           {/* Live Platter Summary Card */}
-          <div className="bg-[#1E332E] text-white p-6 rounded-2xl shadow-md space-y-3">
+          <div className="bg-[#39482A] text-white p-6 rounded-2xl shadow-md space-y-3">
             <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
               <span className="text-[10px] font-bold tracking-widest uppercase text-[#F7E08B]">
                 EMPFOHLENE PLATTE
@@ -228,7 +229,7 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
             title: 'Traditionelle Rezepte',
             desc: 'Überlieferte Familienrezepturen seit Generationen.',
             icon: (
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 21s-7-4.35-7-9.5A4.5 4.5 0 0112 8a4.5 4.5 0 017 3.5c0 5.15-7 9.5-7 9.5z" strokeLinecap="round"/>
               </svg>
             ),
@@ -237,7 +238,7 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
             title: 'Täglich Frisch',
             desc: 'Morgens frisch in unserer Manufaktur zubereitet.',
             icon: (
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 3v1m0 16v1m-8.66-2.34l.71-.71m12.73-12.73l.71-.71M3 12h1m16 0h1M16 12a4 4 0 11-8 0 4 4 0 018 0z" strokeLinecap="round"/>
               </svg>
             ),
@@ -246,7 +247,7 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
             title: 'Reine Zutaten',
             desc: 'Ohne künstliche Konservierungsstoffe.',
             icon: (
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" strokeLinecap="round"/>
               </svg>
             ),
@@ -255,7 +256,7 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
             title: 'Regionale Märkte',
             desc: 'Auf den Wochenmärkten im Rhein-Sieg-Kreis.',
             icon: (
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" strokeLinecap="round"/>
               </svg>
             ),
@@ -267,11 +268,11 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
             data-aos="fade-up"
             data-aos-delay={i * 100}
           >
-            <div className="w-10 h-10 rounded-full bg-[#FEF9EC] border border-[#F7E08B] text-[#B88E28] flex items-center justify-center mx-auto">
+            <div className="w-10 h-10 rounded-full bg-[#FEF9EC] border border-[#F7E08B] text-[#C9A227] flex items-center justify-center mx-auto">
               {g.icon}
             </div>
-            <h4 className="font-heading text-base font-bold text-[#1E332E]">{g.title}</h4>
-            <p className="text-xs text-[#4A5D57] leading-relaxed">{g.desc}</p>
+            <h4 className="font-heading text-base font-bold text-[#39482A]">{g.title}</h4>
+            <p className="text-xs text-[#4F5E48] leading-relaxed">{g.desc}</p>
           </div>
         ))}
       </div>

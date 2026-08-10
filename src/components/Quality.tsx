@@ -41,7 +41,7 @@ export default function Quality({ nextColor = 'text-sky-100' }: { nextColor?: st
             <AosBox key={v.title} animation="fade-up" delay={i * 120} className="h-full">
               <div className="h-full text-center px-8 py-10 rounded-[1.75rem] bg-cream-50 border border-olive-200/50 shadow-sm hover:shadow-md hover:-translate-y-1.5 hover:border-yellow-500/50 transition-all duration-300">
                 <div className="w-14 h-14 rounded-full bg-yellow-100 border border-yellow-300/70 flex items-center justify-center mx-auto mb-5">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-yellow-700">
+                  <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-yellow-700">
                     {v.icon}
                   </svg>
                 </div>

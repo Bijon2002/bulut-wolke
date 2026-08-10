@@ -1,5 +1,5 @@
 import sharp from 'sharp'
-import { readdir, mkdir } from 'fs/promises'
+import { readdir } from 'fs/promises'
 import { join, extname } from 'path'
 
 const SRC = 'public/products'

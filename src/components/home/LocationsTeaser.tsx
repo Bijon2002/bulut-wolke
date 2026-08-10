@@ -23,7 +23,7 @@ export default function LocationsTeaser() {
               <div className="h-full rounded-[1.75rem] bg-cream-50 border border-olive-200/50 p-7 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 rounded-full bg-olive-100 border border-olive-300/70 flex items-center justify-center shrink-0">
-                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none" className="text-olive-600">
+                    <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 20 20" fill="none" className="text-olive-600">
                       <path d="M10 2C6.69 2 4 4.69 4 8c0 5.25 6 10 6 10s6-4.75 6-10c0-3.31-2.69-6-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z" fill="currentColor"/>
                     </svg>
                   </div>
@@ -41,7 +41,7 @@ export default function LocationsTeaser() {
             to="/standorte"
             className="inline-flex items-center gap-2 whitespace-nowrap px-8 py-3.5 border border-olive-600/35 text-olive-700 rounded-full text-sm font-semibold hover:bg-olive-600 hover:text-white hover:border-olive-600 transition active:scale-[0.97] motion-safe:duration-200"
           >
-            Öffnungszeiten &amp; Anfahrt
+            Öffnungszeiten & Anfahrt
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
