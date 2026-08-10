@@ -8,7 +8,7 @@ export default function About({ onOpenModal }: AboutProps) {
   return (
     <section className="relative py-20 overflow-hidden" id="about">
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-        
+
         {/* Left Column: Fork + Organic Blob Frame */}
         <div className="middle-left-col flex items-center gap-6 relative">
           <div className="w-16 shrink-0 hidden sm:block">

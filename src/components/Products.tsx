@@ -11,7 +11,7 @@ export default function Products({ onOpenModal }: ProductsProps) {
   return (
     <section className="relative py-16 overflow-hidden" id="process">
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8 items-center mb-16">
-        
+
         {/* Left Info Card */}
         <div className="bg-white/70 backdrop-blur-sm p-8 rounded-3xl border border-black/5 shadow-sm hover:shadow-md transition-shadow">
           <div className="text-4xl font-heading font-extrabold text-[#D4AF37] mb-3">01</div>
