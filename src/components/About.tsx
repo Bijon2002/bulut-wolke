@@ -1,31 +1,59 @@
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import gsap from 'gsap'
 
 interface AboutProps {
   onOpenModal?: () => void
 }
 
 export default function About({ onOpenModal }: AboutProps) {
+  const forkRef = useRef<HTMLImageElement>(null)
+  const miniBadgeRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (forkRef.current) {
+      gsap.to(forkRef.current, {
+        y: -10,
+        rotation: -4,
+        duration: 2.4,
+        repeat: -1,
+        yoyo: true,
+        ease: 'power1.inOut',
+      })
+    }
+    if (miniBadgeRef.current) {
+      gsap.to(miniBadgeRef.current, {
+        scale: 1.08,
+        duration: 1.8,
+        repeat: -1,
+        yoyo: true,
+        ease: 'power1.inOut',
+      })
+    }
+  }, [])
+
   return (
     <section className="relative py-20 overflow-hidden" id="about">
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
 
         {/* Left Column: Fork + Organic Blob Frame */}
-        <div className="middle-left-col flex items-center gap-6 relative">
+        <div className="middle-left-col flex items-center gap-6 relative" data-aos="fade-right" data-aos-duration="900">
           <div className="w-16 shrink-0 hidden sm:block">
             <img
+              ref={forkRef}
               src="/assets/gold_fork.png"
               alt="Gourmet Gabel"
               className="w-full filter drop-shadow-md"
             />
           </div>
-          <div className="relative flex-1">
+          <div className="relative flex-1 group cursor-pointer">
             <div className="organic-peach-blob"></div>
             <img
               src="/assets/feinkost_middle_blob.png"
               alt="Frische Feinkost Manufaktur"
-              className="relative z-10 rounded-3xl shadow-xl w-full"
+              className="relative z-10 rounded-3xl shadow-xl w-full transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:-translate-y-4 group-hover:scale-[1.03] group-hover:shadow-[0_20px_50px_rgba(30,51,46,0.2)]"
             />
-            <div className="mini-badge">
+            <div ref={miniBadgeRef} className="mini-badge">
               <span>FRISCH</span>
               <strong>100%</strong>
             </div>
@@ -33,7 +61,7 @@ export default function About({ onOpenModal }: AboutProps) {
         </div>
 
         {/* Right Column: Text */}
-        <div className="middle-right-col">
+        <div className="middle-right-col" data-aos="fade-left" data-aos-duration="900" data-aos-delay="200">
           <span className="font-script text-xl text-[#B88E28] block mb-2">
             Die Kunst Feiner Köstlichkeiten
           </span>
@@ -69,9 +97,9 @@ export default function About({ onOpenModal }: AboutProps) {
       </div>
 
       {/* Middle Center Title Banner */}
-      <div className="text-center mt-24 mb-6" id="selection">
+      <div className="text-center mt-24 mb-6" id="selection" data-aos="zoom-in" data-aos-delay="100">
         <h3 className="font-script text-3xl md:text-4xl font-bold text-[#1E332E] tracking-wider mb-2">
-          BULUT & WOLKE FEINKOST SELEKTION
+          BULUT &amp; WOLKE FEINKOST SELEKTION
         </h3>
         <p className="text-xs font-bold tracking-[2.5px] text-[#B88E28] uppercase">
           TÄGLICH FRISCH MIT HERZ UND UNVERWECHSELBARER TRADITION

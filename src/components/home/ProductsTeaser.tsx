@@ -20,16 +20,16 @@ export default function ProductsTeaser() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {highlights.map((p, i) => (
             <AosBox key={p.name} animation="fade-up" delay={i * 90} className="h-full">
-              <article className="group h-full flex flex-col rounded-[1.75rem] overflow-hidden bg-cream-50 border border-olive-200/50 shadow-sm hover:shadow-md hover:-translate-y-1.5 hover:border-yellow-500/50 transition-all duration-300">
+              <article className="food-card-pop group h-full flex flex-col rounded-[1.75rem] overflow-hidden bg-cream-50 border border-olive-200/50 shadow-sm">
                 <div className="relative w-full aspect-[3/2] overflow-hidden bg-cream-200">
                   <img
                     src={p.image}
                     alt={p.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover"
                     loading="lazy"
                   />
                   <span
-                    className={`absolute top-3 left-3 text-xs font-semibold px-3 py-1 rounded-full border ${
+                    className={`food-badge absolute top-3 left-3 text-xs font-semibold px-3 py-1 rounded-full border ${
                       badgeColor[p.badge] || 'bg-cream-200 text-olive-700 border-olive-200'
                     }`}
                   >

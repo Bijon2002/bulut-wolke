@@ -18,7 +18,13 @@ export default function AosBox({
 }: AosBoxProps) {
   const ref = useScrollReveal<HTMLDivElement>({ animation, delay, duration })
   return (
-    <div ref={ref} className={className}>
+    <div
+      ref={ref}
+      className={className}
+      data-aos={animation}
+      data-aos-delay={delay > 0 ? delay : undefined}
+      data-aos-duration={duration !== 700 ? duration : undefined}
+    >
       {children}
     </div>
   )

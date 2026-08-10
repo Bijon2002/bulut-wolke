@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
 import AosBox from '../AosBox'
 import OrganicDivider from '../OrganicDivider'
 
@@ -26,14 +28,33 @@ const usps = [
 ]
 
 export default function Usps() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const cards = containerRef.current.querySelectorAll('.usp-card')
+      cards.forEach((card) => {
+        const icon = card.querySelector('.usp-icon')
+        card.addEventListener('mouseenter', () => {
+          gsap.to(card, { y: -6, duration: 0.3, ease: 'power2.out' })
+          if (icon) gsap.to(icon, { scale: 1.15, rotate: 6, duration: 0.3, ease: 'back.out(1.7)' })
+        })
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, { y: 0, duration: 0.3, ease: 'power2.out' })
+          if (icon) gsap.to(icon, { scale: 1, rotate: 0, duration: 0.3, ease: 'power2.out' })
+        })
+      })
+    }
+  }, [])
+
   return (
     <section className="relative bg-cream-100 pt-16 md:pt-20">
       <div className="max-w-5xl mx-auto px-5 pb-16 md:pb-20">
-        <div className="grid sm:grid-cols-3 gap-7">
+        <div ref={containerRef} className="grid sm:grid-cols-3 gap-7">
           {usps.map((u, i) => (
-            <AosBox key={u.title} animation="fade-up" delay={i * 110} className="h-full">
-              <div className="h-full text-center px-6 py-8 rounded-[1.75rem] bg-cream-50 border border-olive-200/50 shadow-sm">
-                <div className="w-14 h-14 rounded-full bg-yellow-100 border border-yellow-300/70 inline-flex items-center justify-center mb-4">
+            <AosBox key={u.title} animation="fade-up" delay={i * 120} className="h-full">
+              <div className="usp-card h-full text-center px-6 py-8 rounded-[1.75rem] bg-cream-50 border border-olive-200/50 shadow-sm transition-shadow hover:shadow-md cursor-default">
+                <div className="usp-icon w-14 h-14 rounded-full bg-yellow-100 border border-yellow-300/70 inline-flex items-center justify-center mb-4 transition-transform">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-yellow-700">
                     {u.icon}
                   </svg>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
+import AOS from 'aos'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
@@ -15,6 +16,7 @@ function ScrollToTopOnRoute() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
+    AOS.refresh()
   }, [pathname])
 
   return null
@@ -22,6 +24,15 @@ function ScrollToTopOnRoute() {
 
 export default function App() {
   const [modalOpen, setModalOpen] = useState(false)
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out-cubic',
+      once: false,
+      offset: 80,
+    })
+  }, [])
 
   return (
     <div className="page-canvas font-body min-h-screen flex flex-col justify-between">

@@ -21,7 +21,7 @@ const contactRows = [
     label: 'Telefon',
     value: '+49 2241 123 456',
     icon: (
-      <path d="M15 12.5c-1.2 0-2.3-.4-3.2-.9l-1.8 1.8c-1.4-.9-2.5-2-3.2-3.2l1.8-1.8c-.5-.9-.9-2-.9-3.2A1.3 1.3 0 009 3.9H7A1.3 1.3 0 005.7 5.2C5.7 10.5 7.5 12.3 12.8 12.3A1.3 1.3 0 0014.1 11z" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M15 12.5c-1.2 0-2.3-.4-3.2-.9l-1.8 1.8c-1.4-.9-2.5-2-3.2-3.2l1.8-1.8c-.5-.9-.9-2-.9-3.2A1.3 1.3 0 009 3.9H7A1.3 1.3 0 005.7 5.2C5.7 10.5 7.5 12.3 12.8 12.3A1.3 1.3 0 0014.1 11z" stroke="currentColor" strokeWidth="1.5" />
     ),
   },
   {
@@ -29,8 +29,8 @@ const contactRows = [
     value: 'info@bulut-wolke.de',
     icon: (
       <>
-        <rect x="2" y="4" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.5"/>
-        <path d="M2 6l7 4 7-4" stroke="currentColor" strokeWidth="1.5"/>
+        <rect x="2" y="4" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M2 6l7 4 7-4" stroke="currentColor" strokeWidth="1.5" />
       </>
     ),
   },
@@ -39,8 +39,8 @@ const contactRows = [
     value: 'Mo–Sa: 9:00–19:00 Uhr',
     icon: (
       <>
-        <circle cx="9" cy="9" r="6.5" stroke="currentColor" strokeWidth="1.5"/>
-        <path d="M9 5v4l2.5 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <circle cx="9" cy="9" r="6.5" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M9 5v4l2.5 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
       </>
     ),
   },
@@ -78,10 +78,9 @@ export default function Contact({ nextColor = 'text-cream-200' }: { nextColor?: 
   }
 
   const inputClass = (field?: keyof FormErrors) =>
-    `w-full px-4 py-3 rounded-2xl border text-sm transition-all outline-none bg-cream-50 text-olive-800 placeholder-olive-400 ${
-      field && errors[field]
-        ? 'border-red-400 focus:border-red-500 bg-red-50'
-        : 'border-olive-200 focus:border-yellow-500 focus:bg-white'
+    `w-full px-4 py-3 rounded-2xl border text-sm transition-all outline-none bg-cream-50 text-olive-800 placeholder-olive-400 ${field && errors[field]
+      ? 'border-red-400 focus:border-red-500 bg-red-50'
+      : 'border-olive-200 focus:border-yellow-500 focus:bg-white'
     }`
 
   return (
@@ -119,7 +118,7 @@ export default function Contact({ nextColor = 'text-cream-200' }: { nextColor?: 
                 <div className="py-10 text-center">
                   <div className="w-14 h-14 rounded-full bg-olive-100 border border-olive-300/70 flex items-center justify-center mx-auto mb-4">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-olive-600">
-                      <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>
                   <h3 className="font-display text-2xl text-olive-800 font-bold mb-2">Vielen Dank!</h3>
