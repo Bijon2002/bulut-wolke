@@ -33,6 +33,16 @@ export function useScrollReveal<T extends HTMLElement>(options: ScrollRevealOpti
     const reveal = () => {
       el.style.opacity = '1'
       el.style.transform = animation === 'zoom-in' ? 'scale(1)' : 'translate(0, 0)'
+      
+      // Crucial: Clear inline transform & opacity after reveal transition completes
+      // so CSS :hover transforms (translateY, scale, shadow) work on buttons and cards!
+      setTimeout(() => {
+        if (el) {
+          el.style.transform = ''
+          el.style.opacity = ''
+          el.style.transition = ''
+        }
+      }, duration + delay + 100)
     }
 
     const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
@@ -50,7 +60,6 @@ export function useScrollReveal<T extends HTMLElement>(options: ScrollRevealOpti
 
     el.style.opacity = '0'
     el.style.transform = initialTransform
-    // Gentle overshoot on transform gives the spring-like settle; opacity stays linear-ish.
     el.style.transition = `opacity ${duration}ms cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, transform ${duration}ms cubic-bezier(0.34, 1.32, 0.64, 1) ${delay}ms`
 
     const observer = new IntersectionObserver(
@@ -68,8 +77,8 @@ export function useScrollReveal<T extends HTMLElement>(options: ScrollRevealOpti
 
     observer.observe(el)
 
-    // Failsafe: never leave content invisible if the observer never fires.
-    const failsafe = window.setTimeout(reveal, 2000 + delay)
+    // Failsafe: never leave content invisible if the observer fails to fire
+    const failsafe = window.setTimeout(reveal, 1500 + delay)
 
     return () => {
       observer.disconnect()

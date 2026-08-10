@@ -676,6 +676,10 @@ body[data-aos-easing=ease-out] [data-aos] {
   opacity: 1 !important;
   transform: none !important;
   transition: none !important;
+  /* AOS also disables clicks until .aos-animate lands. With AOS off that
+     never happens, so links and buttons inside a reveal container would be
+     dead. Hand interactivity back. */
+  pointer-events: auto !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -687,6 +691,7 @@ body[data-aos-easing=ease-out] [data-aos] {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+    pointer-events: auto !important;
   }
 
   html {

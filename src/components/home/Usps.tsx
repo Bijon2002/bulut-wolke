@@ -41,8 +41,8 @@ export default function Usps() {
             if (icon) gsap.to(icon, { scale: 1.15, rotate: 6, duration: 0.3, ease: 'back.out(1.7)' })
           }
           const onLeave = () => {
-            gsap.to(card, { y: 0, duration: 0.3, ease: 'power2.out' })
-            if (icon) gsap.to(icon, { scale: 1, rotate: 0, duration: 0.3, ease: 'power2.out' })
+            gsap.to(card, { y: 0, duration: 0.3, ease: 'power2.out', clearProps: 'transform' })
+            if (icon) gsap.to(icon, { scale: 1, rotate: 0, duration: 0.3, ease: 'power2.out', clearProps: 'transform' })
           }
           card.addEventListener('mouseenter', onEnter)
           card.addEventListener('mouseleave', onLeave)
