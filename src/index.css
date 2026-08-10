@@ -430,6 +430,34 @@ body {
   margin: 12px 0;
 }
 
+/* iPhone 16 Pro Max & Mobile Responsive Adjustments */
+@media (max-width: 640px) {
+  .modal-card {
+    width: 92%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-body {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px 20px;
+    gap: 16px;
+  }
+
+  .modal-body img {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+  }
+
+  .modal-close {
+    top: 10px;
+    right: 14px;
+    font-size: 24px;
+  }
+}
+
 @media (max-width: 768px) {
   .stamp-badge {
     display: none;

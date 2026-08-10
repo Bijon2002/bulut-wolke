@@ -7,32 +7,82 @@ interface HeroProps {
 }
 
 export default function Hero({ onOpenModal }: HeroProps) {
-  const plateRef = useRef<HTMLImageElement>(null)
+  const plateRef = useRef<HTMLDivElement>(null)
   const badgeRef = useRef<HTMLDivElement>(null)
+  const bgBlob1Ref = useRef<HTMLDivElement>(null)
+  const bgBlob2Ref = useRef<HTMLDivElement>(null)
+  const leaf1Ref = useRef<HTMLDivElement>(null)
+  const leaf2Ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // GSAP floating animation for hero dish plate
-    if (plateRef.current) {
-      gsap.to(plateRef.current, {
-        y: -12,
-        rotation: 1.5,
-        duration: 3,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-      })
-    }
-    if (badgeRef.current) {
-      gsap.to(badgeRef.current, {
-        y: 8,
-        scale: 1.05,
-        duration: 2.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-        delay: 0.5,
-      })
-    }
+    const ctx = gsap.context(() => {
+      if (plateRef.current) {
+        gsap.to(plateRef.current, {
+          y: -12,
+          rotation: 1.5,
+          duration: 3,
+          repeat: -1,
+          yoyo: true,
+          ease: 'power1.inOut',
+        })
+      }
+      if (badgeRef.current) {
+        gsap.to(badgeRef.current, {
+          y: 8,
+          scale: 1.05,
+          duration: 2.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'power1.inOut',
+          delay: 0.5,
+        })
+      }
+      if (bgBlob1Ref.current) {
+        gsap.to(bgBlob1Ref.current, {
+          x: 24,
+          y: -24,
+          rotation: 8,
+          duration: 5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        })
+      }
+      if (bgBlob2Ref.current) {
+        gsap.to(bgBlob2Ref.current, {
+          x: -20,
+          y: 20,
+          rotation: -6,
+          duration: 5.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+          delay: 0.5,
+        })
+      }
+      if (leaf1Ref.current) {
+        gsap.to(leaf1Ref.current, {
+          y: -16,
+          rotation: 12,
+          duration: 4,
+          repeat: -1,
+          yoyo: true,
+          ease: 'power1.inOut',
+        })
+      }
+      if (leaf2Ref.current) {
+        gsap.to(leaf2Ref.current, {
+          y: 14,
+          rotation: -10,
+          duration: 4.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'power1.inOut',
+          delay: 0.8,
+        })
+      }
+    })
+    return () => ctx.revert()
   }, [])
 
   return (
@@ -66,7 +116,7 @@ export default function Hero({ onOpenModal }: HeroProps) {
             <h1
               data-aos="fade-up"
               data-aos-delay="200"
-              className="font-heading text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.05] text-[#1E332E] mb-6 drop-shadow-xs"
+              className="font-heading text-4xl sm:text-6xl md:text-7xl font-bold leading-[1.08] text-[#1E332E] mb-5 drop-shadow-xs"
             >
               Bulut &amp; Wolke<br />
               <span className="font-normal italic text-[#2A4742]">Feinkost</span>
@@ -75,14 +125,14 @@ export default function Hero({ onOpenModal }: HeroProps) {
             <p
               data-aos="fade-up"
               data-aos-delay="350"
-              className="text-base text-[#4A5D57] max-w-md mb-8 leading-relaxed font-medium"
+              className="text-sm sm:text-base text-[#4A5D57] max-w-md mb-7 leading-relaxed font-medium"
             >
               Frische, handgemachte mediterrane und türkische Delikatessen. Von marinierten Oliven über cremige Dips bis hin zu gegrillten Antipasti – mit Liebe und feinsten Zutaten zubereitet.
             </p>
 
             {/* CTA Buttons */}
-            <div data-aos="fade-up" data-aos-delay="500" className="hero-cta flex flex-wrap gap-4 items-center">
-              <Link to="/spezialitaeten" className="btn-pill-orange">
+            <div data-aos="fade-up" data-aos-delay="500" className="hero-cta flex flex-wrap gap-3.5 items-center">
+              <Link to="/spezialitaeten" className="btn-pill-orange text-xs sm:text-sm">
                 <span>Spezialitäten Entdecken</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M5 12h14M12 5l7 7-7 7" />
@@ -90,7 +140,7 @@ export default function Hero({ onOpenModal }: HeroProps) {
               </Link>
               <button
                 onClick={onOpenModal}
-                className="px-6 py-3.5 rounded-full border-1.5 border-[#1E332E] text-[#1E332E] font-semibold text-sm hover:border-[#EE6D52] hover:text-[#EE6D52] transition-all bg-white/40 backdrop-blur-xs"
+                className="px-5 sm:px-6 py-3 sm:py-3.5 rounded-full border-1.5 border-[#1E332E] text-[#1E332E] font-semibold text-xs sm:text-sm hover:border-[#EE6D52] hover:text-[#EE6D52] transition-all bg-white/40 backdrop-blur-xs"
               >
                 Anfrage Stellen
               </button>
@@ -98,8 +148,8 @@ export default function Hero({ onOpenModal }: HeroProps) {
           </div>
 
           {/* Hero Right Dish Image */}
-          <div className="hero-media-col relative flex justify-center" data-aos="zoom-in" data-aos-delay="300" data-aos-duration="1000">
-            <div className="relative max-w-md group cursor-pointer">
+          <div className="hero-media-col relative flex justify-center mt-6 md:mt-0" data-aos="zoom-in" data-aos-delay="300" data-aos-duration="1000">
+            <div className="relative max-w-xs sm:max-w-md group cursor-pointer">
               <div ref={plateRef} className="w-full">
                 <img
                   src="/assets/feinkost_hero_plate.png"

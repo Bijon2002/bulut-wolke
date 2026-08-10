@@ -9,27 +9,42 @@ interface AboutProps {
 export default function About({ onOpenModal }: AboutProps) {
   const forkRef = useRef<HTMLImageElement>(null)
   const miniBadgeRef = useRef<HTMLDivElement>(null)
+  const bgBlobRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (forkRef.current) {
-      gsap.to(forkRef.current, {
-        y: -10,
-        rotation: -4,
-        duration: 2.4,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-      })
-    }
-    if (miniBadgeRef.current) {
-      gsap.to(miniBadgeRef.current, {
-        scale: 1.08,
-        duration: 1.8,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-      })
-    }
+    const ctx = gsap.context(() => {
+      if (forkRef.current) {
+        gsap.to(forkRef.current, {
+          y: -10,
+          rotation: -4,
+          duration: 2.4,
+          repeat: -1,
+          yoyo: true,
+          ease: 'power1.inOut',
+        })
+      }
+      if (miniBadgeRef.current) {
+        gsap.to(miniBadgeRef.current, {
+          scale: 1.08,
+          duration: 1.8,
+          repeat: -1,
+          yoyo: true,
+          ease: 'power1.inOut',
+        })
+      }
+      if (bgBlobRef.current) {
+        gsap.to(bgBlobRef.current, {
+          x: 18,
+          y: -18,
+          rotation: 5,
+          duration: 4.8,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        })
+      }
+    })
+    return () => ctx.revert()
   }, [])
 
   return (

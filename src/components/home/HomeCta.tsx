@@ -10,29 +10,32 @@ export default function HomeCta({ nextColor = 'text-cream-200' }: { nextColor?: 
   const blob2Ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (blob1Ref.current) {
-      gsap.to(blob1Ref.current, {
-        x: 15,
-        y: -15,
-        rotation: 3,
-        duration: 4,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-      })
-    }
-    if (blob2Ref.current) {
-      gsap.to(blob2Ref.current, {
-        x: -12,
-        y: 12,
-        rotation: -3,
-        duration: 3.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-        delay: 0.3,
-      })
-    }
+    const ctx = gsap.context(() => {
+      if (blob1Ref.current) {
+        gsap.to(blob1Ref.current, {
+          x: 15,
+          y: -15,
+          rotation: 3,
+          duration: 4,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        })
+      }
+      if (blob2Ref.current) {
+        gsap.to(blob2Ref.current, {
+          x: -12,
+          y: 12,
+          rotation: -3,
+          duration: 3.5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+          delay: 0.3,
+        })
+      }
+    })
+    return () => ctx.revert()
   }, [])
 
   return (

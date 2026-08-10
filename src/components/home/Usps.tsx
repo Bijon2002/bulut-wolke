@@ -8,21 +8,21 @@ const usps = [
     title: 'Handwerk',
     text: 'Jedes Produkt entsteht von Hand in unserer Küche — kein Fließband, keine Massenware.',
     icon: (
-      <path d="M7 11.5V14m0-2.5C7 9 3 8 3 5.5 3 3 5.5 3 7 5c1.5-2 4-2 4 .5C11 8 7 9 7 11.5zM17 11.5V14m0-2.5c0-2.5-4-3.5-4-6 0-2.5 2.5-2.5 4-.5 1.5-2 4-2 4 .5 0 2.5-4 3.5-4 6z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M7 11.5V14m0-2.5C7 9 3 8 3 5.5 3 3 5.5 3 7 5c1.5-2 4-2 4 .5C11 8 7 9 7 11.5zM17 11.5V14m0-2.5c0-2.5-4-3.5-4-6 0-2.5 2.5-2.5 4-.5 1.5-2 4-2 4 .5 0 2.5-4 3.5-4 6z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     ),
   },
   {
     title: 'Frische',
     text: 'Täglich frisch zubereitet. Was Sie bei uns kaufen, wurde am selben Morgen gemacht.',
     icon: (
-      <path d="M12 3v1m0 16v1m-8.66-2.34l.71-.71m12.73-12.73l.71-.71M3 12h1m16 0h1m-2.34 8.66l-.71-.71M4.05 4.05l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M12 3v1m0 16v1m-8.66-2.34l.71-.71m12.73-12.73l.71-.71M3 12h1m16 0h1m-2.34 8.66l-.71-.71M4.05 4.05l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     ),
   },
   {
     title: 'Familientradition',
     text: 'Seit Generationen bringen wir mediterrane Genusskultur in den Rhein-Sieg-Kreis.',
     icon: (
-      <path d="M12 21s-7-4.35-7-9.5A4.5 4.5 0 0112 8a4.5 4.5 0 017 3.5c0 5.15-7 9.5-7 9.5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M12 21s-7-4.35-7-9.5A4.5 4.5 0 0112 8a4.5 4.5 0 017 3.5c0 5.15-7 9.5-7 9.5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     ),
   },
 ]
@@ -31,20 +31,25 @@ export default function Usps() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (containerRef.current) {
-      const cards = containerRef.current.querySelectorAll('.usp-card')
-      cards.forEach((card) => {
-        const icon = card.querySelector('.usp-icon')
-        card.addEventListener('mouseenter', () => {
-          gsap.to(card, { y: -6, duration: 0.3, ease: 'power2.out' })
-          if (icon) gsap.to(icon, { scale: 1.15, rotate: 6, duration: 0.3, ease: 'back.out(1.7)' })
+    const ctx = gsap.context(() => {
+      if (containerRef.current) {
+        const cards = containerRef.current.querySelectorAll('.usp-card')
+        cards.forEach((card) => {
+          const icon = card.querySelector('.usp-icon')
+          const onEnter = () => {
+            gsap.to(card, { y: -6, duration: 0.3, ease: 'power2.out' })
+            if (icon) gsap.to(icon, { scale: 1.15, rotate: 6, duration: 0.3, ease: 'back.out(1.7)' })
+          }
+          const onLeave = () => {
+            gsap.to(card, { y: 0, duration: 0.3, ease: 'power2.out' })
+            if (icon) gsap.to(icon, { scale: 1, rotate: 0, duration: 0.3, ease: 'power2.out' })
+          }
+          card.addEventListener('mouseenter', onEnter)
+          card.addEventListener('mouseleave', onLeave)
         })
-        card.addEventListener('mouseleave', () => {
-          gsap.to(card, { y: 0, duration: 0.3, ease: 'power2.out' })
-          if (icon) gsap.to(icon, { scale: 1, rotate: 0, duration: 0.3, ease: 'power2.out' })
-        })
-      })
-    }
+      }
+    })
+    return () => ctx.revert()
   }, [])
 
   return (

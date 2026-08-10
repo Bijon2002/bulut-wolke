@@ -68,37 +68,41 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
 
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden p-2 text-[#1E332E]"
+          className="md:hidden p-2 text-[#1E332E] min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg hover:bg-black/5 active:scale-95 transition-all"
           aria-label="Menü öffnen"
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             {open ? <path d="M18 6L6 18M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
           </svg>
         </button>
       </div>
 
       {open && (
-        <div className="md:hidden bg-[#F8F4EC]/95 backdrop-blur-md px-6 py-4 space-y-3 shadow-lg">
+        <div className="md:hidden bg-[#F8F4EC]/98 backdrop-blur-xl px-5 py-4 space-y-2.5 border-b border-black/5 shadow-xl animate-in fade-in slide-in-from-top-2 duration-300">
           {links.map((l) => (
             <NavLink
               key={l.to}
               to={l.to}
               onClick={handleNavClick}
-              className="block font-semibold text-[#1E332E] py-1.5"
+              className={({ isActive }) =>
+                `block font-semibold text-sm py-2.5 px-3 rounded-xl transition-colors ${
+                  isActive ? 'bg-[#EE6D52] text-white shadow-xs' : 'text-[#1E332E] hover:bg-black/5'
+                }`
+              }
             >
               {l.label}
             </NavLink>
           ))}
-          <div className="pt-3 flex flex-col gap-2">
+          <div className="pt-2 flex flex-col gap-2">
             <button
               onClick={() => { setOpen(false); onOpenModal?.(); }}
-              className="w-full py-2.5 rounded-full border border-[#1E332E] text-[#1E332E] font-semibold text-sm"
+              className="w-full py-3 rounded-full border-1.5 border-[#1E332E] text-[#1E332E] font-semibold text-xs active:scale-98 transition-all"
             >
               Reservieren
             </button>
             <button
               onClick={() => { setOpen(false); onOpenModal?.(); }}
-              className="w-full py-2.5 rounded-full bg-[#EE6D52] text-white font-semibold text-sm"
+              className="w-full py-3 rounded-full bg-[#EE6D52] text-white font-semibold text-xs shadow-md active:scale-98 transition-all"
             >
               Jetzt Anfragen
             </button>

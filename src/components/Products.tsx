@@ -9,19 +9,34 @@ interface ProductsProps {
 
 export default function Products({ onOpenModal }: ProductsProps) {
   const highlights = products.filter((p) => p.highlight)
-  const centerPlateRef = useRef<HTMLImageElement>(null)
+  const centerPlateRef = useRef<HTMLDivElement>(null)
+  const bgBlobRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (centerPlateRef.current) {
-      gsap.to(centerPlateRef.current, {
-        y: -10,
-        scale: 1.03,
-        duration: 2.8,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-      })
-    }
+    const ctx = gsap.context(() => {
+      if (centerPlateRef.current) {
+        gsap.to(centerPlateRef.current, {
+          y: -10,
+          scale: 1.03,
+          duration: 2.8,
+          repeat: -1,
+          yoyo: true,
+          ease: 'power1.inOut',
+        })
+      }
+      if (bgBlobRef.current) {
+        gsap.to(bgBlobRef.current, {
+          x: -20,
+          y: 20,
+          rotation: -6,
+          duration: 5.2,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        })
+      }
+    })
+    return () => ctx.revert()
   }, [])
 
   return (
