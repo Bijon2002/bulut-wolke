@@ -28,7 +28,13 @@ export default function App() {
   useEffect(() => {
     // Animation is a bonus, never a requirement: users who ask for reduced
     // motion get the fully rendered page with no reveal animation at all.
-    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    // Windows has "Animation effects" off on a lot of machines, so this can
+    // look like the animations are broken. To preview them anyway without
+    // changing an OS setting, run in the console:
+    //   localStorage.setItem('bw:force-motion', '1'); location.reload()
+    const forceMotion = localStorage.getItem('bw:force-motion') === '1'
+    const prefersReducedMotion =
+      !forceMotion && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
     if (prefersReducedMotion) {
       document.documentElement.classList.add('no-reveal')

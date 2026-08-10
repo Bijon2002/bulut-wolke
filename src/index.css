@@ -277,7 +277,7 @@ body {
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.5px;
-  box-shadow: 0 8px 25px rgba(238, 109, 82, 0.35);
+  box-shadow: 0 8px 25px rgba(90, 107, 47, 0.28);
   cursor: pointer;
   transition: all 0.35s var(--transition-smooth);
 }
