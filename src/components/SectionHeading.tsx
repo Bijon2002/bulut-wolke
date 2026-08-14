@@ -46,6 +46,8 @@ export default function SectionHeading({
         as="h2"
         className="font-display text-3xl md:text-5xl leading-tight tracking-tight text-olive-800 font-bold mb-5"
         lines={Array.isArray(title) ? title : [title]}
+        mode="word"
+        stagger={55}
       />
       <div className={`flex items-center gap-3 mb-5 ${centered ? 'justify-center' : ''}`} aria-hidden>
         <span className="h-px w-14 bg-yellow-600/45" />

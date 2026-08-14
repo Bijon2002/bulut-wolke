@@ -3,6 +3,7 @@ import AosBox from '../AosBox'
 import SectionHeading from '../SectionHeading'
 import OrganicDivider from '../OrganicDivider'
 import { products, badgeColor } from '../../data/products'
+import { photo } from '../../lib/photo'
 
 const highlights = products.filter((p) => p.highlight).slice(0, 4)
 
@@ -23,10 +24,12 @@ export default function ProductsTeaser() {
               <article className="food-card-pop group h-full flex flex-col rounded-[1.75rem] overflow-hidden bg-cream-50 border border-olive-200/50 shadow-sm">
                 <div className="relative w-full aspect-[3/2] overflow-hidden bg-cream-200">
                   <img
-                    src={p.image}
-                    alt={p.name}
+                    {...photo(p.image, 600)}
+                    sizes="(max-width: 640px) 92vw, 23vw"
+                    alt={`${p.name} an der Theke von Bulut & Wolke`}
                     className="w-full h-full object-cover"
                     loading="lazy"
+                    decoding="async"
                   />
                   <span
                     className={`food-badge absolute top-3 left-3 text-xs font-semibold px-3 py-1 rounded-full border ${

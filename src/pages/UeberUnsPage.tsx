@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import AOS from 'aos'
+import { photo } from '../lib/photo'
 
 interface PageProps {
   onOpenModal?: () => void
@@ -56,9 +57,12 @@ export default function UeberUnsPage({ onOpenModal }: PageProps) {
         <div className="relative flex justify-center" data-aos="zoom-in" data-aos-delay="150">
           <div className="organic-peach-blob"></div>
           <img
-            src="/assets/feinkost_middle_blob.png"
-            alt="Bulut & Wolke Feinkost Manufaktur"
-            className="relative z-10 rounded-3xl max-w-md w-full shadow-2xl transition-transform duration-500 hover:scale-105"
+            {...photo('/fotos/inhaber-lachen', 1000)}
+            sizes="(max-width: 768px) 90vw, 28rem"
+            alt="Der Inhaber von Bulut & Wolke mit einer Feinkostplatte"
+            className="relative z-10 rounded-3xl max-w-md w-full aspect-[4/5] object-cover shadow-2xl transition-transform duration-500 hover:scale-105"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>

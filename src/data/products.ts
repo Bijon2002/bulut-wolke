@@ -3,6 +3,7 @@ export interface Product {
   category: Category
   description: string
   badge: string
+  /** Base path of the photo set — see src/lib/photo.ts for the widths. */
   image: string
   /** Shown on the homepage teaser. */
   highlight?: boolean
@@ -19,7 +20,7 @@ export const products: Product[] = [
     category: 'Oliven',
     description: 'Handverlesene Oliven mit Kräutern und Knoblauch mariniert',
     badge: 'Beliebt',
-    image: '/products/marinierte_oliven_sm.jpg',
+    image: '/fotos/theke-oliven-gruen',
     highlight: true,
   },
   {
@@ -27,14 +28,14 @@ export const products: Product[] = [
     category: 'Oliven',
     description: 'Grüne Oliven gefüllt mit cremigem Schafskäse',
     badge: 'Premium',
-    image: '/products/schafskaese_oliven_sm.jpg',
+    image: '/fotos/theke-oliven-tabletts',
   },
   {
     name: 'Gegrilltes Gemüse',
     category: 'Antipasti',
     description: 'Zucchini, Paprika und Aubergine vom Grill mit Olivenöl',
     badge: 'Hausspezialität',
-    image: '/products/gegrilltes_gemuese_sm.jpg',
+    image: '/fotos/theke-gemuese',
     highlight: true,
   },
   {
@@ -42,7 +43,7 @@ export const products: Product[] = [
     category: 'Antipasti',
     description: 'Zarte Weinblätter gefüllt mit Reis und frischen Kräutern',
     badge: 'Familienrezept',
-    image: '/products/gefuellte_weinblaetter_sm.jpg',
+    image: '/fotos/theke-antipasti',
     highlight: true,
   },
   {
@@ -50,14 +51,14 @@ export const products: Product[] = [
     category: 'Antipasti',
     description: 'Sonnengetrocknete Tomaten in Olivenöl mit Basilikum',
     badge: 'Klassiker',
-    image: '/products/getrocknete_tomaten_sm.jpg',
+    image: '/fotos/theke-paprika',
   },
   {
     name: 'Hummus Klassik',
     category: 'Pasten & Dips',
     description: 'Cremiger Hummus aus Kichererbsen mit Tahini und Zitrone',
     badge: 'Vegan',
-    image: '/products/hummus_klassik_sm.jpg',
+    image: '/fotos/theke-dips',
     highlight: true,
   },
 ]

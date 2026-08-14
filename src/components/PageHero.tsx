@@ -32,6 +32,8 @@ export default function PageHero({ eyebrow, title, nextColor = 'text-cream-100' 
           className="font-display text-4xl md:text-6xl leading-tight tracking-tight text-olive-800 font-bold"
           lines={[title]}
           delay={60}
+          mode="word"
+          stagger={60}
         />
         <div className="flex items-center gap-3 justify-center mt-6" aria-hidden>
           <span className="h-px w-14 bg-yellow-600/45" />

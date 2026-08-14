@@ -3,6 +3,7 @@ import AosBox from '../AosBox'
 import SectionHeading from '../SectionHeading'
 import OrganicDivider from '../OrganicDivider'
 import { locations } from '../../data/locations'
+import { photo } from '../../lib/photo'
 
 export default function LocationsTeaser() {
   return (
@@ -17,21 +18,55 @@ export default function LocationsTeaser() {
           />
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        {/* Each stall gets its own photograph — visitors look for the stand,
+            not for an address line. */}
+        <div className="grid md:grid-cols-2 gap-7 max-w-4xl mx-auto">
           {locations.map((loc, i) => (
             <AosBox key={loc.name} animation="fade-up" delay={i * 120} className="h-full">
-              <div className="h-full rounded-[1.75rem] bg-cream-50 border border-olive-200/50 p-7 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-full bg-olive-100 border border-olive-300/70 flex items-center justify-center shrink-0">
-                    <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 20 20" fill="none" className="text-olive-600">
-                      <path d="M10 2C6.69 2 4 4.69 4 8c0 5.25 6 10 6 10s6-4.75 6-10c0-3.31-2.69-6-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z" fill="currentColor"/>
-                    </svg>
-                  </div>
-                  <h3 className="font-display text-lg text-olive-800 font-bold">{loc.name}</h3>
+              <article className="loc-card">
+                <div className="loc-media">
+                  <img
+                    {...photo(loc.photo, 1000)}
+                    sizes="(max-width: 768px) 92vw, 44vw"
+                    alt={`Marktstand von Bulut & Wolke – ${loc.name}`}
+                    className="loc-img"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="loc-shade" aria-hidden="true" />
+                  <h3 className="loc-name font-display">{loc.name}</h3>
                 </div>
-                <p className="text-sm text-olive-700/90">{loc.address}</p>
-                <p className="text-sm text-olive-700/70 mt-1">{loc.hours}</p>
-              </div>
+
+                <div className="loc-body">
+                  <p className="loc-row">
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                      <path
+                        d="M10 2C6.69 2 4 4.69 4 8c0 5.25 6 10 6 10s6-4.75 6-10c0-3.31-2.69-6-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    {loc.address}
+                  </p>
+                  <p className="loc-row loc-row-muted">
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+                      <circle cx="10" cy="10" r="7.2" />
+                      <path d="M10 6v4.3l2.6 1.6" strokeLinecap="round" />
+                    </svg>
+                    {loc.hours}
+                  </p>
+                  <a
+                    href={loc.maps}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="loc-link"
+                  >
+                    Route planen
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                      <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </a>
+                </div>
+              </article>
             </AosBox>
           ))}
         </div>
@@ -41,7 +76,7 @@ export default function LocationsTeaser() {
             to="/standorte"
             className="inline-flex items-center gap-2 whitespace-nowrap px-8 py-3.5 border border-olive-600/35 text-olive-700 rounded-full text-sm font-semibold hover:bg-olive-600 hover:text-white hover:border-olive-600 transition active:scale-[0.97] motion-safe:duration-200"
           >
-            Öffnungszeiten & Anfahrt
+            Öffnungszeiten &amp; Anfahrt
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

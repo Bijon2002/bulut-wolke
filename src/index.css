@@ -266,6 +266,7 @@ body {
 }
 
 .btn-pill-orange {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -279,13 +280,48 @@ body {
   letter-spacing: 0.5px;
   box-shadow: 0 8px 25px rgba(90, 107, 47, 0.28);
   cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
   transition: all 0.35s var(--transition-smooth);
 }
 
+/* Darker olive wipes across on hover instead of a flat colour swap. */
+.btn-pill-orange::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, #39482A 0%, #45562F 100%);
+  transform: translateX(-101%);
+  transition: transform 0.45s var(--transition-smooth);
+}
+
+.btn-pill-orange:hover::before,
+.btn-pill-orange:focus-visible::before {
+  transform: translateX(0);
+}
+
 .btn-pill-orange:hover {
-  background-color: var(--color-accent-dark);
   transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(90, 107, 47, 0.35);
+  box-shadow: 0 14px 32px rgba(57, 72, 42, 0.32);
+}
+
+.btn-pill-orange svg {
+  transition: transform 0.35s var(--transition-smooth);
+}
+
+.btn-pill-orange:hover svg {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-pill-orange::before {
+    transition: none;
+  }
+
+  .btn-pill-orange:hover {
+    transform: none;
+  }
 }
 
 .organic-peach-blob {
@@ -660,6 +696,7 @@ body[data-aos-easing=ease-out] [data-aos] {
 [data-aos=flip-down].aos-animate {
   transform: perspective(2500px) rotateX(0);
 }
+
 /* ------------------------------------------------------------------
    Reveal-animation failsafe
    Briefing Rev. 2: "content must be visible without JavaScript —
@@ -683,6 +720,7 @@ body[data-aos-easing=ease-out] [data-aos] {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   [data-aos],
   [data-aos^="fade"],
   [data-aos^="zoom"],
@@ -748,4 +786,1421 @@ summary:focus-visible {
 
 .surface-sky-soft {
   background: linear-gradient(180deg, rgba(220, 235, 245, 0) 0%, #DCEBF5 18%, #DCEBF5 82%, rgba(220, 235, 245, 0) 100%);
+}
+
+
+/* ==================================================================
+   CINEMA HERO
+   Full-bleed autoplaying footage from the shop. The clip is veiled back
+   to cream rather than darkened, so the dark-green type keeps its
+   contrast no matter which frame is on screen.
+   ================================================================== */
+.hero-cinema {
+  --hv-scroll: 0;
+  --hv-fade: 1;
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(4rem, 10vh, 8rem) 0 clamp(6rem, 12vh, 9rem);
+  overflow: hidden;
+  background-color: #FBF9F2;
+}
+
+.hv-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* The window the footage plays in — GSAP opens its clip-path on arrival. */
+.hv-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transform: translateY(calc(var(--hv-scroll) * 0.12px));
+  will-change: transform, clip-path;
+}
+
+/* The footage runs at full strength — this is the picture, not a texture. */
+.hv-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* Viewfinder inset: a hairline that frames the whole opening */
+.hv-rule {
+  position: absolute;
+  inset: clamp(0.75rem, 1.6vw, 1.6rem);
+  z-index: 5;
+  pointer-events: none;
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  border-radius: 1.5rem;
+  opacity: var(--hv-fade);
+}
+
+/* Edges only, so the frame melts into the page without touching the middle */
+.hv-veil-edges {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, #FBF9F2 0%, rgba(251, 249, 242, 0.25) 18%, rgba(251, 249, 242, 0) 34%, rgba(251, 249, 242, 0) 62%, rgba(251, 249, 242, 0.45) 84%, #FBF9F2 100%),
+    linear-gradient(90deg, rgba(251, 249, 242, 0.55) 0%, rgba(251, 249, 242, 0) 22%, rgba(251, 249, 242, 0) 78%, rgba(251, 249, 242, 0.55) 100%);
+}
+
+/*
+ * The card the type sits on. It arrives after the opening beat, so the counter
+ * plays clean first. A defined edge is deliberate; the soft haze it replaced
+ * just looked like a smudge over the footage.
+ */
+.hv-plate {
+  position: relative;
+  max-width: 38rem;
+  margin: 0 auto;
+  padding: 1.45rem 1.55rem 1.15rem;
+  border-radius: 1.6rem;
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.98) 0%, rgba(247, 239, 220, 0.96) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.22);
+  box-shadow:
+    0 30px 70px -34px rgba(20, 30, 16, 0.52),
+    0 8px 18px -10px rgba(20, 30, 16, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Gold hairline across the top edge, like the trim on the counter */
+.hv-plate::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 22%;
+  right: 22%;
+  height: 2px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.75), transparent);
+}
+
+.hv-plate::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 38%;
+  background: linear-gradient(180deg, rgba(229, 185, 60, 0.08) 0%, rgba(229, 185, 60, 0) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Fine grain keeps the large flat washes from banding */
+.hv-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── Centred content ─── */
+.hv-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  text-align: center;
+  opacity: var(--hv-fade);
+  transform: translateY(calc(var(--hv-scroll) * -0.04px));
+}
+
+.hv-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.2px;
+  color: #8A6F13;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(251, 247, 233, 0.96) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.28);
+  padding: 6px 14px;
+  border-radius: 99px;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 2px 10px rgba(30, 51, 46, 0.08);
+}
+
+.hv-eyebrow-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #E5B93C;
+  box-shadow: 0 0 0 2.5px rgba(229, 185, 60, 0.25);
+}
+
+.hv-title {
+  font-size: clamp(1.75rem, 3.8vw, 2.6rem);
+  line-height: 1.08;
+  font-weight: 700;
+  color: #39482A;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.6rem;
+}
+
+.hv-title-script {
+  position: relative;
+  display: inline-block;
+  font-style: italic;
+  font-weight: 400;
+  padding-bottom: 0.1em;
+}
+
+.hv-title-script-word {
+  position: relative;
+  z-index: 2;
+}
+
+/* Gold brush stroke, drawn in on load */
+.hv-brush {
+  position: absolute;
+  left: -3%;
+  bottom: 0.01em;
+  width: 106%;
+  height: 0.26em;
+  z-index: 1;
+  opacity: 0.9;
+  overflow: visible;
+}
+
+.hv-lead {
+  font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+  line-height: 1.5;
+  color: #43533C;
+  font-weight: 500;
+  max-width: 32rem;
+  margin: 0 auto 1.1rem;
+}
+
+.hv-word {
+  display: inline-block;
+  will-change: opacity, filter, transform;
+}
+
+.hv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.hv-btn-ghost {
+  padding: 10px 22px;
+  border-radius: 99px;
+  border: 1.5px solid #39482A;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(247, 240, 221, 0.95) 100%);
+  color: #39482A;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.35s var(--transition-smooth);
+}
+
+.hv-btn-ghost:hover {
+  border-color: #5A6B2F;
+  color: #5A6B2F;
+  background: #FFFFFF;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(30, 51, 46, 0.12);
+}
+
+/* Three facts, hairline separated */
+.hv-facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1.1rem auto 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(57, 72, 42, 0.16);
+  max-width: 34rem;
+}
+
+.hv-fact {
+  padding: 0 1.7rem;
+  border-right: 1px solid rgba(57, 72, 42, 0.16);
+}
+
+.hv-fact:last-child {
+  border-right: 0;
+}
+
+.hv-fact dt {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: #8A6F13;
+  margin-bottom: 4px;
+}
+
+.hv-fact dd {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #39482A;
+  line-height: 1.25;
+}
+
+/* ─── Corner furniture ─── */
+.hv-stamp {
+  top: auto;
+  left: 3.2rem;
+  bottom: 3.2rem;
+  width: 104px;
+  height: 104px;
+  z-index: 12;
+  background: rgba(251, 249, 242, 0.7);
+  border-radius: 50%;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 10px 26px rgba(30, 51, 46, 0.14);
+}
+
+/*
+ * During the opening beat the stamp and the scroll cue stay out of the way as
+ * well. `hv-intro` is only ever added by JS, so without scripting both are
+ * simply there from the start.
+ */
+.hv-stamp,
+.hv-scroll {
+  transition: opacity 0.9s ease;
+}
+
+.hero-cinema.hv-intro .hv-stamp,
+.hero-cinema.hv-intro .hv-scroll {
+  opacity: 0;
+}
+
+/* Scroll cue */
+.hv-scroll {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: clamp(1rem, 3.5vh, 2.6rem);
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: #5A6B2F;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: var(--hv-fade);
+  transition: color 0.3s ease;
+}
+
+.hv-scroll:hover {
+  color: #39482A;
+}
+
+.hv-scroll svg {
+  animation: hvBob 2.4s ease-in-out infinite;
+}
+
+@keyframes hvBob {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.65;
+  }
+
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+/* ─── Specialty ribbon under the hero ─── */
+.hv-ribbon-wrap {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  padding: 1.4rem 0 0.6rem;
+  background: #FBF9F2;
+}
+
+.hv-ribbon {
+  background: #39482A;
+  color: #FBF9F2;
+  padding: 14px 0;
+  transform: rotate(-1.15deg) scale(1.05);
+  box-shadow: 0 12px 30px -12px rgba(30, 51, 46, 0.45);
+  overflow: hidden;
+}
+
+.hv-ribbon-track {
+  display: flex;
+  width: max-content;
+  animation: hvMarquee 34s linear infinite;
+}
+
+.hv-ribbon-group {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.hv-ribbon-item {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: clamp(0.95rem, 1.5vw, 1.3rem);
+  font-style: italic;
+  letter-spacing: 0.02em;
+  padding-left: 1.6rem;
+  white-space: nowrap;
+}
+
+.hv-ribbon-sep {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #E5B93C;
+  margin-left: 1.6rem;
+}
+
+@keyframes hvMarquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-cinema {
+    min-height: 92svh;
+    padding-bottom: 6.5rem;
+  }
+
+  .hv-plate {
+    border-radius: 1.75rem;
+    padding: 1.9rem 1.25rem 1.6rem;
+  }
+
+  .hv-facts {
+    gap: 0.9rem 0;
+    margin-top: 2.2rem;
+  }
+
+  .hv-fact {
+    padding: 0 0.85rem;
+  }
+
+  .hv-fact dd {
+    font-size: 0.85rem;
+  }
+}
+
+/* Motion is decoration here too: with reduced motion the poster frame is
+   held still, nothing loops, and the text is there from the start. */
+@media (prefers-reduced-motion: reduce) {
+
+  .hv-ribbon-track,
+  .hv-stamp,
+  .hv-scroll svg {
+    animation: none;
+  }
+
+  .hv-video {
+    transform: scale(1.06);
+  }
+}
+
+.no-reveal .hv-ribbon-track,
+.no-reveal .hv-stamp,
+.no-reveal .hv-scroll svg {
+  animation: none;
+}
+
+/* ==================================================================
+   PRODUCT CARD
+   The jars on the counter: an arched photo with the name on cream
+   underneath. Shared by the home teaser and /spezialitaeten.
+   ================================================================== */
+.pc-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(57, 72, 42, 0.08);
+  border-radius: 8rem 8rem 1.75rem 1.75rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -18px rgba(30, 51, 46, 0.4);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease;
+}
+
+.pc-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(201, 162, 39, 0.45);
+  box-shadow:
+    0 26px 50px -24px rgba(30, 51, 46, 0.45),
+    0 0 0 1px rgba(201, 162, 39, 0.18);
+}
+
+.pc-media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #EAE4C4;
+}
+
+.pc-card-tall .pc-media {
+  aspect-ratio: 4 / 5;
+}
+
+.pc-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pc-card:hover .pc-img {
+  transform: scale(1.07);
+}
+
+.pc-media-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(57, 72, 42, 0.28) 0%, transparent 34%, transparent 62%, rgba(57, 72, 42, 0.42) 100%);
+}
+
+.pc-badge {
+  position: absolute;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: #39482A;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  padding: 6px 13px;
+  border-radius: 99px;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(30, 51, 46, 0.14);
+}
+
+.pc-category {
+  position: absolute;
+  left: 1.25rem;
+  bottom: 1rem;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: #FBF9F2;
+  text-shadow: 0 1px 6px rgba(30, 51, 46, 0.55);
+}
+
+.pc-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.25rem 1.4rem 1.3rem;
+}
+
+.pc-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #39482A;
+  line-height: 1.25;
+  margin-bottom: 0.45rem;
+}
+
+.pc-desc {
+  font-size: 0.8rem;
+  line-height: 1.65;
+  color: #4F5E48;
+  flex: 1;
+  margin-bottom: 1rem;
+}
+
+.pc-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(57, 72, 42, 0.1);
+}
+
+.pc-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #8A6F13;
+}
+
+.pc-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: 99px;
+  border: 1.5px solid rgba(57, 72, 42, 0.75);
+  background: transparent;
+  color: #39482A;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s var(--transition-smooth);
+}
+
+.pc-action svg {
+  transition: transform 0.3s var(--transition-smooth);
+}
+
+.pc-action:hover {
+  background: #5A6B2F;
+  border-color: #5A6B2F;
+  color: #FFFFFF;
+}
+
+.pc-action:hover svg {
+  transform: translateX(3px);
+}
+
+/* ==================================================================
+   /SPEZIALITAETEN
+   ================================================================== */
+.sp-page {
+  position: relative;
+  isolation: isolate;
+}
+
+/* ─── Hero ─── */
+.sp-hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.5rem, 7vw, 5.5rem) 1.5rem clamp(2rem, 4vw, 3.5rem);
+  background: transparent;
+  overflow: hidden;
+}
+
+.sp-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(251, 249, 242, 0.3) 0%, rgba(251, 249, 242, 0.7) 100%);
+  pointer-events: none;
+}
+
+.sp-hero-inner {
+  max-width: 52rem;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  background: rgba(253, 251, 244, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201, 162, 39, 0.28);
+  border-radius: 2rem;
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 2.75rem);
+  box-shadow: 
+    0 24px 60px -20px rgba(30, 51, 46, 0.22),
+    0 0 40px -10px rgba(229, 185, 60, 0.18);
+}
+
+.sp-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #8A6F13;
+  margin-bottom: 1rem;
+}
+
+.sp-eyebrow-line {
+  width: 2.2rem;
+  height: 1px;
+  background: rgba(201, 162, 39, 0.4);
+}
+
+.sp-title {
+  font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+  font-weight: 700;
+  color: #39482A;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.sp-title-accent {
+  position: relative;
+  display: inline-block;
+}
+
+.sp-brush {
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  pointer-events: none;
+}
+
+.sp-lead {
+  max-width: 38rem;
+  margin: 0 auto 2.5rem;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  line-height: 1.7;
+  color: #4F5E48;
+}
+
+/* ─── Gourmet Video Showcase Frame ─── */
+.sp-video-frame-wrap {
+  margin: 0 auto;
+  max-width: 48rem;
+  padding: 0.5rem;
+}
+
+.sp-video-frame {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 2px solid rgba(201, 162, 39, 0.35);
+  box-shadow: 
+    0 20px 48px -16px rgba(30, 51, 46, 0.4),
+    0 0 30px -10px rgba(229, 185, 60, 0.25);
+  background: #2D3921;
+}
+
+@media (min-width: 640px) {
+  .sp-video-frame {
+    height: 360px;
+    border-radius: 1.75rem;
+  }
+}
+
+.sp-video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sp-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.25) 100%);
+  pointer-events: none;
+}
+
+.sp-video-badge {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  color: #39482A;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* ─── Sticky filter rail ─── */
+/* ─── Under the poster ───
+   The house backdrop carries the filter rail and the product grid, with a
+   cream veil over it so the cards keep their edges against the artwork. */
+.sp-under {
+  position: relative;
+  isolation: isolate;
+}
+
+.sp-under::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: url('/bacj.png');
+  background-size: 100% auto;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.sp-under::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(251, 249, 242, 0.62) 0%, rgba(251, 249, 242, 0.82) 45%, #FBF9F2 100%);
+}
+
+.sp-filter-wrap {
+  position: sticky;
+  top: 4.6rem;
+  z-index: 30;
+  padding: 0.5rem 1.5rem 0.9rem;
+}
+
+.sp-filter {
+  max-width: 72rem;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem 0.6rem 1rem;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  border: 1px solid rgba(57, 72, 42, 0.1);
+  box-shadow: 0 10px 28px -18px rgba(30, 51, 46, 0.55);
+}
+
+.sp-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.sp-pill {
+  padding: 9px 18px;
+  border-radius: 99px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #4F5E48;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: all 0.3s var(--transition-smooth);
+}
+
+.sp-pill:hover {
+  color: #39482A;
+  background: rgba(90, 107, 47, 0.1);
+}
+
+.sp-pill.is-active {
+  background: #39482A;
+  color: #FBF9F2;
+  box-shadow: 0 6px 16px -8px rgba(30, 51, 46, 0.8);
+}
+
+.sp-filter-count {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #8A6F13;
+  padding-right: 0.75rem;
+}
+
+/* ─── Grid ─── */
+.sp-section {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 3.5rem;
+}
+
+.sp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1.6rem;
+}
+
+/* ─── Configurator ─── */
+.sp-config-wrap {
+  position: relative;
+  padding: clamp(2.5rem, 6vw, 4.5rem) 1.5rem;
+  background: linear-gradient(180deg, rgba(220, 235, 245, 0) 0%, #DCEBF5 14%, #DCEBF5 86%, rgba(220, 235, 245, 0) 100%);
+}
+
+.sp-config {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.sp-config-head {
+  text-align: center;
+  max-width: 38rem;
+  margin: 0 auto 2.5rem;
+}
+
+.sp-h2 {
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  font-weight: 700;
+  color: #39482A;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.sp-config-sub {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #4F5E48;
+}
+
+.sp-config-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .sp-config-body {
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 2rem;
+  }
+}
+
+.sp-config-controls {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(57, 72, 42, 0.08);
+  border-radius: 1.75rem;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  box-shadow: 0 14px 40px -28px rgba(30, 51, 46, 0.6);
+}
+
+.sp-field+.sp-field {
+  margin-top: 2rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(57, 72, 42, 0.1);
+}
+
+.sp-label {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: #8A6F13;
+  margin-bottom: 0.6rem;
+}
+
+.sp-guests {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+}
+
+.sp-guests-num {
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #39482A;
+}
+
+.sp-guests-unit {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4F5E48;
+}
+
+.sp-range {
+  width: 100%;
+  accent-color: #5A6B2F;
+  cursor: pointer;
+}
+
+.sp-range-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: #6B7A62;
+}
+
+.sp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 15px;
+  border-radius: 99px;
+  border: 1px solid rgba(57, 72, 42, 0.16);
+  background: #FFFFFF;
+  color: #4F5E48;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.28s var(--transition-smooth);
+}
+
+.sp-chip:hover {
+  border-color: #C9A227;
+  color: #39482A;
+  transform: translateY(-2px);
+}
+
+.sp-chip.is-on {
+  background: #39482A;
+  border-color: #39482A;
+  color: #FBF9F2;
+}
+
+.sp-chip-mark {
+  font-size: 11px;
+  font-weight: 800;
+  color: #E5B93C;
+}
+
+/* Counter slip */
+.sp-slip {
+  position: relative;
+  background: #39482A;
+  color: #FBF9F2;
+  border-radius: 1.75rem;
+  padding: 1.6rem 1.5rem 1.5rem;
+  box-shadow: 0 22px 50px -26px rgba(30, 51, 46, 0.85);
+}
+
+@media (min-width: 900px) {
+  .sp-slip {
+    position: sticky;
+    top: 9rem;
+  }
+}
+
+.sp-slip-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(251, 249, 242, 0.16);
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: #E5B93C;
+}
+
+.sp-slip-seal {
+  color: #FBF9F2;
+  background: rgba(251, 249, 242, 0.12);
+  padding: 4px 10px;
+  border-radius: 99px;
+  letter-spacing: 1.2px;
+}
+
+.sp-slip-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0.9rem 0 0.8rem;
+}
+
+.sp-slip-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  font-size: 0.82rem;
+  line-height: 1.9;
+  color: rgba(251, 249, 242, 0.86);
+}
+
+.sp-slip-list strong {
+  color: #E5B93C;
+}
+
+.sp-slip-list li {
+  position: relative;
+  padding-left: 1rem;
+}
+
+.sp-slip-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.85em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(229, 185, 60, 0.75);
+}
+
+.sp-slip-picks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 1.2rem;
+}
+
+.sp-slip-pick {
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 99px;
+  background: rgba(251, 249, 242, 0.1);
+  border: 1px solid rgba(251, 249, 242, 0.16);
+}
+
+/* ─── Guarantees ─── */
+.sp-guarantees {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 0;
+  padding-top: clamp(2.5rem, 6vw, 4rem);
+  padding-bottom: clamp(3rem, 7vw, 5rem);
+}
+
+.sp-guarantee {
+  padding: 0.4rem 1.6rem;
+  border-right: 1px solid rgba(57, 72, 42, 0.14);
+}
+
+.sp-guarantee:last-child {
+  border-right: 0;
+}
+
+@media (max-width: 767px) {
+  .sp-guarantee {
+    border-right: 0;
+    border-bottom: 1px solid rgba(57, 72, 42, 0.14);
+    padding: 1.1rem 0;
+  }
+
+  .sp-guarantee:last-child {
+    border-bottom: 0;
+  }
+}
+
+.sp-guarantee-no {
+  display: block;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: rgba(201, 162, 39, 0.85);
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+
+.sp-guarantee-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #39482A;
+  margin-bottom: 0.35rem;
+}
+
+.sp-guarantee-desc {
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: #4F5E48;
+}
+
+@media (max-width: 640px) {
+  .sp-filter {
+    border-radius: 1.5rem;
+    justify-content: center;
+  }
+
+  .sp-filter-count {
+    padding-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pc-card,
+  .pc-img,
+  .pc-action,
+  .sp-chip,
+  .sp-pill {
+    transition: none;
+  }
+}
+
+/* ==================================================================
+   LOCATION CARDS (home teaser)
+   Visitors look for the stand, not for an address line — so each
+   location leads with its photograph.
+   ================================================================== */
+.loc-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  background: #FFFEF9;
+  border: 1px solid rgba(57, 72, 42, 0.1);
+  box-shadow: 0 14px 34px -22px rgba(30, 51, 46, 0.55);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+}
+
+.loc-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(201, 162, 39, 0.4);
+  box-shadow: 0 26px 46px -26px rgba(30, 51, 46, 0.6);
+}
+
+.loc-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #EAE4C4;
+}
+
+.loc-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.loc-card:hover .loc-img {
+  transform: scale(1.06);
+}
+
+.loc-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 42%, rgba(30, 42, 24, 0.72) 100%);
+}
+
+.loc-name {
+  position: absolute;
+  left: 1.35rem;
+  right: 1.35rem;
+  bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #FBF9F2;
+  text-shadow: 0 2px 12px rgba(30, 42, 24, 0.6);
+}
+
+.loc-body {
+  padding: 1.25rem 1.4rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.loc-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.875rem;
+  color: #39482A;
+  font-weight: 600;
+}
+
+.loc-row svg {
+  color: #C9A227;
+  flex-shrink: 0;
+}
+
+.loc-row-muted {
+  color: #4F5E48;
+  font-weight: 500;
+}
+
+.loc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #5A6B2F;
+  transition: color 0.25s ease, gap 0.25s ease;
+}
+
+.loc-link:hover {
+  color: #39482A;
+  gap: 11px;
+}
+
+/* ==================================================================
+   CLOSING CTA BAND
+   The one dark moment on the page: the counter under a deep olive wash.
+   ================================================================== */
+.cta-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(4rem, 11vw, 7.5rem) 1.25rem clamp(6rem, 12vw, 8.5rem);
+  background: #2A3620;
+}
+
+.cta-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.cta-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Deep enough that cream type clears AA contrast anywhere on the frame */
+.cta-wash {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(70% 60% at 50% 45%, rgba(30, 42, 24, 0.72) 0%, rgba(30, 42, 24, 0.86) 60%, rgba(30, 42, 24, 0.94) 100%),
+    linear-gradient(180deg, rgba(30, 42, 24, 0.9) 0%, rgba(30, 42, 24, 0.55) 40%, rgba(30, 42, 24, 0.92) 100%);
+}
+
+.cta-inner {
+  position: relative;
+  max-width: 44rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cta-title {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.12;
+  color: #FBF9F2;
+  margin-bottom: 1.1rem;
+  text-shadow: 0 2px 18px rgba(20, 30, 16, 0.45);
+}
+
+.cta-title-accent {
+  color: #E5B93C;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.cta-lead {
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  line-height: 1.75;
+  color: rgba(251, 249, 242, 0.88);
+  max-width: 34rem;
+  margin: 0 auto 2.2rem;
+}
+
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  justify-content: center;
+}
+
+.cta-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 32px;
+  border-radius: 99px;
+  background: #E5B93C;
+  color: #2A3620;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  box-shadow: 0 12px 30px -12px rgba(229, 185, 60, 0.75);
+  transition: all 0.35s var(--transition-smooth);
+}
+
+.cta-btn-primary svg {
+  transition: transform 0.35s var(--transition-smooth);
+}
+
+.cta-btn-primary:hover {
+  background: #F7E08B;
+  transform: translateY(-3px);
+}
+
+.cta-btn-primary:hover svg {
+  transform: translateX(4px);
+}
+
+.cta-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  padding: 15px 30px;
+  border-radius: 99px;
+  border: 1.5px solid rgba(251, 249, 242, 0.55);
+  color: #FBF9F2;
+  font-size: 0.9rem;
+  font-weight: 700;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: all 0.35s var(--transition-smooth);
+}
+
+.cta-btn-ghost:hover {
+  background: rgba(251, 249, 242, 0.14);
+  border-color: #FBF9F2;
+  transform: translateY(-3px);
+}
+
+.cta-note {
+  margin-top: 2rem;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(251, 249, 242, 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .loc-card,
+  .loc-img,
+  .loc-link,
+  .cta-btn-primary,
+  .cta-btn-ghost {
+    transition: none;
+  }
 }

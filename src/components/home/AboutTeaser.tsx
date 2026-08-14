@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import AosBox from '../AosBox'
 import SectionHeading from '../SectionHeading'
 import OrganicDivider from '../OrganicDivider'
+import { photo } from '../../lib/photo'
 
 export default function AboutTeaser() {
   return (
@@ -17,10 +18,9 @@ export default function AboutTeaser() {
                 style={{ borderRadius: '46% 54% 57% 43% / 52% 45% 55% 48%' }}
               />
               <img
-                src="/products/feinkost_theke_hero.jpg"
-                alt="Feinkost-Theke mit frischen Antipasti und Oliven"
-                width={900}
-                height={900}
+                {...photo('/fotos/inhaber-platte', 1000)}
+                sizes="(max-width: 768px) 88vw, 42vw"
+                alt="Der Inhaber von Bulut & Wolke mit einer frisch angerichteten Feinkostplatte"
                 className="relative w-full h-full object-cover shadow-lg"
                 style={{ borderRadius: '46% 54% 57% 43% / 52% 45% 55% 48%' }}
                 loading="lazy"

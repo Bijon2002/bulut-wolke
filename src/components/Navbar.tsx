@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
 
 interface NavbarProps {
   onOpenModal?: () => void
@@ -15,6 +15,19 @@ const links = [
 
 export default function Navbar({ onOpenModal }: NavbarProps) {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const { pathname } = useLocation()
+
+  // Only the home page opens on the full-bleed video, so only there does the
+  // bar start transparent and float over it.
+  const overHero = pathname === '/' && !scrolled && !open
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const handleNavClick = () => {
     setOpen(false)
@@ -22,7 +35,13 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-[#FBF9F2]/90 backdrop-blur-md border-b border-black/5 shadow-xs py-3.5 transition-all">
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        overHero
+          ? 'bg-transparent py-5 border-b border-transparent'
+          : 'bg-[#FBF9F2]/92 backdrop-blur-md border-b border-black/5 shadow-xs py-3.5'
+      }`}
+    >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
         <NavLink to="/" onClick={handleNavClick} className="flex items-center shrink-0">
           <img

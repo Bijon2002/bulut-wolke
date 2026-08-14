@@ -11,6 +11,16 @@ import KontaktPage from './pages/KontaktPage'
 import ImpressumPage from './pages/ImpressumPage'
 import DatenschutzPage from './pages/DatenschutzPage'
 
+/** The bar is fixed, so every page except the video hero needs its height back. */
+function MainSpacing({ children }: { children: React.ReactNode }) {
+  const { pathname } = useLocation()
+  return (
+    <main id="inhalt" className={`flex-1 ${pathname === '/' ? '' : 'pt-20 md:pt-24'}`}>
+      {children}
+    </main>
+  )
+}
+
 function ScrollToTopOnRoute() {
   const { pathname } = useLocation()
 
@@ -63,7 +73,7 @@ export default function App() {
       </a>
       <Navbar onOpenModal={() => setModalOpen(true)} />
 
-      <main id="inhalt" className="flex-1">
+      <MainSpacing>
         <Routes>
           <Route path="/" element={<HomePage onOpenModal={() => setModalOpen(true)} />} />
           <Route path="/spezialitaeten" element={<SpezialitaetenPage onOpenModal={() => setModalOpen(true)} />} />
@@ -73,7 +83,7 @@ export default function App() {
           <Route path="/impressum" element={<ImpressumPage />} />
           <Route path="/datenschutz" element={<DatenschutzPage />} />
         </Routes>
-      </main>
+      </MainSpacing>
 
       <Footer />
 
@@ -82,7 +92,7 @@ export default function App() {
         <div className="modal-card">
           <button className="modal-close" onClick={() => setModalOpen(false)}>&times;</button>
           <div className="modal-body">
-            <img src="/assets/feinkost_hero_plate.png" alt="Bulut & Wolke Spezialität" className="w-36 h-36 object-cover rounded-full shadow-lg" />
+            <img src="/fotos/theke-dips-600.jpg" alt="Feinkostplatte von Bulut & Wolke" className="w-36 h-36 object-cover rounded-full shadow-lg" />
             <div className="modal-details">
               <span className="inline-block text-[11px] font-bold tracking-[2.5px] text-[#C9A227] mb-1">
                 BULUT & WOLKE SELEKTION

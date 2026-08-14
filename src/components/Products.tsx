@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { products } from '../data/products'
+import ProductCard from './ProductCard'
+import { photo } from '../lib/photo'
 
 interface ProductsProps {
   onOpenModal?: () => void
@@ -67,9 +69,12 @@ export default function Products({ onOpenModal }: ProductsProps) {
         >
           <div ref={centerPlateRef} className="w-full">
             <img
-              src="/assets/feinkost_bottom_plate.png"
-              alt="Bulut & Wolke Feinkost Platte"
-              className="w-full max-w-xs mx-auto rounded-full shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:-translate-y-5 group-hover:scale-108 group-hover:shadow-[0_30px_60px_rgba(30,51,46,0.28)]"
+              {...photo('/fotos/theke-salate', 600)}
+              sizes="(max-width: 768px) 70vw, 22rem"
+              alt="Frisch angerichtete Salate und Antipasti an der Theke von Bulut & Wolke"
+              className="w-full max-w-xs mx-auto aspect-square object-cover rounded-full shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:-translate-y-5 group-hover:scale-108 group-hover:shadow-[0_30px_60px_rgba(30,51,46,0.28)]"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div className="mt-4 text-xs font-bold tracking-[2px] text-[#C9A227]">
@@ -103,25 +108,8 @@ export default function Products({ onOpenModal }: ProductsProps) {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {highlights.map((p, idx) => (
-            <div
-              key={idx}
-              data-aos="fade-up"
-              data-aos-delay={100 + idx * 120}
-              className="bg-white/80 backdrop-blur-sm rounded-3xl p-5 border border-black/5 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col justify-between"
-            >
-              <div>
-                <span className="inline-block text-[10px] font-bold tracking-wider px-3 py-1 rounded-full bg-[#FEF9EC] text-[#C9A227] border border-[#F7E08B] mb-3">
-                  {p.badge}
-                </span>
-                <h4 className="font-heading text-lg font-bold text-[#39482A] mb-2">{p.name}</h4>
-                <p className="text-xs text-[#4F5E48] leading-relaxed mb-4">{p.description}</p>
-              </div>
-              <button
-                onClick={onOpenModal}
-                className="w-full py-2 rounded-full border border-[#39482A] text-[#39482A] text-xs font-semibold hover:bg-[#5A6B2F] hover:text-white hover:border-[#5A6B2F] transition-colors"
-              >
-                Anfragen
-              </button>
+            <div key={p.name} data-aos="fade-up" data-aos-delay={100 + idx * 120}>
+              <ProductCard product={p} onOpenModal={onOpenModal} />
             </div>
           ))}
         </div>

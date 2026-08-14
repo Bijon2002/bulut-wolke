@@ -1,28 +1,18 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
+import { photo } from '../lib/photo'
 
 interface AboutProps {
   onOpenModal?: () => void
 }
 
 export default function About({ onOpenModal }: AboutProps) {
-  const forkRef = useRef<HTMLImageElement>(null)
   const miniBadgeRef = useRef<HTMLDivElement>(null)
   const bgBlobRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      if (forkRef.current) {
-        gsap.to(forkRef.current, {
-          y: -10,
-          rotation: -4,
-          duration: 2.4,
-          repeat: -1,
-          yoyo: true,
-          ease: 'power1.inOut',
-        })
-      }
       if (miniBadgeRef.current) {
         gsap.to(miniBadgeRef.current, {
           scale: 1.08,
@@ -51,22 +41,17 @@ export default function About({ onOpenModal }: AboutProps) {
     <section className="relative py-20 overflow-hidden" id="about">
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
 
-        {/* Left Column: Fork + Organic Blob Frame */}
-        <div className="middle-left-col flex items-center gap-6 relative" data-aos="fade-right" data-aos-duration="900">
-          <div className="w-16 shrink-0 hidden sm:block">
-            <img
-              ref={forkRef}
-              src="/assets/gold_fork.png"
-              alt="Gourmet Gabel"
-              className="w-full filter drop-shadow-md"
-            />
-          </div>
+        {/* Left Column: Portrait in the organic blob frame */}
+        <div className="middle-left-col flex items-center relative" data-aos="fade-right" data-aos-duration="900">
           <div className="relative flex-1 group cursor-pointer">
             <div className="organic-peach-blob"></div>
             <img
-              src="/assets/feinkost_middle_blob.png"
-              alt="Frische Feinkost Manufaktur"
-              className="relative z-10 rounded-3xl shadow-xl w-full transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:-translate-y-4 group-hover:scale-[1.03] group-hover:shadow-[0_20px_50px_rgba(30,51,46,0.2)]"
+              {...photo('/fotos/inhaber-portrait', 1000)}
+              sizes="(max-width: 768px) 88vw, 40vw"
+              alt="Der Inhaber von Bulut & Wolke an der Feinkosttheke"
+              className="relative z-10 rounded-3xl shadow-xl w-full aspect-[4/5] object-cover transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:-translate-y-4 group-hover:scale-[1.03] group-hover:shadow-[0_20px_50px_rgba(30,51,46,0.2)]"
+              loading="lazy"
+              decoding="async"
             />
             <div ref={miniBadgeRef} className="mini-badge">
               <span>FRISCH</span>

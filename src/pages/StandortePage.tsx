@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import AOS from 'aos'
+import { photo } from '../lib/photo'
 
 interface PageProps {
   onOpenModal?: () => void
@@ -229,9 +230,12 @@ export default function StandortePage({ onOpenModal }: PageProps) {
             </figure>
           ) : (
             <img
-              src="/assets/feinkost_bottom_plate.png"
-              alt="Gedeckte Platte mit Antipasti und Oliven aus der Bulut & Wolke Manufaktur"
-              className="w-full max-w-sm mx-auto rounded-full shadow-2xl transition-transform duration-500 hover:scale-105"
+              {...photo('/fotos/stand-offen', 1000)}
+              sizes="(max-width: 768px) 90vw, 28rem"
+              alt="Der geoeffnete Marktstand von Bulut & Wolke"
+              className="w-full max-w-lg mx-auto rounded-[1.75rem] shadow-2xl transition-transform duration-500 hover:scale-[1.02]"
+              loading="lazy"
+              decoding="async"
             />
           )}
         </div>
