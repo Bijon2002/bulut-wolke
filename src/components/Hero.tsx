@@ -2,7 +2,6 @@ import { Fragment, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { pickVideoSource, prefersReducedMotion, useAutoplayVideo } from '../lib/useAutoplayVideo'
-import bedienungVideo from '../assets/Bedienung-1-web.mp4'
 
 interface HeroProps {
   onOpenModal?: () => void

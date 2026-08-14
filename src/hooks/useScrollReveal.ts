@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-export type AosAnimation = 'fade-up' | 'fade-down' | 'fade-in' | 'zoom-in' | 'slide-left' | 'slide-right'
+export type AosAnimation = 'fade-up' | 'fade-down' | 'fade-in' | 'zoom-in' | 'slide-left' | 'slide-right' | 'fade-left' | 'fade-right'
 
 interface ScrollRevealOptions {
   animation?: AosAnimation
@@ -54,8 +54,8 @@ export function useScrollReveal<T extends HTMLElement>(options: ScrollRevealOpti
     let initialTransform = 'translateY(28px)'
     if (animation === 'fade-down') initialTransform = 'translateY(-28px)'
     else if (animation === 'zoom-in') initialTransform = 'scale(0.94)'
-    else if (animation === 'slide-left') initialTransform = 'translateX(28px)'
-    else if (animation === 'slide-right') initialTransform = 'translateX(-28px)'
+    else if (animation === 'slide-left' || animation === 'fade-left') initialTransform = 'translateX(28px)'
+    else if (animation === 'slide-right' || animation === 'fade-right') initialTransform = 'translateX(-28px)'
     else if (animation === 'fade-in') initialTransform = 'translateY(0)'
 
     el.style.opacity = '0'

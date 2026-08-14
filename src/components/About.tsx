@@ -30,7 +30,7 @@ export default function About({ onOpenModal }: AboutProps) {
           {/* ── Portrait Card (Spans 4 cols, 2 rows) ── */}
           <AosBox animation="fade-left" delay={200} duration={800} className="md:col-span-4 md:row-span-2 relative rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] group h-full min-h-[400px]">
             <img
-              {...photo('/fotos/inhaber-portrait', 800)}
+              {...photo('/fotos/inhaber-portrait', 1000)}
               sizes="(max-width: 768px) 90vw, 33vw"
               alt="Der Inhaber von Bulut & Wolke"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
@@ -53,7 +53,7 @@ export default function About({ onOpenModal }: AboutProps) {
           {/* ── Image Card (Spans 4 cols) ── */}
           <AosBox animation="fade-up" delay={300} duration={800} className="md:col-span-4 relative rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.08)] group h-full min-h-[280px]">
             <img
-              {...photo('/fotos/theke-antipasti', 800)}
+              {...photo('/fotos/theke-antipasti', 1000)}
               sizes="(max-width: 768px) 90vw, 33vw"
               alt="Frische Oliven"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"

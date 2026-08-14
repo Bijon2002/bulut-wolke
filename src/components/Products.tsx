@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { products } from '../data/products'
 import ProductCard from './ProductCard'
-import { photo } from '../lib/photo'
 import bottomPlate from '../assets/feinkost_bottom_plate.png'
 
 interface ProductsProps {
