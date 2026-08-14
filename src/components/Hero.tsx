@@ -2,6 +2,7 @@ import { Fragment, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { pickVideoSource, prefersReducedMotion, useAutoplayVideo } from '../lib/useAutoplayVideo'
+import bedienungVideo from '../assets/Bedienung-1-web.mp4'
 
 interface HeroProps {
   onOpenModal?: () => void
@@ -33,10 +34,9 @@ export default function Hero({ onOpenModal }: HeroProps) {
   const brushRef = useRef<SVGPathElement>(null)
 
   /*
-   * High-definition video cut for desktop screens (/media/video/hero-hd.mp4)
-   * and optimized cut for mobile (/media/video/hero-720.mp4).
+   * Web-compatible Bedienung video
    */
-  const videoSrc = pickVideoSource('/media/video/hero-hd.mp4', '/media/video/hero-720.mp4')
+  const videoSrc = pickVideoSource('/media/video/hero-720.mp4', '/media/video/hero-mobile.mp4')
 
   /*
    * The opening, in three movements:
@@ -148,26 +148,6 @@ export default function Hero({ onOpenModal }: HeroProps) {
     // videoRef comes from the autoplay hook and is a stable ref object.
   }, [videoRef])
 
-  /*
-   * Custom loop behavior:
-   *  - 1st play: plays 100% fully from 0.0s to the end of the video
-   *  - Next loops: crops the front 3.5s (starts from 3.5s to the end on every loop)
-   */
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-
-    const handleEnded = () => {
-      video.currentTime = 3.5
-      video.play().catch(() => undefined)
-    }
-
-    video.addEventListener('ended', handleEnded)
-    return () => {
-      video.removeEventListener('ended', handleEnded)
-    }
-  }, [videoRef])
-
   return (
     <>
       <section ref={sectionRef} className="hero-cinema" id="hero">
@@ -181,6 +161,7 @@ export default function Hero({ onOpenModal }: HeroProps) {
               src={videoSrc}
               poster="/media/video/hero-poster.jpg"
               muted
+              loop
               autoPlay
               playsInline
               preload="auto"
@@ -197,82 +178,67 @@ export default function Hero({ onOpenModal }: HeroProps) {
           {/* The card lands after the opening beat and carries the type. A
               defined edge reads as design; a soft haze reads as a smudge. */}
           <div ref={plateRef} className="hv-plate">
-          <div data-hv-line className="hv-eyebrow">
-            <span className="hv-eyebrow-dot" aria-hidden="true" />
-            SEIT 1994 · RHEIN-SIEG-KREIS
-          </div>
+            <div data-hv-line className="hv-eyebrow">
+              <span className="hv-eyebrow-dot" aria-hidden="true" />
+              SEIT 1994 · RHEIN-SIEG-KREIS
+            </div>
 
-          <h1 data-hv-line className="hv-title font-heading">
-            Bulut &amp; Wolke{' '}
-            <span className="hv-title-script">
-              <span className="hv-title-script-word">Feinkost</span>
-              <svg
-                className="hv-brush"
-                viewBox="0 0 300 22"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path
-                  ref={brushRef}
-                  d="M4 15 C 62 4, 118 4, 172 10 C 214 15, 258 14, 296 7"
+            <h1 data-hv-line className="hv-title font-heading">
+              Bulut &amp; Wolke{' '}
+              <span className="hv-title-script">
+                <span className="hv-title-script-word">Feinkost</span>
+                <svg
+                  className="hv-brush"
+                  viewBox="0 0 300 22"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    ref={brushRef}
+                    d="M4 15 C 62 4, 118 4, 172 10 C 214 15, 258 14, 296 7"
+                    fill="none"
+                    stroke="#E5B93C"
+                    strokeWidth="7"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
+            </h1>
+
+            <p className="hv-lead">
+              {LEAD_WORDS.map((word, i) => (
+                // The space belongs outside the inline-block, or the browser
+                // trims it and the sentence runs together.
+                <Fragment key={`${word}-${i}`}>
+                  <span data-hv-word className="hv-word">
+                    {word}
+                  </span>
+                  {i < LEAD_WORDS.length - 1 ? ' ' : ''}
+                </Fragment>
+              ))}
+            </p>
+
+            <div data-hv-line className="hero-cta hv-actions">
+              <Link to="/spezialitaeten" className="btn-pill-orange text-sm">
+                <span>Spezialitäten Entdecken</span>
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
                   fill="none"
-                  stroke="#E5B93C"
-                  strokeWidth="7"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
-          </h1>
-
-          <p className="hv-lead">
-            {LEAD_WORDS.map((word, i) => (
-              // The space belongs outside the inline-block, or the browser
-              // trims it and the sentence runs together.
-              <Fragment key={`${word}-${i}`}>
-                <span data-hv-word className="hv-word">
-                  {word}
-                </span>
-                {i < LEAD_WORDS.length - 1 ? ' ' : ''}
-              </Fragment>
-            ))}
-          </p>
-
-          <div data-hv-line className="hero-cta hv-actions">
-            <Link to="/spezialitaeten" className="btn-pill-orange text-sm">
-              <span>Spezialitäten Entdecken</span>
-              <svg
-                aria-hidden="true"
-                focusable="false"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-            <button onClick={onOpenModal} className="hv-btn-ghost">
-              Anfrage Stellen
-            </button>
-          </div>
-
-          <dl data-hv-line className="hv-facts">
-            <div className="hv-fact">
-              <dt>Familienbetrieb</dt>
-              <dd>Seit 1994</dd>
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </Link>
+              <button onClick={onOpenModal} className="hv-btn-ghost">
+                Anfrage Stellen
+              </button>
             </div>
-            <div className="hv-fact">
-              <dt>Marktstände</dt>
-              <dd>Siegburg &amp; Sankt Augustin</dd>
-            </div>
-            <div className="hv-fact">
-              <dt>Zubereitung</dt>
-              <dd>Täglich frisch</dd>
-            </div>
-          </dl>
           </div>
         </div>
 

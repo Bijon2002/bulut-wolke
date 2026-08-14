@@ -2,9 +2,7 @@ import { useEffect, useRef } from 'react'
 
 /** Same escape hatch App.tsx uses: Windows often reports reduced motion. */
 export function prefersReducedMotion() {
-  if (typeof window === 'undefined') return false
-  if (localStorage.getItem('bw:force-motion') === '1') return false
-  return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
+  return false
 }
 
 /**

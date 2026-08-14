@@ -110,42 +110,49 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
 
   return (
     <div className="sp-page">
-      {/* ─────────── Page hero: Luxury Manufaktur Showcase ─────────── */}
+      {/* ─────────── Page hero: Seamless Luxury Showcase ─────────── */}
       <header className="sp-hero">
-        <div className="sp-hero-inner" data-aos="fade-up">
-          <div className="sp-eyebrow sp-eyebrow-center">
-            <span className="sp-eyebrow-line" aria-hidden="true" />
-            ✨ MANUFAKTUR SELEKTION · SEIT 1994
-            <span className="sp-eyebrow-line" aria-hidden="true" />
+        <div className="sp-hero-inner">
+          {/* Left Column: Typography */}
+          <div className="sp-hero-content" data-aos="fade-right">
+            <div className="sp-eyebrow">
+              <span className="sp-eyebrow-line" aria-hidden="true" />
+              ✨ MANUFAKTUR SELEKTION · SEIT 1994
+            </div>
+            <h1 className="sp-title font-heading">
+              Spezialitäten &amp; <br className="hidden md:block" />
+              <span className="sp-title-accent">
+                <span className="relative z-10 text-[#C9A227]">Feinkost</span>
+                <svg
+                  className="sp-brush"
+                  viewBox="0 0 300 22"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    ref={brushRef}
+                    d="M4 15 C 62 4, 118 4, 172 10 C 214 15, 258 14, 296 7"
+                    fill="none"
+                    stroke="#E5B93C"
+                    strokeWidth="7"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
+            </h1>
+            <p className="sp-lead">
+              Täglich frisch zubereitet mit kaltgepresstem Olivenöl, feinen Kräutern und
+              traditionellen Familienrezepten – so, wie sie seit 1994 über unsere Theke gehen.
+            </p>
+            <div className="sp-hero-actions">
+              <button onClick={onOpenModal} className="btn-pill-orange">
+                <span>Platte anfragen</span>
+              </button>
+            </div>
           </div>
-          <h1 className="sp-title font-heading">
-            Spezialitäten &amp;{' '}
-            <span className="sp-title-accent">
-              <span className="relative z-10 text-[#C9A227]">Feinkost</span>
-              <svg
-                className="sp-brush"
-                viewBox="0 0 300 22"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-              >
-                <path
-                  ref={brushRef}
-                  d="M4 15 C 62 4, 118 4, 172 10 C 214 15, 258 14, 296 7"
-                  fill="none"
-                  stroke="#E5B93C"
-                  strokeWidth="7"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
-          </h1>
-          <p className="sp-lead">
-            Täglich frisch zubereitet mit kaltgepresstem Olivenöl, feinen Kräutern und
-            traditionellen Familienrezepten – so, wie sie seit 1994 über unsere Theke gehen.
-          </p>
 
-          {/* ── Gourmet Showcase Video Window ── */}
-          <div className="sp-video-frame-wrap" data-aos="zoom-in" data-aos-delay="150">
+          {/* Right Column: Cinematic Video Frame */}
+          <div className="sp-hero-visual" data-aos="fade-left" data-aos-delay="150">
             <div className="sp-video-frame">
               <video
                 ref={reelRef}

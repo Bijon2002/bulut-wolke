@@ -7,8 +7,21 @@ import { photo } from '../../lib/photo'
 
 export default function LocationsTeaser() {
   return (
-    <section className="relative bg-sky-100 pt-20 md:pt-28">
-      <div className="max-w-6xl mx-auto px-5 pb-20 md:pb-28">
+    <section className="relative bg-sky-100 pt-20 md:pt-28 overflow-hidden">
+      {/* ── Background Video ── */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <video
+          src="/assets/0814-web.mp4"
+          className="w-full h-full object-cover"
+          muted
+          loop
+          autoPlay
+          playsInline
+        />
+        <div className="absolute inset-0 bg-sky-100/40 backdrop-blur-[2px]" />
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-5 pb-20 md:pb-28">
         <div data-aos="fade-up">
           <SectionHeading
             eyebrow="Unsere Standorte"
