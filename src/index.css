@@ -935,7 +935,7 @@ summary:focus-visible {
   font-size: clamp(1.75rem, 3.8vw, 2.6rem);
   line-height: 1.08;
   font-weight: 700;
-  color: #39482A;
+  color: #FFFFFF;
   letter-spacing: -0.015em;
   margin-bottom: 0.6rem;
 }
@@ -968,7 +968,7 @@ summary:focus-visible {
 .hv-lead {
   font-size: clamp(0.85rem, 1.1vw, 0.95rem);
   line-height: 1.5;
-  color: #43533C;
+  color: #FFFFFF;
   font-weight: 500;
   max-width: 32rem;
   margin: 0 auto 1.1rem;

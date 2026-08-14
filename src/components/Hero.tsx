@@ -148,6 +148,13 @@ export default function Hero({ onOpenModal }: HeroProps) {
     // videoRef comes from the autoplay hook and is a stable ref object.
   }, [videoRef])
 
+  const handleVideoEnded = () => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = 3.5
+      videoRef.current.play().catch(() => {})
+    }
+  }
+
   return (
     <>
       <section ref={sectionRef} className="hero-cinema" id="hero">
@@ -161,10 +168,10 @@ export default function Hero({ onOpenModal }: HeroProps) {
               src={videoSrc}
               poster="/media/video/hero-poster.jpg"
               muted
-              loop
               autoPlay
               playsInline
               preload="auto"
+              onEnded={handleVideoEnded}
             />
           </div>
           {/* Edges only — keeps the middle of the frame clear */}
