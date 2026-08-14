@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { products } from '../data/products'
 import ProductCard from './ProductCard'
 import { photo } from '../lib/photo'
+import bottomPlate from '../assets/feinkost_bottom_plate.png'
 
 interface ProductsProps {
   onOpenModal?: () => void
@@ -69,10 +70,9 @@ export default function Products({ onOpenModal }: ProductsProps) {
         >
           <div ref={centerPlateRef} className="w-full">
             <img
-              {...photo('/fotos/theke-salate', 600)}
-              sizes="(max-width: 768px) 70vw, 22rem"
+              src={bottomPlate}
               alt="Frisch angerichtete Salate und Antipasti an der Theke von Bulut & Wolke"
-              className="w-full max-w-xs mx-auto aspect-square object-cover rounded-full shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:-translate-y-5 group-hover:scale-108 group-hover:shadow-[0_30px_60px_rgba(30,51,46,0.28)]"
+              className="w-full max-w-xs mx-auto aspect-square object-cover rounded-full shadow-2xl transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:-translate-y-5 group-hover:scale-105 group-hover:shadow-[0_30px_60px_rgba(30,51,46,0.28)]"
               loading="lazy"
               decoding="async"
             />

@@ -1,6 +1,5 @@
-import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import gsap from 'gsap'
+import AosBox from './AosBox'
 import { photo } from '../lib/photo'
 
 interface AboutProps {
@@ -8,102 +7,89 @@ interface AboutProps {
 }
 
 export default function About({ onOpenModal }: AboutProps) {
-  const miniBadgeRef = useRef<HTMLDivElement>(null)
-  const bgBlobRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (miniBadgeRef.current) {
-        gsap.to(miniBadgeRef.current, {
-          scale: 1.08,
-          duration: 1.8,
-          repeat: -1,
-          yoyo: true,
-          ease: 'power1.inOut',
-        })
-      }
-      if (bgBlobRef.current) {
-        gsap.to(bgBlobRef.current, {
-          x: 18,
-          y: -18,
-          rotation: 5,
-          duration: 4.8,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-        })
-      }
-    })
-    return () => ctx.revert()
-  }, [])
-
   return (
-    <section className="relative py-20 overflow-hidden" id="about">
-      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+    <section className="relative py-24 lg:py-32 overflow-hidden bg-sky-50/50" id="about">
+      {/* Background Decor */}
+      <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-cream-100/60 via-transparent to-transparent pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto px-5 relative z-10">
+        
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[minmax(280px,auto)]">
+          
+          {/* ── Main Title Card (Spans 8 cols) ── */}
+          <AosBox animation="fade-right" duration={800} className="md:col-span-8 bg-white/70 backdrop-blur-xl border border-white/50 rounded-[2.5rem] p-10 lg:p-16 shadow-[0_20px_50px_rgba(0,0,0,0.05)] flex flex-col justify-center h-full">
+            <span className="font-script text-3xl text-yellow-600 block mb-6">
+              Die Kunst Feiner Köstlichkeiten
+            </span>
+            <h2 className="font-display text-5xl md:text-6xl text-olive-950 font-bold leading-[1.1] tracking-tight">
+              Aus Unserer <br className="hidden md:block" />Manufaktur,<br />
+              <span className="text-olive-700">Echter Geschmack.</span>
+            </h2>
+          </AosBox>
 
-        {/* Left Column: Portrait in the organic blob frame */}
-        <div className="middle-left-col flex items-center relative" data-aos="fade-right" data-aos-duration="900">
-          <div className="relative flex-1 group cursor-pointer">
-            <div className="organic-peach-blob"></div>
+          {/* ── Portrait Card (Spans 4 cols, 2 rows) ── */}
+          <AosBox animation="fade-left" delay={200} duration={800} className="md:col-span-4 md:row-span-2 relative rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] group h-full min-h-[400px]">
             <img
-              {...photo('/fotos/inhaber-portrait', 1000)}
-              sizes="(max-width: 768px) 88vw, 40vw"
-              alt="Der Inhaber von Bulut & Wolke an der Feinkosttheke"
-              className="relative z-10 rounded-3xl shadow-xl w-full aspect-[4/5] object-cover transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:-translate-y-4 group-hover:scale-[1.03] group-hover:shadow-[0_20px_50px_rgba(30,51,46,0.2)]"
+              {...photo('/fotos/inhaber-portrait', 800)}
+              sizes="(max-width: 768px) 90vw, 33vw"
+              alt="Der Inhaber von Bulut & Wolke"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
               loading="lazy"
-              decoding="async"
             />
-            <div ref={miniBadgeRef} className="mini-badge">
-              <span>FRISCH</span>
-              <strong>100%</strong>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+            <div className="absolute bottom-8 left-8 right-8">
+              <span className="text-yellow-500 font-bold tracking-widest text-xs uppercase mb-1 block">Täglich</span>
+              <strong className="text-white font-display text-4xl leading-none">Frisch</strong>
             </div>
-          </div>
-        </div>
+          </AosBox>
 
-        {/* Right Column: Text */}
-        <div className="middle-right-col" data-aos="fade-left" data-aos-duration="900" data-aos-delay="200">
-          <span className="font-script text-xl text-[#C9A227] block mb-2">
-            Die Kunst Feiner Köstlichkeiten
-          </span>
-          <h2 className="font-heading text-4xl md:text-5xl text-[#39482A] font-bold mb-6 leading-tight">
-            Aus Unserer Manufaktur,<br />
-            Echter Geschmack
-          </h2>
-
-          <div className="space-y-4 text-[#4F5E48] text-base leading-relaxed mb-8">
-            <p>
-              Aus dem Rhein-Sieg-Kreis bieten wir handgemachte Feinkost-Spezialitäten nach bewährten Familienrezepten. Täglich frisch zubereitet mit kaltgepressten Olivenölen, duftenden Kräutern und besten Zutaten.
+          {/* ── Text Card (Spans 4 cols) ── */}
+          <AosBox animation="fade-up" delay={150} duration={800} className="md:col-span-4 bg-olive-900 text-white rounded-[2.5rem] p-10 lg:p-12 shadow-xl flex flex-col justify-center h-full">
+            <p className="text-olive-100/95 text-lg leading-relaxed font-medium">
+              Aus dem Rhein-Sieg-Kreis bieten wir handgemachte Feinkost-Spezialitäten nach bewährten Familienrezepten. Täglich frisch zubereitet mit kaltgepressten Olivenölen und besten Zutaten.
             </p>
-            <p>
-              Von cremigen Pasten und Dips über gefüllte Weinblätter bis hin zu sonnenverwöhnten marinierten Oliven – erleben Sie mediterrane und orientalische Geschmacksvielfalt für jeden Anlass.
-            </p>
-          </div>
+          </AosBox>
 
-          <div className="middle-cta flex flex-wrap gap-4 items-center">
-            <Link to="/ueber-uns" className="btn-pill-orange">
-              <span>Über Uns Erfahren</span>
-              <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-            <button
-              onClick={onOpenModal}
-              className="px-6 py-3.5 rounded-full border-1.5 border-[#39482A] text-[#39482A] font-semibold text-sm hover:border-[#5A6B2F] hover:text-[#5A6B2F] transition-all"
-            >
-              Anfrage Stellen
-            </button>
-          </div>
+          {/* ── Image Card (Spans 4 cols) ── */}
+          <AosBox animation="fade-up" delay={300} duration={800} className="md:col-span-4 relative rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.08)] group h-full min-h-[280px]">
+            <img
+              {...photo('/fotos/theke-antipasti', 800)}
+              sizes="(max-width: 768px) 90vw, 33vw"
+              alt="Frische Oliven"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-olive-900/10 group-hover:bg-transparent transition-colors duration-500" />
+          </AosBox>
+
+          {/* ── CTA / Banner Card (Spans 12 cols) ── */}
+          <AosBox animation="fade-up" delay={400} duration={800} className="md:col-span-12 bg-white/50 backdrop-blur-md border border-white/60 rounded-[2.5rem] p-8 lg:p-10 shadow-lg flex flex-col md:flex-row gap-8 justify-between items-center h-full mt-2">
+            <div className="text-center md:text-left">
+              <h3 className="font-script text-3xl lg:text-4xl font-bold text-olive-900 tracking-wider mb-2">
+                BULUT & WOLKE FEINKOST
+              </h3>
+              <p className="text-sm font-bold tracking-[3px] text-yellow-600 uppercase">
+                Mediterrane Vielfalt für jeden Anlass
+              </p>
+            </div>
+            
+            <div className="flex flex-wrap gap-4 items-center justify-center">
+              <Link 
+                to="/ueber-uns" 
+                className="px-8 py-4 bg-olive-900 text-white rounded-full font-bold hover:bg-olive-800 transition-all shadow-md hover:shadow-lg hover:-translate-y-1"
+              >
+                Über Uns Erfahren
+              </Link>
+              <button
+                onClick={onOpenModal}
+                className="px-8 py-4 rounded-full border-2 border-olive-900 text-olive-900 font-bold hover:bg-white transition-all hover:-translate-y-1"
+              >
+                Anfrage Stellen
+              </button>
+            </div>
+          </AosBox>
+
         </div>
-      </div>
-
-      {/* Middle Center Title Banner */}
-      <div className="text-center mt-24 mb-6" id="selection" data-aos="zoom-in" data-aos-delay="100">
-        <h3 className="font-script text-3xl md:text-4xl font-bold text-[#39482A] tracking-wider mb-2">
-          BULUT & WOLKE FEINKOST SELEKTION
-        </h3>
-        <p className="text-xs font-bold tracking-[2.5px] text-[#C9A227] uppercase">
-          TÄGLICH FRISCH MIT HERZ UND UNVERWECHSELBARER TRADITION
-        </p>
       </div>
     </section>
   )
