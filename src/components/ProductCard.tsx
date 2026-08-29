@@ -4,7 +4,7 @@ import { photo } from '../lib/photo'
 interface ProductCardProps {
   product: Product
   onOpenModal?: () => void
-  /** Larger art for the two-column layouts. */
+  /** Taller art for the two-column layouts. */
   size?: 'default' | 'tall'
 }
 

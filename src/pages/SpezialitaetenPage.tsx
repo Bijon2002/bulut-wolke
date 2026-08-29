@@ -203,8 +203,13 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
       {/* ─────────── Product grid ─────────── */}
       <section className="sp-section">
         <div ref={gridRef} className="sp-grid">
-          {filteredProducts.map((item) => (
-            <ProductCard key={item.name} product={item} onOpenModal={onOpenModal} />
+          {filteredProducts.map((item, i) => (
+            <ProductCard
+              key={item.name}
+              product={item}
+              onOpenModal={onOpenModal}
+              size={i % 3 === 1 ? 'tall' : 'default'}
+            />
           ))}
         </div>
       </section>

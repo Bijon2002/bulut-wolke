@@ -306,6 +306,11 @@ body {
   box-shadow: 0 14px 32px rgba(57, 72, 42, 0.32);
 }
 
+.btn-pill-orange:active {
+  transform: translateY(-1px) scale(0.97);
+  transition: transform 0.12s var(--transition-smooth);
+}
+
 .btn-pill-orange svg {
   transition: transform 0.35s var(--transition-smooth);
 }
@@ -319,7 +324,8 @@ body {
     transition: none;
   }
 
-  .btn-pill-orange:hover {
+  .btn-pill-orange:hover,
+  .btn-pill-orange:active {
     transform: none;
   }
 }
@@ -1646,8 +1652,8 @@ summary:focus-visible {
 
 .sp-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  gap: 1.6rem;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1.75rem 1.5rem;
 }
 
 /* ─── Configurator ─── */
@@ -2076,8 +2082,20 @@ summary:focus-visible {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: clamp(4rem, 11vw, 7.5rem) 1.25rem clamp(6rem, 12vw, 8.5rem);
+  padding: clamp(3rem, 6vw, 4.5rem) 1.25rem clamp(3.5rem, 6vw, 5rem);
   background: #2A3620;
+}
+
+/* Crisp edge instead of a blur: a thin gold hairline on the seam, echoing the
+   viewfinder rule in the hero, then the cream section starts flat and clean. */
+.cta-band::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(229, 185, 60, 0) 0%, rgba(229, 185, 60, 0.9) 20%, rgba(229, 185, 60, 0.9) 80%, rgba(229, 185, 60, 0) 100%);
+  pointer-events: none;
+  z-index: 5;
 }
 
 .cta-media {
@@ -2092,13 +2110,14 @@ summary:focus-visible {
   object-fit: cover;
 }
 
-/* Deep enough that cream type clears AA contrast anywhere on the frame */
+/* Light enough that the footage stays visible around the card, deep enough
+   that the card's own surface still carries all the contrast for the type */
 .cta-wash {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(70% 60% at 50% 45%, rgba(30, 42, 24, 0.72) 0%, rgba(30, 42, 24, 0.86) 60%, rgba(30, 42, 24, 0.94) 100%),
-    linear-gradient(180deg, rgba(30, 42, 24, 0.9) 0%, rgba(30, 42, 24, 0.55) 40%, rgba(30, 42, 24, 0.92) 100%);
+    radial-gradient(60% 55% at 50% 42%, rgba(20, 30, 16, 0.15) 0%, rgba(20, 30, 16, 0.45) 62%, rgba(20, 30, 16, 0.7) 100%),
+    linear-gradient(180deg, rgba(20, 30, 16, 0.55) 0%, rgba(20, 30, 16, 0.15) 30%, rgba(20, 30, 16, 0.2) 65%, rgba(20, 30, 16, 0.6) 100%);
 }
 
 .cta-inner {
@@ -2108,12 +2127,78 @@ summary:focus-visible {
   text-align: center;
 }
 
-.cta-title {
-  font-size: clamp(2rem, 5vw, 3.4rem);
+.cta-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(2rem, 5vw, 3rem) clamp(1.5rem, 5vw, 3rem);
+  border-radius: 2rem;
+  background: linear-gradient(180deg, rgba(30, 42, 24, 0.55) 0%, rgba(30, 42, 24, 0.72) 100%);
+  border: 1px solid rgba(229, 185, 60, 0.3);
+  backdrop-filter: blur(18px) saturate(1.1);
+  -webkit-backdrop-filter: blur(18px) saturate(1.1);
+  box-shadow:
+    0 30px 70px -30px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.cta-card-glow {
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  width: 30rem;
+  height: 30rem;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(229, 185, 60, 0.28) 0%, rgba(229, 185, 60, 0) 68%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.cta-facts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 1.9rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(251, 249, 242, 0.14);
+}
+
+.cta-fact {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.cta-fact-sep {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(229, 185, 60, 0.6);
+  margin-right: 0.5rem;
+}
+
+.cta-fact-value {
+  font-family: var(--font-heading);
+  font-size: 1rem;
   font-weight: 700;
-  line-height: 1.12;
+  color: #E5B93C;
+}
+
+.cta-fact-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: rgba(251, 249, 242, 0.55);
+}
+
+.cta-title {
+  font-size: clamp(1.75rem, 3.6vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.15;
   color: #FBF9F2;
-  margin-bottom: 1.1rem;
+  margin-bottom: 0.9rem;
   text-shadow: 0 2px 18px rgba(20, 30, 16, 0.45);
 }
 
@@ -2124,11 +2209,11 @@ summary:focus-visible {
 }
 
 .cta-lead {
-  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
-  line-height: 1.75;
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  line-height: 1.7;
   color: rgba(251, 249, 242, 0.88);
-  max-width: 34rem;
-  margin: 0 auto 2.2rem;
+  max-width: 32rem;
+  margin: 0 auto 1.75rem;
 }
 
 .cta-actions {
@@ -2142,11 +2227,11 @@ summary:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 15px 32px;
+  padding: 13px 28px;
   border-radius: 99px;
   background: #E5B93C;
   color: #2A3620;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 800;
   letter-spacing: 0.3px;
   box-shadow: 0 12px 30px -12px rgba(229, 185, 60, 0.75);
@@ -2162,6 +2247,11 @@ summary:focus-visible {
   transform: translateY(-3px);
 }
 
+.cta-btn-primary:active {
+  transform: translateY(-1px) scale(0.97);
+  transition: transform 0.12s var(--transition-smooth);
+}
+
 .cta-btn-primary:hover svg {
   transform: translateX(4px);
 }
@@ -2169,11 +2259,11 @@ summary:focus-visible {
 .cta-btn-ghost {
   display: inline-flex;
   align-items: center;
-  padding: 15px 30px;
+  padding: 13px 28px;
   border-radius: 99px;
   border: 1.5px solid rgba(251, 249, 242, 0.55);
   color: #FBF9F2;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 700;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
@@ -2184,6 +2274,11 @@ summary:focus-visible {
   background: rgba(251, 249, 242, 0.14);
   border-color: #FBF9F2;
   transform: translateY(-3px);
+}
+
+.cta-btn-ghost:active {
+  transform: translateY(-1px) scale(0.97);
+  transition: transform 0.12s var(--transition-smooth);
 }
 
 .cta-note {
@@ -2203,5 +2298,12 @@ summary:focus-visible {
   .cta-btn-primary,
   .cta-btn-ghost {
     transition: none;
+  }
+
+  .cta-btn-primary:hover,
+  .cta-btn-primary:active,
+  .cta-btn-ghost:hover,
+  .cta-btn-ghost:active {
+    transform: none;
   }
 }

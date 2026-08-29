@@ -27,6 +27,12 @@ export function useAutoplayVideo() {
       return
     }
 
+    // Tracks the observer's own view of visibility, so a stray `pause` event
+    // (mobile browsers fire one when the address bar collapses/expands and
+    // the viewport briefly resizes — nothing app code asked for) can be told
+    // apart from a real "scrolled off screen" pause and reversed.
+    let intersecting = true
+
     const start = () => {
       video.play().catch(() => undefined)
     }
@@ -35,17 +41,28 @@ export function useAutoplayVideo() {
     video.addEventListener('loadeddata', start)
     video.addEventListener('canplay', start)
 
+    // If the video ever stops while it's still supposed to be on screen and
+    // the tab is active, put it back — the only *intentional* pauses here
+    // come from the IntersectionObserver and the reduced-motion branch above.
+    const onPause = () => {
+      if (intersecting && document.visibilityState === 'visible') start()
+    }
+    video.addEventListener('pause', onPause)
+
     const onVisible = () => {
       if (document.visibilityState === 'visible') start()
     }
     document.addEventListener('visibilitychange', onVisible)
 
+    // A small rootMargin absorbs the sub-pixel intersection jitter mobile
+    // browsers produce while their address bar animates in and out.
     const io = new IntersectionObserver(
       ([entry]) => {
+        intersecting = entry.isIntersecting
         if (entry.isIntersecting) start()
         else video.pause()
       },
-      { threshold: 0.05 }
+      { threshold: 0, rootMargin: '80px 0px' }
     )
     io.observe(video)
 
@@ -53,6 +70,7 @@ export function useAutoplayVideo() {
       io.disconnect()
       video.removeEventListener('loadeddata', start)
       video.removeEventListener('canplay', start)
+      video.removeEventListener('pause', onPause)
       document.removeEventListener('visibilitychange', onVisible)
     }
   }, [])

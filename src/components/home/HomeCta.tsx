@@ -1,48 +1,58 @@
 import { Link } from 'react-router-dom'
 import AosBox from '../AosBox'
-import OrganicDivider from '../OrganicDivider'
 import { OliveSprig } from '../SectionHeading'
-import { photo } from '../../lib/photo'
+import { pickVideoSource, useAutoplayVideo } from '../../lib/useAutoplayVideo'
+
+const FACTS = [
+  { label: 'Seit', value: '1994' },
+  { label: 'Standorte', value: '2' },
+  { label: 'Täglich', value: 'Frisch' },
+]
 
 /**
  * Closing call to action, set on the counter itself. This is the one place on
- * the page that goes dark: a photograph under a deep olive wash, so the
- * invitation reads as the last word rather than another cream panel.
+ * the page that goes dark: live footage from the stand under a deep olive
+ * wash, so the invitation reads as the last word rather than another cream
+ * panel.
  */
-export default function HomeCta({ nextColor = 'text-cream-200' }: { nextColor?: string }) {
+export default function HomeCta() {
+  const videoRef = useAutoplayVideo()
+  const videoSrc = pickVideoSource('/media/video/spezial-720.mp4', '/media/video/spezial-mobile.mp4')
+
   return (
     <section className="cta-band">
       <div className="cta-media" aria-hidden="true">
-        <img
-          {...photo('/fotos/theke-oliven-detail', 1600)}
-          sizes="100vw"
-          alt=""
+        <video
+          ref={videoRef}
           className="cta-img"
-          loading="lazy"
-          decoding="async"
+          src={videoSrc}
+          poster="/media/video/spezial-poster.jpg"
+          muted
+          loop
+          autoPlay
+          playsInline
+          preload="auto"
         />
         <div className="cta-wash" />
       </div>
 
-      <div className="cta-inner" data-aos="fade-up">
-        <AosBox animation="fade-down" delay={100} className="flex justify-center mb-6">
-          <OliveSprig className="scale-125 text-yellow-300" />
-        </AosBox>
+      <div className="cta-inner">
+        <AosBox animation="zoom-in" duration={900} className="cta-card">
+          <div className="cta-card-glow" aria-hidden="true" />
 
-        <AosBox animation="fade-up" delay={150}>
+          <div className="flex justify-center mb-5">
+            <OliveSprig className="scale-125 text-yellow-300" />
+          </div>
+
           <h2 className="cta-title font-display">
             Lust auf mediterranen <span className="cta-title-accent">Genuss?</span>
           </h2>
-        </AosBox>
 
-        <AosBox animation="fade-up" delay={250}>
           <p className="cta-lead">
             Ob Partyplatte, Beratung oder einfach eine Frage zu unseren Produkten — wir freuen
             uns, von Ihnen zu hören.
           </p>
-        </AosBox>
 
-        <AosBox animation="zoom-in" delay={350}>
           <div className="cta-actions">
             <Link to="/kontakt" className="cta-btn-primary">
               Kontakt aufnehmen
@@ -54,16 +64,18 @@ export default function HomeCta({ nextColor = 'text-cream-200' }: { nextColor?: 
               Sortiment entdecken
             </Link>
           </div>
-        </AosBox>
 
-        <AosBox animation="fade-up" delay={450}>
-          <p className="cta-note">
-            Familienbetrieb seit 1994 · Siegburg &amp; Sankt Augustin
-          </p>
+          <div className="cta-facts">
+            {FACTS.map((f, i) => (
+              <div key={f.label} className="cta-fact">
+                {i > 0 && <span className="cta-fact-sep" aria-hidden="true" />}
+                <span className="cta-fact-value">{f.value}</span>
+                <span className="cta-fact-label">{f.label}</span>
+              </div>
+            ))}
+          </div>
         </AosBox>
       </div>
-
-      <OrganicDivider color={nextColor} variant={1} />
     </section>
   )
 }

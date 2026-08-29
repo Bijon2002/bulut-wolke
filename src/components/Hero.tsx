@@ -35,7 +35,7 @@ export default function Hero({ onOpenModal }: HeroProps) {
   /*
    * Web-compatible Bedienung video
    */
-  const videoSrc = pickVideoSource('/media/video/hero-720.mp4', '/media/video/hero-mobile.mp4')
+  const videoSrc = pickVideoSource('/media/video/hero-hd.mp4', '/media/video/hero-mobile.mp4')
 
   /*
    * The opening, in three movements:
@@ -50,30 +50,41 @@ export default function Hero({ onOpenModal }: HeroProps) {
   useEffect(() => {
     if (prefersReducedMotion()) return
 
-    const ctx = gsap.context(() => {
-      const words = contentRef.current?.querySelectorAll('[data-hv-word]')
-      const blocks = contentRef.current?.querySelectorAll('[data-hv-line]')
+    // Phones pay for this arch-to-fullscreen mask with the same thread that's
+    // decoding the background video — on weaker hardware the two together can
+    // stall rAF long enough that the clip-path tween never reaches onComplete,
+    // leaving the frame stuck in its narrow "shop window" and the (white) type
+    // stranded over plain cream once the failsafe below reveals it anyway. So
+    // on small screens we skip the mask entirely and just fade the frame in.
+    const isCompact = window.matchMedia('(max-width: 640px)').matches
+    const words = contentRef.current?.querySelectorAll('[data-hv-word]')
+    const blocks = contentRef.current?.querySelectorAll('[data-hv-line]')
 
+    const ctx = gsap.context(() => {
       gsap.set(contentRef.current, { autoAlpha: 0 })
       sectionRef.current?.classList.add('hv-intro')
 
-      // ── 1 + 2: the window opens ──
+      // ── 1 + 2: the window opens (skipped on phones, see note above) ──
       if (frameRef.current) {
-        gsap.fromTo(
-          frameRef.current,
-          { clipPath: 'inset(16% 32% 16% 32% round 22rem 22rem 2rem 2rem)' },
-          {
-            clipPath: 'inset(0% 0% 0% 0% round 0rem 0rem 0rem 0rem)',
-            duration: 1.6,
-            delay: 0.2,
-            ease: 'expo.inOut',
-            onComplete: () => {
-              if (frameRef.current) {
-                frameRef.current.style.clipPath = 'none'
-              }
-            },
-          }
-        )
+        if (isCompact) {
+          gsap.fromTo(frameRef.current, { opacity: 0 }, { opacity: 1, duration: 0.8, ease: 'power2.out' })
+        } else {
+          gsap.fromTo(
+            frameRef.current,
+            { clipPath: 'inset(16% 32% 16% 32% round 22rem 22rem 2rem 2rem)' },
+            {
+              clipPath: 'inset(0% 0% 0% 0% round 0rem 0rem 0rem 0rem)',
+              duration: 1.6,
+              delay: 0.2,
+              ease: 'expo.inOut',
+              onComplete: () => {
+                if (frameRef.current) {
+                  frameRef.current.style.clipPath = 'none'
+                }
+              },
+            }
+          )
+        }
       }
 
       // Smooth GPU accelerated scale setup without JS repaint loop
@@ -111,14 +122,24 @@ export default function Hero({ onOpenModal }: HeroProps) {
       }
     }, sectionRef)
 
-    // Failsafe: whatever happens to the timeline, the hero must not stay blank.
+    // Failsafe: whatever happens to the timelines, the hero must not stay
+    // blank. Each piece above (frame, plate, headline, lead words) starts
+    // from its own `from()` state — on hardware too slow to finish a tween
+    // that state is where it stays, invisible, even once its container is
+    // forced visible. So this resets every one of them individually rather
+    // than trusting the container alone.
     const failsafe = window.setTimeout(() => {
-      if (contentRef.current) {
-        contentRef.current.style.visibility = 'visible'
-        contentRef.current.style.opacity = '1'
+      gsap.set(contentRef.current, { autoAlpha: 1 })
+      if (frameRef.current) {
+        frameRef.current.style.clipPath = 'none'
+        gsap.set(frameRef.current, { opacity: 1 })
       }
+      gsap.set(plateRef.current, { y: 0, scale: 1, opacity: 1 })
+      if (blocks?.length) gsap.set(blocks, { y: 0, opacity: 1 })
+      if (words?.length) gsap.set(words, { y: 0, opacity: 1, filter: 'blur(0px)' })
+      if (brushRef.current) gsap.set(brushRef.current, { strokeDashoffset: 0 })
       sectionRef.current?.classList.remove('hv-intro')
-    }, (TEXT_DELAY + 4) * 1000)
+    }, (TEXT_DELAY + 2.5) * 1000)
 
     // The footage drifts slower than the page; the content fades out as it goes.
     let frame = 0
