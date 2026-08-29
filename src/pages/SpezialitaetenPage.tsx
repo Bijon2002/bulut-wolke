@@ -177,42 +177,48 @@ export default function SpezialitaetenPage({ onOpenModal }: PageProps) {
 
       {/* ─────────── Everything under the poster, on the house backdrop ─────────── */}
       <div className="sp-under">
-      {/* ─────────── Sticky filter rail ─────────── */}
-      <div className="sp-filter-wrap">
-        <div className="sp-filter">
-          <div className="sp-filter-pills" role="tablist" aria-label="Kategorien">
-            {['Alle', ...categories].map((cat) => (
-              <button
-                key={cat}
-                role="tab"
-                aria-selected={selectedCategory === cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`sp-pill ${selectedCategory === cat ? 'is-active' : ''}`}
-              >
-                {cat}
-              </button>
+        {/* ─────────── Sticky filter rail ─────────── */}
+        <div className="sp-filter-wrap">
+          <div className="sp-filter">
+            <div className="sp-filter-pills" role="tablist" aria-label="Kategorien">
+              {['Alle', ...categories].map((cat) => {
+                const count =
+                  cat === 'Alle'
+                    ? products.length
+                    : products.filter((p) => p.category === cat).length
+                return (
+                  <button
+                    key={cat}
+                    role="tab"
+                    aria-selected={selectedCategory === cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`sp-pill ${selectedCategory === cat ? 'is-active' : ''}`}
+                  >
+                    <span>{cat}</span>
+                    <span className="sp-pill-badge">{count}</span>
+                  </button>
+                )
+              })}
+            </div>
+            <span className="sp-filter-count" aria-live="polite">
+              {filteredProducts.length}{' '}
+              {filteredProducts.length === 1 ? 'Spezialität' : 'Spezialitäten'}
+            </span>
+          </div>
+        </div>
+
+        {/* ─────────── Product grid ─────────── */}
+        <section className="sp-section">
+          <div ref={gridRef} className="sp-grid">
+            {filteredProducts.map((item) => (
+              <ProductCard
+                key={item.name}
+                product={item}
+                onOpenModal={onOpenModal}
+              />
             ))}
           </div>
-          <span className="sp-filter-count" aria-live="polite">
-            {filteredProducts.length}{' '}
-            {filteredProducts.length === 1 ? 'Spezialität' : 'Spezialitäten'}
-          </span>
-        </div>
-      </div>
-
-      {/* ─────────── Product grid ─────────── */}
-      <section className="sp-section">
-        <div ref={gridRef} className="sp-grid">
-          {filteredProducts.map((item, i) => (
-            <ProductCard
-              key={item.name}
-              product={item}
-              onOpenModal={onOpenModal}
-              size={i % 3 === 1 ? 'tall' : 'default'}
-            />
-          ))}
-        </div>
-      </section>
+        </section>
 
       </div>
 

@@ -105,9 +105,9 @@ export default function Products({ onOpenModal }: ProductsProps) {
           <h3 className="font-heading text-3xl font-bold text-[#39482A] mt-1">Frisch aus der Theke</h3>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {highlights.map((p, idx) => (
-            <div key={p.name} data-aos="fade-up" data-aos-delay={100 + idx * 120}>
+            <div key={p.name} data-aos="fade-up" data-aos-delay={100 + idx * 120} className="h-full">
               <ProductCard product={p} onOpenModal={onOpenModal} />
             </div>
           ))}

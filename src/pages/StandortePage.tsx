@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import AOS from 'aos'
 import { photo } from '../lib/photo'
+import AnimatedLocationMap from '../components/AnimatedLocationMap'
 
 interface PageProps {
   onOpenModal?: () => void
@@ -198,24 +199,19 @@ export default function StandortePage({ onOpenModal }: PageProps) {
           </div>
         </div>
 
-        <div className="relative space-y-6">
+        <div className="relative space-y-4">
           {selectedLoc.coords ? (
-            <figure className="space-y-2">
-              <div className="overflow-hidden rounded-3xl border border-black/5 shadow-lg bg-[#DCEBF5]">
-                <iframe
-                  key={selectedLoc.id}
-                  title={`Karte: ${selectedLoc.name}, ${selectedLoc.address}`}
-                  src={`https://www.openstreetmap.org/export/embed.html?bbox=${
-                    selectedLoc.coords[1] - 0.006
-                  }%2C${selectedLoc.coords[0] - 0.003}%2C${selectedLoc.coords[1] + 0.006}%2C${
-                    selectedLoc.coords[0] + 0.003
-                  }&layer=mapnik&marker=${selectedLoc.coords[0]}%2C${selectedLoc.coords[1]}`}
-                  className="w-full h-[280px] md:h-[340px] block border-0"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-              <figcaption className="text-[11px] text-[#4F5E48] text-center">
+            <div className="space-y-2">
+              <AnimatedLocationMap
+                key={selectedLoc.id}
+                coords={selectedLoc.coords}
+                name={selectedLoc.name}
+                address={selectedLoc.address}
+                city={selectedLoc.city}
+                badge={selectedLoc.badge}
+                hours={selectedLoc.hours}
+              />
+              <p className="text-[11px] text-[#4F5E48] text-center">
                 Kartendaten:{' '}
                 <a
                   href={`https://www.openstreetmap.org/?mlat=${selectedLoc.coords[0]}&mlon=${selectedLoc.coords[1]}#map=17/${selectedLoc.coords[0]}/${selectedLoc.coords[1]}`}
@@ -226,8 +222,8 @@ export default function StandortePage({ onOpenModal }: PageProps) {
                   OpenStreetMap
                 </a>{' '}
                 – Standort {selectedLoc.city}
-              </figcaption>
-            </figure>
+              </p>
+            </div>
           ) : (
             <img
               {...photo('/fotos/stand-offen', 1000)}
